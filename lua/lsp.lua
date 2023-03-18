@@ -100,6 +100,11 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+
+
+-- Here's a test of the sidebar
+
+
 -- Turn on lsp status information
 require('fidget').setup()
 

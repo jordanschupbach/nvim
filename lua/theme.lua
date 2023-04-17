@@ -1,7 +1,6 @@
 -- {{{ Setup theme
 
-
-require"utilities"
+require 'utilities'
 
 -- -- see if the file exists
 -- function file_exists(file)
@@ -30,12 +29,10 @@ require"utilities"
 --   print('line[' .. k .. ']', v)
 -- end
 
-
 -- print("hello world")
 -- for k,v in pairs(dmode) do
 --   print('line[' .. k .. ']', v)
 -- end
-
 
 -- TODO: something funny about the global darkmode variable
 -- local ui = require(".misenplace.ui")
@@ -100,31 +97,22 @@ end, {
   desc = 'Set Light Mode',
 })
 
-
 local set_wal = function()
-  vim.o.colorscheme = "wal"
+  vim.o.colorscheme = 'wal'
 end
 
 set_wal()
 
-
-
-
-
-
-dmode = lines_from("/home/jordan/.scripts/.mode")
-if dmode[1] == "dark" then
+dmode = lines_from '/home/jordan/.scripts/.mode'
+if dmode[1] == 'dark' then
   Darkmode = true -- TODO: Load this from a cache
   set_darkmode()
-  print("was dark")
+  print 'was dark'
 else
   Darkmode = false -- TODO: Load this from a cache
   set_lightmode()
-  print("was light")
+  print 'was light'
 end
-
-
-
 
 -- set_lightmode()
 -- toggle_darkmode()

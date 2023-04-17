@@ -2,6 +2,8 @@ return {
   'hrsh7th/nvim-cmp',
   dependencies = {
     'L3MON4D3/LuaSnip',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'nvim-orgmode/orgmode',
   },
   config = function()
     local cmp = require 'cmp'
@@ -23,13 +25,15 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         },
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete({}), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete {}, { 'i', 'c' }),
       },
       sources = cmp.config.sources({
+        { name = 'orgmode' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lua' },
         { name = 'vim_lsp' },
         { name = 'luasnip' },
+        { name = 'nvim_lsp_signature_help' },
       }, {
         { name = 'path' },
         { name = 'buffer', keyword_length = 4 },
@@ -72,11 +76,7 @@ return {
     -- `:` cmdline setup.
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = 'path' },
-      }, {
-        { name = 'cmdline' },
-      }),
+      sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
     })
   end,
 }

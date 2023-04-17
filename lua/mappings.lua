@@ -1,12 +1,19 @@
 -- local hover = require(".my.lsp.hover")
 
 local function mymap(m, k, v)
-  vim.keymap.set(m, k, v, { silent = true })
+  vim.keymap.set(m, k, v, { silent = true, remap = true })
 end
 
-
-
 -- mymap('lh', '<C-k>', ':lua require("lsp-inlayhints").toggle()')
+
+-- vim.keymap.set({ 'n' }, '<C-k>', function()       require('lsp_signature').toggle_float_win()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
+--
+-- vim.keymap.set({ 'n' }, '<Leader>k', function()
+--  vim.lsp.buf.signature_help()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
+
+mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()')
 
 mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help')
 mymap('n', '[d', ':lua vim.diagnostics.goto_prev()')
@@ -15,6 +22,16 @@ mymap('n', '<leader>e', ':lua vim.diagnostics.open_float()')
 mymap('n', '<leader>q', ':lua vim.diagnostics.setloclist()')
 
 mymap('n', '<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>")
+
+-- Hop bindings
+-- place this in one of your configuration file(s)
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- mymap('n', 'f', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.AFTER_CURSOR, current_line_only = true }<cr>')
+-- mymap('n', 'F', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true }<cr>')
+-- mymap('n', 't', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }<cr>')
+-- mymap('n', 'T', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>')
+mymap('n', 'ss', ':HopWord<cr>')
 
 -- TODO: figure out why these remaps aren't working....
 -- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
@@ -55,7 +72,7 @@ mymap('v', '<A-return>', ':SlimeSend<CR>')
 -- }}} GoTo bindings
 
 -- {{{ Tabs
-mymap('n', '<C-w>', ':BufferClose<CR>')
+-- mymap('n', '<C-w>', ':BufferClose<CR>')
 mymap('n', '<localleader><Tab>k', ':tabonly<CR>')
 mymap('n', '<localleader><Tab>h', ':tabprevious<CR>')
 mymap('n', '<localleader><Tab>l', ':tabnext<CR>')
@@ -129,8 +146,8 @@ mymap('n', '<A-h>', '<C-w>h')
 mymap('n', '<A-s>', '<C-w>s')
 mymap('n', '<A-v>', '<C-w>v')
 mymap('n', '<A-d>', '<C-w>q')
-mymap('n', '<A-S-j>', ':resize -1<CR>')
-mymap('n', '<A-S-k>', ':resize +1<CR>')
+mymap('n', '<A-S-j>', ':resize +1<CR>')
+mymap('n', '<A-S-k>', ':resize -1<CR>')
 mymap('n', '<A-S-l>', ':vertical resize +1<CR>')
 mymap('n', '<A-S-h>', ':vertical resize -1<CR>')
 -- }}} Window bindings
@@ -196,6 +213,10 @@ mymap('n', '<localleader>jj', ':HopChar2<CR>')
 
 -- jump bindings
 mymap('n', '<localleader>jd', ':Telescope lsp_definitions<CR>')
+mymap('n', '<localleader>ja', ':AnyJump<CR>')
+mymap('n', '<localleader>ab', ':AnyJumpBack<CR>')
+mymap('n', '<localleader>al', ':AnyJumpLastResult<CR>')
+
 -- mymap("n", "<localleader>jj", ':lua require("goto-preview").goto_preview_definition()<CR>')
 
 -- mymap("n", "<C-h>", ":lua vim.lsp.buf.hover()<CR>")

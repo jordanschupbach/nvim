@@ -36,11 +36,25 @@ endglobal
 # ENVIRONMENT #
 ###############
 
+
+
 snippet beg "begin{} / end{}" bi
 \begin{$1}
 	${0:${VISUAL}}
 \end{$1}
 endsnippet
+
+snippet columns "begin{columns}" columns
+\begin{columns}
+\begin{column}{width=0.5\textwidth}
+$1
+\end{column}
+\begin{column}
+$2
+\end{column}
+\end{columns}
+endsnippet
+
 
 snippet cnt "Center" bi
 \begin{center}
@@ -182,19 +196,19 @@ endsnippet
 ########
 
 snippet cc "subset" w
-\subset 
+\subset
 endsnippet
 
 snippet inn "in " w
-\in 
+\in
 endsnippet
 
 snippet Nn "cap" w
-\cap 
+\cap
 endsnippet
 
 snippet UU "cup" w
-\cup 
+\cup
 endsnippet
 
 snippet uuu "bigcup" w
@@ -328,11 +342,11 @@ snippet taylor "taylor" w
 endsnippet
 
 snippet lim "limit" w
-\lim_{${1:n} \to ${2:\infty}} 
+\lim_{${1:n} \to ${2:\infty}}
 endsnippet
 
 snippet limsup "limsup" w
-\limsup_{${1:n} \to ${2:\infty}} 
+\limsup_{${1:n} \to ${2:\infty}}
 endsnippet
 
 snippet prod "product" w
@@ -368,15 +382,15 @@ snippet == "Equals" w
 endsnippet
 
 snippet != "Not Equal" w
-\neq 
+\neq
 endsnippet
 
 snippet <= "leq" w
-\le 
+\le
 endsnippet
 
 snippet >= "geq" w
-\ge 
+\ge
 endsnippet
 
 snippet nn "Tikz node" w
@@ -389,7 +403,7 @@ snippet lll "l" Aw
 endsnippet
 
 snippet xx "cross" Aw
-\times 
+\times
 endsnippet
 
 snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rw
@@ -397,7 +411,7 @@ snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rw
 endsnippet
 
 snippet <! "normal" Aw
-\triangleleft 
+\triangleleft
 endsnippet
 
 snippet "(\d|\w)+invs" "inverse" Awr
@@ -405,7 +419,7 @@ snippet "(\d|\w)+invs" "inverse" Awr
 endsnippet
 
 snippet !> "mapsto" Aw
-\mapsto 
+\mapsto
 endsnippet
 
 ##########

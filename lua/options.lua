@@ -7,8 +7,9 @@ vimopt.belloff = 'all'
 -- be silenced.
 -------------------------------------------------------------------------------
 
-
 vim.g.gitblame_enabled = 0
+
+vim.g.slime_target = 'neovim'
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
@@ -30,6 +31,10 @@ vim.api.nvim_set_option_value('colorcolumn', '79', {})
 vim.o.colorcolumn = 120
 vim.o.cc = 120
 vim.o.t_Co = 256
+
+vim.g.minimap_width = 2
+vim.g.minimap_auto_start = 0
+vim.g.minimap_auto_start_win_enter = 1
 
 -- vim.o.updatetime = 300
 vim.o.incsearch = false

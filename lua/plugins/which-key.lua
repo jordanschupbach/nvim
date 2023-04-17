@@ -74,43 +74,37 @@ return {
       },
     }
 
+    local wk = require 'which-key'
+    -- As an example, we will create the following mappings:
+    --  * <leader>ff find files
+    --  * <leader>fr show recent files
+    --  * <leader>fb Foobar
+    -- we'll document:
+    --  * <leader>fn new file
+    --  * <leader>fe edit file
+    -- and hide <leader>1
 
-local wk = require("which-key")
--- As an example, we will create the following mappings:
---  * <leader>ff find files
---  * <leader>fr show recent files
---  * <leader>fb Foobar
--- we'll document:
---  * <leader>fn new file
---  * <leader>fe edit file
--- and hide <leader>1
-
-wk.register({
-  p = {
-    name = "project", -- group name
-    b = { "<cmd>BuildMe<cr>", "Build" },
-    f = { "<cmd>Telescope fd theme=ivy<cr>", "Files" },
-    r = { "<cmd>Telescope live_grep theme=ivy<cr>", "Grep" },
-    s = { "<cmd>split<CR>:terminal<cr>", "Shell" },
-    o = { "<cmd>Telescope project theme=ivy<cr>", "Open" },
-    p = { "<cmd>Telescope oldfiles<cr>", "Recent" },
-  },
-  g = {
-    name = "Git", -- group name
-    b = { "<cmd>Telescope git_branches theme=ivy<cr>", "Branches" },
-    c = { "<cmd>Telescope git_commits theme=ivy<cr>", "Commits" },
-    f = { "<cmd>Telescope git_files theme=ivy<cr>", "Files" },
-    g = { "<cmd>Neogit kind=vsplit<cr>", "NeoGit" },
-    j = { "Gitsigns prev_hunk<cr>", "Next Hunk" },
-    k = { "Gitsigns prev_hunk<cr>", "Previous Hunk" },
-    s = { "Gitsigns stage_hunk<cr>", "Stage Hunk" },
-    u = { "Gitsigns undo_stage_hunk<cr>", "Undo Stage Hunk" },
-  },
-
-
-}, { prefix = "<localleader>" })
-
-
+    wk.register({
+      p = {
+        name = 'project', -- group name
+        b = { '<cmd>BuildMe<cr>', 'Build' },
+        f = { '<cmd>Telescope fd theme=ivy<cr>', 'Files' },
+        r = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Grep' },
+        s = { '<cmd>split<CR>:terminal<cr>', 'Shell' },
+        o = { '<cmd>Telescope project theme=ivy<cr>', 'Open' },
+        p = { '<cmd>Telescope oldfiles<cr>', 'Recent' },
+      },
+      g = {
+        name = 'Git', -- group name
+        b = { '<cmd>Telescope git_branches theme=ivy<cr>', 'Branches' },
+        c = { '<cmd>Telescope git_commits theme=ivy<cr>', 'Commits' },
+        f = { '<cmd>Telescope git_files theme=ivy<cr>', 'Files' },
+        g = { '<cmd>Neogit kind=vsplit<cr>', 'NeoGit' },
+        j = { 'Gitsigns prev_hunk<cr>', 'Next Hunk' },
+        k = { 'Gitsigns prev_hunk<cr>', 'Previous Hunk' },
+        s = { 'Gitsigns stage_hunk<cr>', 'Stage Hunk' },
+        u = { 'Gitsigns undo_stage_hunk<cr>', 'Undo Stage Hunk' },
+      },
+    }, { prefix = '<localleader>' })
   end,
-
 }

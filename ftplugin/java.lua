@@ -10,7 +10,7 @@ local config = {
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.level=ALL',
-    '-noverify',
+    '-noverify', -- deprecated?
     '-Xmx1G',
     --add-modules=ALL-SYSTEM
     --add-opens java.base/java.util=ALL-UNNAMED
@@ -23,6 +23,14 @@ local config = {
   },
   root_dir = require('jdtls.setup').find_root { '.git', 'mvnw', 'gradlew' },
   capabilities = capabilities,
+  settings = {
+    java = { signatureHelp = { enabled = true }, contentProvider = { preferred = 'fernflower' } },
+  },
+  on_init = function(client)
+    if client.config.settings then
+      client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+    end
+  end,
 }
 require('jdtls').start_or_attach(config)
 
@@ -31,7 +39,7 @@ vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opt
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<A-K>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<C-;>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 vim.api.nvim_set_keymap(

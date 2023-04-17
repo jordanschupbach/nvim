@@ -99,6 +99,17 @@ snip.rv = snip.basename or "untitled"`} ${2:extends ${3:Parent} }${4:implements 
 }
 endsnippet
 
+
+
+
+
+
+
+
+
+
+
+
 snippet clc "class with constructor, fields, setter and getters" b
 public class `!p
 snip.rv = snip.basename or "untitled"` {
@@ -340,6 +351,17 @@ ${1:public} ${2:void} ${3:method}($4) ${5:throws $6 }{
 	$0
 }
 endsnippet
+
+
+snippet doc "Method Doc" b
+/**
+  * ${1: Short Description}
+  * @param $2
+  * @return $3
+  * @see $4
+  **/
+endsnippet
+
 
 snippet /get(ter)?/ "getter" br
 public ${1:String} get${2:Name}() {

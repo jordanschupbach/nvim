@@ -46,5 +46,5 @@ return {
         -- require("null-ls").builtins.completion.spell,
       },
     }
-    end,
-  }
+  end,
+}

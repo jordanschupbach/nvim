@@ -1,4 +1,4 @@
-return  {
+return {
   'rainbowhxch/beacon.nvim',
   config = function()
     require('beacon').setup {

@@ -1,4 +1,4 @@
-return  { -- LSP Configuration & Plugins
+return { -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
     'williamboman/mason.nvim',

@@ -1,17 +1,7 @@
 return {
-  -- TODO: Heres todo item 1
-  -- TODO: Heres todo item 2
-  -- TODO: Heres todo item 3
 
   'feline-nvim/feline.nvim',
   config = function()
-    --   require('feline').setup()
-    --   require('feline').winbar.setup()
-    --
-    --
-    --
-    -- end,
-    --
 
     if not present then
       return

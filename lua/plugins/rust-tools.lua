@@ -1,7 +1,7 @@
 return {
   'simrat39/rust-tools.nvim',
   dependencies = {
-    'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
   },
   ft = {
     'rust',

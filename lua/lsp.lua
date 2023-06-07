@@ -64,14 +64,23 @@ local servers = {
   gopls = {},
   gradle_ls = {},
   -- haskel_language_server = {},
-  -- hls = {},
   fortls = {},
   -- elixerls = {},
-  ltex = {},
+  -- ltex = {
+  --   on_attach = function(client, bufnr)
+  --       -- rest of your on_attach process.
+  --       require("ltex_extra").setup { }
+  --   end,
+  --   settings = {
+  --       ltex = { }
+  --   }
+  -- },
+
   jdtls = {},
   pyright = {},
   rust_analyzer = {},
   r_language_server = {},
+  -- hls = {},
   tsserver = {},
   zls = {},
 

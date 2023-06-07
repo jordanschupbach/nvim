@@ -11,7 +11,7 @@ return {
         -- null_ls.builtins.code_actions.cspell,
         null_ls.builtins.diagnostics.chktex,
         null_ls.builtins.code_actions.gitsigns,
-        null_ls.builtins.code_actions.ltrs,
+        --null_ls.builtins.code_actions.ltrs,
         null_ls.builtins.code_actions.refactoring,
         null_ls.builtins.code_actions.shellcheck,
         null_ls.builtins.diagnostics.clang_check,
@@ -19,6 +19,16 @@ return {
         -- null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.commitlint,
         null_ls.builtins.diagnostics.cppcheck,
+        -- null_ls.builtins.diagnostics.checkstyle.with({
+        --     extra_args = { "-c", "/home/jordan/.config/nvim/resources/checkstyle.xml" }, -- or "/sun_checks.xml" or path to self written rules
+        -- }),
+        null_ls.builtins.diagnostics.checkstyle.with({
+          -- args = { "-f", "sarif", vim.api.nvim_buf_get_name(0), "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
+          args = { "-f", "sarif", "/home/jordan/work/navy/JSAPPHIRE/subprojects/sapphireserver/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
+          -- args = { "-f", "sarif", "/home/jordan/git_repos/reu2023/subprojects/optim/*", "-c", "/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml" },
+          -- args = { "-f", "sarif", "/home/jordan/templates/jtemplate/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
+          -- args = { "-f", "sarif", ".", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
+        }),
         -- null_ls.builtins.diagnostics.cpplint,
         cpplint,
         -- null_ls.builtins.diagnostics.cspell,

@@ -1,11 +1,11 @@
 return {
-  'kyazdani42/nvim-tree.lua',
+  'nvim-tree/nvim-tree.lua',
   requires = {
-    'kyazdani42/nvim-web-devicons', -- optional, for file icons
+    'nvim-tree/nvim-web-devicons', -- optional, for file icons
   },
   tag = 'nightly', -- optional, updated every week. (see issue #1193)
   keys = {
-    { '<localleader>ff', '<cmd>NvimTreeToggle<cr>', desc = 'Nvim-tree' },
+    { '<localleader>ff', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
   },
   config = {
     respect_buf_cwd = true,

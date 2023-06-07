@@ -85,17 +85,64 @@ return {
     -- and hide <leader>1
 
     wk.register({
-      p = {
-        name = 'project', -- group name
-        b = { '<cmd>BuildMe<cr>', 'Build' },
-        f = { '<cmd>Telescope fd theme=ivy<cr>', 'Files' },
-        r = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Grep' },
-        s = { '<cmd>split<CR>:terminal<cr>', 'Shell' },
-        o = { '<cmd>Telescope project theme=ivy<cr>', 'Open' },
-        p = { '<cmd>Telescope oldfiles<cr>', 'Recent' },
+
+      a = {
+        name = 'AnyJump', -- group name
+        a = { '<cmd>AnyJump<cr>', 'AnyJump' },
+        b = { '<cmd>AnyJumpBack<cr>', 'Back' },
+        l = { '<cmd>AnyJumpLastResult<cr>', 'Last Result' },
       },
+
+      b = {
+        name = 'Buffers',
+        b = { '<cmd>Telescope buffers theme=ivy<cr>', 'Buffers' },
+        -- l = { '<cmd>require("bufdelete").bufdelete(0)<cr>', 'Delete' },
+      },
+
+      c = {
+        name = 'Comment',
+        c = { '<cmd>CommentToggle<cr>', 'Toggle' },
+        -- l = { '<cmd>require("bufdelete").bufdelete(0)<cr>', 'Delete' },
+      },
+
+      d = {
+        name = 'Debug',
+        b = { ":lua require'dap'.toggle_breakpoint()<CR>", 'Toggle Breakpoint' },
+        B = { ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", 'Breakpoint w/ Condition' },
+        c = { ":lua require'dap'.continue()<CR>", 'Continue' },
+        d = { ":lua require'dap'.continue()<CR>", 'Open' },
+        l = { ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>", 'Log' },
+        o = { ":lua require'dap'.step_over()<CR>", 'Step Over' },
+        O = { ":lua require'dap'.step_out()<CR>", 'Step Out' },
+        i = { ":lua require'dap'.into()<CR>", 'Step Into' },
+        s = { ":lua require'dap'.repl.open()<CR>", 'Shell' },
+        -- t = { ":lua require'dap-go'.debug_test()<CR>", 'Test' },
+        m = { ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>", 'Main' },
+
+      },
+
+      e = {
+        name = 'Errors',
+        b = { ":Trouble document_diagnostics<CR>", 'Buffer' },
+        e = { ":TroubleToggle<CR>", 'Error List' },
+        f = { ":CodeActionMenu<CR>", 'Fix' },
+        g = { ":lua require('trouble').first({skip_groups = true, jump = true})<CR>", 'First' },
+        G = { ":lua require('trouble').last({skip_groups = true, jump = true})<CR>", 'Last' },
+        j = { ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Next' },
+        k = { ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Previous' },
+        p = { ":Trouble workspace_diagnostics<CR>", 'Project' },
+      },
+
+
+      f = {
+        name = 'Files',
+        -- f = { "<cmd>NvimTreeToggle<cr>", 'File Tree' },
+      },
+
+
       g = {
         name = 'Git', -- group name
+        a = { ':require("diaglist").open_all_diagnostics()', 'All' },
         b = { '<cmd>Telescope git_branches theme=ivy<cr>', 'Branches' },
         c = { '<cmd>Telescope git_commits theme=ivy<cr>', 'Commits' },
         f = { '<cmd>Telescope git_files theme=ivy<cr>', 'Files' },
@@ -105,6 +152,54 @@ return {
         s = { 'Gitsigns stage_hunk<cr>', 'Stage Hunk' },
         u = { 'Gitsigns undo_stage_hunk<cr>', 'Undo Stage Hunk' },
       },
+
+      h = {
+        name = 'Help', -- group name
+        k = { ':Telescope keymaps theme=ivy<cr>', 'Keys' },
+      },
+
+      j = {
+        name = 'Jump', -- group name
+        a = { ':AnyJump<CR>', 'AnyJump' },
+        b = { ':AnyJumpBack<CR>', 'AnyJumpBack' },
+        j = { ':HopChar2<CR>', 'Jump (HopChar2)' },
+        l = { ':AnyJumpLastResult<CR>', 'AnyJumpLastResult' },
+        d = { ':Telescope lsp_definitions<CR>', 'Definition' },
+      },
+
+      l = {
+        name = 'Jump', -- group name
+        l = { ':AerialToggle<CR>', 'Sidebar' },
+      },
+
+
+      m = {
+        name = 'Marks', -- group name
+        m = { ':MyJumpMarks<CR>', 'Marks' },
+      },
+      -- TODO: Some other TODO
+      p = {
+        name = 'project', -- group name
+        b = { '<cmd>BuildMe<cr>', 'Build' },
+        f = { '<cmd>Telescope fd theme=ivy<cr>', 'Files' },
+        r = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Grep' },
+        s = { '<cmd>split<CR>:terminal<cr>', 'Shell' },
+        o = { '<cmd>Telescope project theme=ivy<cr>', 'Open' },
+        p = { '<cmd>Telescope oldfiles<cr>', 'Recent' },
+      },
+
+
+      -- WARNING: This is a warning
+      -- PERF: Fully Optimized
+      -- HACK: This is a hacky hack-job
+      -- FIX: This needs a fixin
+      -- NOTE: Some note about this line
+      r = { -- TODO: make this language dependent binding
+        name = 'Rust',
+        m = { ':RustRunnables<CR>', 'Runnables' },
+      },
+
+
     }, { prefix = '<localleader>' })
   end,
 }

@@ -26,6 +26,7 @@ return {
           c = cmp.mapping.close(),
         },
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete {}, { 'i', 'c' }),
+        ['<C-l>'] = cmp.mapping(cmp.mapping.complete {}, { 'i', 'c' }),
       },
       sources = cmp.config.sources({
         { name = 'orgmode' },

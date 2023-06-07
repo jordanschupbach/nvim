@@ -25,7 +25,7 @@ return {
     },
   },
   dependencies = {
-    'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-project.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-symbols.nvim',

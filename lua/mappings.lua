@@ -4,6 +4,101 @@ local function mymap(m, k, v)
   vim.keymap.set(m, k, v, { silent = true, remap = true })
 end
 
+-- Lsp Saga
+
+-- LSP finder - Find the symbol's definition
+-- If there is no definition, it will instead be hidden
+-- When you use an action in finder like "open vsplit",
+-- you can use <C-t> to jump back
+mymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+
+-- Code action
+mymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+
+-- Rename all occurrences of the hovered word for the entire file
+mymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+
+-- Rename all occurrences of the hovered word for the selected files
+mymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
+
+-- Peek definition
+-- You can edit the file containing the definition in the floating window
+-- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
+-- It also supports tagstack
+-- Use <C-t> to jump back
+mymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
+
+-- Go to definition
+mymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+
+-- Peek type definition
+-- You can edit the file containing the type definition in the floating window
+-- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
+-- It also supports tagstack
+-- Use <C-t> to jump back
+mymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
+
+-- Go to type definition
+mymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
+
+
+-- Show line diagnostics
+-- You can pass argument ++unfocus to
+-- unfocus the show_line_diagnostics floating window
+mymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+
+-- Show buffer diagnostics
+mymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+
+-- Show workspace diagnostics
+mymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+
+-- Show cursor diagnostics
+mymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+
+-- Diagnostic jump
+-- You can use <C-o> to jump back to your previous location
+mymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+mymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+
+-- Diagnostic jump with filters such as only jumping to an error
+mymap("n", "[E", function()
+  require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+mymap("n", "]E", function()
+  require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+
+-- Toggle outline
+mymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
+
+-- Hover Doc
+-- If there is no hover doc,
+-- there will be a notification stating that
+-- there is no information available.
+-- To disable it just use ":Lspsaga hover_doc ++quiet"
+-- Pressing the key twice will enter the hover window
+mymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+
+-- If you want to keep the hover window in the top right hand corner,
+-- you can pass the ++keep argument
+-- Note that if you use hover with ++keep, pressing this key again will
+-- close the hover window. If you want to jump to the hover window
+-- you should use the wincmd command "<C-w>w"
+mymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
+
+-- Call hierarchy
+mymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+mymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+
+-- Floating terminal
+mymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+
+
+
+
+
+
 -- mymap('lh', '<C-k>', ':lua require("lsp-inlayhints").toggle()')
 
 -- vim.keymap.set({ 'n' }, '<C-k>', function()       require('lsp_signature').toggle_float_win()
@@ -12,7 +107,14 @@ end
 -- vim.keymap.set({ 'n' }, '<Leader>k', function()
 --  vim.lsp.buf.signature_help()
 -- end, { silent = true, noremap = true, desc = 'toggle signature' })
+--
+--
 
+
+
+mymap('n', '<C-a>', ':ChatGPTCompleteCode<CR>')
+
+mymap('n', '<leader>la', ':CodeActionMenu<CR>')
 mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()')
 
 mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help')
@@ -22,6 +124,8 @@ mymap('n', '<leader>e', ':lua vim.diagnostics.open_float()')
 mymap('n', '<leader>q', ':lua vim.diagnostics.setloclist()')
 
 mymap('n', '<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>")
+
+
 
 -- Hop bindings
 -- place this in one of your configuration file(s)
@@ -35,7 +139,8 @@ mymap('n', 'ss', ':HopWord<cr>')
 
 -- TODO: figure out why these remaps aren't working....
 -- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
--- vim.api.nvim_set_keymap('n', "<C-i>", "<C-I>", { noremap = false, silent = true })
+-- vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = true, silent = true })
 
 -- {{{ fix to use mymap
 -- Keymaps for better default experience
@@ -49,17 +154,38 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- {{{ Buffer bindings
 mymap('n', '<localleader>bb', ':Telescope buffers theme=ivy<CR>')
-mymap('n', '<localleader>bd', ":lua require('bufdelete').bufdelete(0)<CR>")
+-- mymap('n', '<localleader>bd', ":lua require('bufdelete').bufdelete(0)<CR>")
+mymap('n', '<localleader>bd', ":bp<bar>sp<bar>bn<bar>bd<CR>")
+
+
+
+
+
 -- }}} Buffer bindings
 
 -- {{{ Error Bindings
--- mymap("n", "<localleader>ej", ":lnext<CR>")
--- mymap("n", "<localleader>ek", ":lprevious<CR>")
+mymap("n", "<localleader>ej", ":lnext<CR>")
+mymap("n", "<localleader>ek", ":lprevious<CR>")
 
-mymap('n', '<localleader>ej', "lua require('trouble').next({skip_groups = true, jump = true})")
-mymap('n', '<localleader>ek', "lua require('trouble').previous({skip_groups = true, jump = true})")
-mymap('n', '<localleader>egg', "lua require('trouble').first({skip_groups = true, jump = true})")
-mymap('n', '<localleader>eG', "lua require('trouble').last({skip_groups = true, jump = true})")
+
+mymap("n", "<A-n>", ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
+mymap("n", "<A-p>", ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
+
+-- mymap('n', '<localleader>ej', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
+-- mymap('n', '<localleader>ek', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
+mymap('n', '<localleader>egg', ":lua require('trouble').first({skip_groups = true, jump = true})<CR>")
+mymap('n', '<localleader>eG', "lua require('trouble').last({skip_groups = true, jump = true})<CR>")
+
+mymap('n', '<localleader>ee', ':TroubleToggle<CR>')
+mymap('n', '<localleader>eb', ':Trouble document_diagnostics<CR>')
+mymap('n', '<localleader>ep', ':Trouble workspace_diagnostics<CR>')
+mymap('n', '<localleader>ef', ':CodeActionMenu<CR>')
+
+-- Use diaglist???
+mymap('n', '<localleader>ea', ":lua require('diaglist').open_all_diagnostics()<CR>")
+
+-- -- nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
+-- -- nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
 
 -- }}} Error Bindings
 
@@ -69,6 +195,7 @@ mymap('n', 'gt', ':lua require("goto-preview").goto_type_definition()<CR>')
 mymap('n', 'gt', ':lua require("goto-preview").goto_type_implementation()<CR>')
 mymap('n', '<A-return>', ':SlimeSendCurrentLine<CR>')
 mymap('v', '<A-return>', ':SlimeSend<CR>')
+mymap('v', 's', ':SlimeSend<CR>')
 -- }}} GoTo bindings
 
 -- {{{ Tabs
@@ -193,21 +320,6 @@ mymap('n', '<localleader>cc', ':CommentToggle<CR>')
 
 -- }}} Commenting
 
--- {{{ Error bindings
-mymap('n', '<localleader>ee', ':TroubleToggle<CR>')
-mymap('n', '<localleader>eb', ':Trouble document_diagnostics<CR>')
-mymap('n', '<localleader>ep', ':Trouble workspace_diagnostics<CR>')
-mymap('n', '<localleader>ef', ':CodeActionMenu<CR>')
-
--- Use diaglist???
-mymap('n', '<localleader>ea', ":lua require('diaglist').open_all_diagnostics()<CR>")
-
--- -- nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
--- -- nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
---
-
--- }}} Error bindings
-
 -- {{{ Jump bindings
 mymap('n', '<localleader>jj', ':HopChar2<CR>')
 
@@ -236,6 +348,7 @@ mymap('n', '<localleader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'
 mymap('n', '<localleader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
 mymap('n', '<localleader>ts', ":lua require('neotest').summary.toggle()<CR>")
 mymap('n', '<localleader>to', ":lua require('neotest').output_panel.toggle()<CR>")
+mymap('n', '<localleader>tz', ":ZenMode<CR>")
 -- --   nnoremap <silent>[n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 -- --   nnoremap <silent>]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
@@ -322,6 +435,44 @@ mymap('n', '<localleader>rr', ':RustRunnables<CR>')
 -- {{{ Window bindings
 mymap('n', '<localleader>ww', ':WindowsMaximize<CR>')
 -- }}} Window bindings
+
+
+mymap("n", "<C-h>", ":lua vim.lsp.buf.hover()<CR>")
+
+mymap("n", "<localleader>k", ":lua hover.hover()<CR>")
+
+function DeleteBuiltinMarks()
+  vim.cmd('delmarks 0-9')
+  vim.cmd('delmarks .')
+  vim.cmd('delmarks ^')
+  vim.cmd('delmarks >')
+  vim.cmd('delmarks <')
+  vim.cmd('delmarks [')
+  vim.cmd('delmarks ]')
+  -- vim.cmd("delmarks \\'")
+  -- vim.cmd('delmarks "')
+end
+
+vim.api.nvim_create_user_command('DeleteBuiltinMarks', function()
+  DeleteBuiltinMarks()
+end,
+  { nargs = 0, desc = 'Delete all builtin automarks nvim' }
+)
+
+function MyJumpMarks()
+  DeleteBuiltinMarks()
+  vim.cmd('Telescope marks')
+end
+
+
+vim.api.nvim_create_user_command('MyJumpMarks', function()
+  MyJumpMarks()
+end,
+  { nargs = 0, desc = 'My jump to mark function' }
+)
+
+mymap("n", "<localleader>mm", ":MyJumpMarks<CR>")
+
 
 -- TODO: find a home for this
 -- -- Return to last edit position when opening files

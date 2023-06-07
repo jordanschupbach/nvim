@@ -7,6 +7,11 @@ vimopt.belloff = 'all'
 -- be silenced.
 -------------------------------------------------------------------------------
 
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
+
+
+
 vim.g.gitblame_enabled = 0
 
 vim.g.slime_target = 'neovim'
@@ -26,11 +31,14 @@ vim.o.termguicolors = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 -- vim.o.timeoutlen = 500
-vimopt.colorcolumn = '120' -- TODO: see if these are different
-vim.api.nvim_set_option_value('colorcolumn', '79', {})
+-- vim.api.nvim_set_option_value('colorcolumn', '79', {})
 vim.o.colorcolumn = 120
 vim.o.cc = 120
 vim.o.t_Co = 256
+
+
+-- vim.o.viminfo = f0
+
 
 vim.g.minimap_width = 2
 vim.g.minimap_auto_start = 0

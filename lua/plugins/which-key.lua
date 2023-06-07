@@ -137,6 +137,7 @@ return {
       f = {
         name = 'Files',
         -- f = { "<cmd>NvimTreeToggle<cr>", 'File Tree' },
+        f = { "<cmd>NeoTreeShowToggle<cr>", 'File Tree' },
       },
 
 

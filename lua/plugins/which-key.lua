@@ -148,10 +148,10 @@ return {
         c = { '<cmd>Telescope git_commits theme=ivy<cr>', 'Commits' },
         f = { '<cmd>Telescope git_files theme=ivy<cr>', 'Files' },
         g = { '<cmd>Neogit kind=vsplit<cr>', 'NeoGit' },
-        j = { 'Gitsigns prev_hunk<cr>', 'Next Hunk' },
-        k = { 'Gitsigns prev_hunk<cr>', 'Previous Hunk' },
-        s = { 'Gitsigns stage_hunk<cr>', 'Stage Hunk' },
-        u = { 'Gitsigns undo_stage_hunk<cr>', 'Undo Stage Hunk' },
+        j = { ':Gitsigns prev_hunk<cr>', 'Next Hunk' },
+        k = { ':Gitsigns prev_hunk<cr>', 'Previous Hunk' },
+        s = { ':Gitsigns stage_hunk<cr>', 'Stage Hunk' },
+        u = { ':Gitsigns undo_stage_hunk<cr>', 'Undo Stage Hunk' },
       },
 
       h = {

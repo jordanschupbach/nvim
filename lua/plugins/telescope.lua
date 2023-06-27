@@ -8,20 +8,19 @@ return {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
-        ["<C-h>"] = "which_key",
+        ['<C-h>'] = 'which_key',
 
         -- IMPORTANT
         -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
         -- ["<C-h>"] = require("telescope.nvim").extensions.hop.hop,  -- hop.hop_toggle_selection
         -- custom hop loop to multi selects and sending selected entries to quickfix list
-        ["<C-space>"] = function(prompt_bufnr)
+        ['<C-space>'] = function(prompt_bufnr)
           local opts = {
             callback = actions.toggle_selection,
             loop_callback = actions.send_selected_to_qflist,
           }
-          require("telescope").extensions.hop._hop_loop(prompt_bufnr, opts)
+          require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
         end,
-
       },
     },
   },
@@ -62,8 +61,48 @@ return {
 
         hop = {
           -- the shown `keys` are the defaults, no need to set `keys` if defaults work for you ;)
-          keys = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-            'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', },
+          keys = {
+            'a',
+            's',
+            'd',
+            'f',
+            'g',
+            'h',
+            'j',
+            'k',
+            'l',
+            ';',
+            'q',
+            'w',
+            'e',
+            'r',
+            't',
+            'y',
+            'u',
+            'i',
+            'o',
+            'p',
+            'A',
+            'S',
+            'D',
+            'F',
+            'G',
+            'H',
+            'J',
+            'K',
+            'L',
+            ':',
+            'Q',
+            'W',
+            'E',
+            'R',
+            'T',
+            'Y',
+            'U',
+            'I',
+            'O',
+            'P',
+          },
           -- Highlight groups to link to signs and lines; the below configuration refers to demo
           -- sign_hl typically only defines foreground to possibly be combined with line_hl
           sign_hl = { 'WarningMsg', 'Title' },

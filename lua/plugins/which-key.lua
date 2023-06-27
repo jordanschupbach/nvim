@@ -83,7 +83,7 @@ return {
     --  * <leader>fn new file
     --  * <leader>fe edit file
     -- and hide <leader>1
-    wk.register( {
+    wk.register({
       h = {
         name = 'Harpoon', -- group name
         a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add' },
@@ -125,7 +125,10 @@ return {
       d = {
         name = 'Debug',
         b = { ":lua require'dap'.toggle_breakpoint()<CR>", 'Toggle Breakpoint' },
-        B = { ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", 'Breakpoint w/ Condition' },
+        B = {
+          ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+          'Breakpoint w/ Condition',
+        },
         c = { ":lua require'dap'.continue()<CR>", 'Continue' },
         d = { ":lua require'dap'.continue()<CR>", 'Open' },
         l = { ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>", 'Log' },
@@ -135,28 +138,25 @@ return {
         s = { ":lua require'dap'.repl.open()<CR>", 'Shell' },
         -- t = { ":lua require'dap-go'.debug_test()<CR>", 'Test' },
         m = { ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>", 'Main' },
-
       },
 
       e = {
         name = 'Errors',
-        b = { ":Trouble document_diagnostics<CR>", 'Buffer' },
-        e = { ":TroubleToggle<CR>", 'Error List' },
-        f = { ":CodeActionMenu<CR>", 'Fix' },
+        b = { ':Trouble document_diagnostics<CR>', 'Buffer' },
+        e = { ':TroubleToggle<CR>', 'Error List' },
+        f = { ':CodeActionMenu<CR>', 'Fix' },
         g = { ":lua require('trouble').first({skip_groups = true, jump = true})<CR>", 'First' },
         G = { ":lua require('trouble').last({skip_groups = true, jump = true})<CR>", 'Last' },
         j = { ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Next' },
         k = { ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Previous' },
-        p = { ":Trouble workspace_diagnostics<CR>", 'Project' },
+        p = { ':Trouble workspace_diagnostics<CR>', 'Project' },
       },
-
 
       -- f = {
       --   name = 'Files',
       --   -- f = { "<cmd>NvimTreeToggle<cr>", 'File Tree' },
       --   f = { "<cmd>NeoTreeShowToggle<cr>", 'File Tree' },
       -- },
-
 
       g = {
         name = 'Git', -- group name
@@ -190,7 +190,6 @@ return {
       --   l = { ':AerialToggle<CR>', 'Sidebar' },
       -- },
 
-
       m = {
         name = 'Marks', -- group name
         m = { ':MyJumpMarks<CR>', 'Marks' },
@@ -206,7 +205,6 @@ return {
         p = { '<cmd>Telescope oldfiles<cr>', 'Recent' },
       },
 
-
       -- WARNING: This is a warning
       -- PERF: Fully Optimized
       -- HACK: This is a hacky hack-job
@@ -216,8 +214,6 @@ return {
         name = 'Rust',
         m = { ':RustRunnables<CR>', 'Runnables' },
       },
-
-
     }, { prefix = '<localleader>' })
   end,
 }

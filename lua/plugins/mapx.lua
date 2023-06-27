@@ -1,6 +1,6 @@
 return {
   'b0o/mapx.nvim',
   config = function()
-    require('mapx').setup { }
+    require('mapx').setup {}
   end,
 }

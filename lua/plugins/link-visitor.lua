@@ -1,9 +1,9 @@
 -- https://github.com/xiyaowong/link-visitor.nvim
 
 return {
-  "xiyaowong/link-visitor.nvim",
+  'xiyaowong/link-visitor.nvim',
   config = function()
-    require("link-visitor").setup({
+    require('link-visitor').setup {
       open_cmd = nil,
       --[[ cmd to open url
         defaults:
@@ -13,7 +13,7 @@ return {
       --]]
       silent = true, -- disable all prints, `false` by defaults skip_confirmation
       skip_confirmation = false, -- Skip the confirmation step, default: false
-      border = "rounded" -- none, single, double, rounded, solid, shadow see `:h nvim_open_win()`
-    })
+      border = 'rounded', -- none, single, double, rounded, solid, shadow see `:h nvim_open_win()`
+    }
   end,
 }

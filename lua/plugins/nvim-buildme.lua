@@ -1,4 +1,3 @@
-
 return {
   'ojroques/nvim-buildme',
   -- config = function()

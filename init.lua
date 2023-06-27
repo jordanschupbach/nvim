@@ -1,7 +1,6 @@
 -- MisEnPlace
 -- my nvim configuration
 
-
 -- Lazy bootstrap
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -44,8 +43,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- hover = require("hover")
 
-require'lspconfig'.hls.setup{}
-require'lspconfig'.r_language_server.setup{}
+require('lspconfig').hls.setup {}
+require('lspconfig').r_language_server.setup {}
 
 -- Setup mappings last
 require 'mappings'

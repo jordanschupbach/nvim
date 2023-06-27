@@ -1,6 +1,6 @@
 return {
   'ThePrimeagen/harpoon',
   config = function()
-    require('harpoon').setup { }
+    require('harpoon').setup {}
   end,
 }

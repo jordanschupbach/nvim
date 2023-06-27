@@ -1,6 +1,6 @@
 -- local hover = require(".my.lsp.hover")
 
-local o = require('options')
+local o = require 'options'
 
 -- {{{ mymap fun
 --- Adds a new normal binding map.
@@ -20,7 +20,8 @@ end
 -- }}} mymap fun
 
 -- {{{ Commented but maybe useful
-vim.keymap.set({ 'n', 'i' }, '<C-k>', function()       require('lsp_signature').toggle_float_win()
+vim.keymap.set({ 'n', 'i' }, '<C-k>', function()
+  require('lsp_signature').toggle_float_win()
 end, { silent = true, noremap = true, desc = 'toggle signature' })
 --
 -- vim.keymap.set({ 'n' }, '<Leader>k', function()
@@ -49,24 +50,23 @@ end, { silent = true, noremap = true, desc = 'toggle signature' })
 -- {{{ Inbox
 -- Diagnostic jump
 -- You can use <C-o> to jump back to your previous location
-mymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-mymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+mymap('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
+mymap('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
 
 -- Diagnostic jump with filters such as only jumping to an error
-mymap("n", "[E", function()
-  require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+mymap('n', '[E', function()
+  require('lspsaga.diagnostic'):goto_prev { severity = vim.diagnostic.severity.ERROR }
 end)
-mymap("n", "]E", function()
-  require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+mymap('n', ']E', function()
+  require('lspsaga.diagnostic'):goto_next { severity = vim.diagnostic.severity.ERROR }
 end)
-
 
 -- Call hierarchy
-mymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
-mymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+mymap('n', '<Leader>ci', '<cmd>Lspsaga incoming_calls<CR>')
+mymap('n', '<Leader>co', '<cmd>Lspsaga outgoing_calls<CR>')
 
 -- Floating terminal
-mymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+mymap({ 'n', 't' }, '<A-d>', '<cmd>Lspsaga term_toggle<CR>')
 
 mymap('n', '<C-a>', ':ChatGPTCompleteCode<CR>')
 
@@ -74,35 +74,34 @@ mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()<CR>')
 -- mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help<CR>')
 -- }}} Inbox
 
-local m = require'mapx'.setup{ global = true, whichkey = true }
+local m = require('mapx').setup { global = true, whichkey = true }
 
 -- {{{ Code action mappings
-m.vmap("<leader>ca", "<cmd>Lspsaga code_action<CR>", "Code Action")
-m.nmap("<leader>ca", "<cmd>Lspsaga code_action<CR>", "Code Action")
+m.vmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
+m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 -- }}} Code action mappings
 
 -- {{{ Go(To) mappings
-m.nname("g", "Go(To)")
-m.nmap("gp", "<cmd>Lspsaga peek_definition<CR>", "LSP: [g]o [p]eek")
-m.nmap("gd", "<cmd>Lspsaga goto_definition<CR>", "LSP: [g]oto [d]efinition")
-m.nmap("gf", "<cmd>Lspsaga lsp_finder<CR>", "LSP: [g]o [f]ind")
-m.nmap("gt", "<cmd>Lspsaga peek_type_definition<CR>", "LSP: [g]oto [t]ypedef (peek)")
-m.nmap("gT", "<cmd>Lspsaga goto_type_definition<CR>", "LSP: [g]oto [t]ypedef")
+m.nname('g', 'Go(To)')
+m.nmap('gp', '<cmd>Lspsaga peek_definition<CR>', 'LSP: [g]o [p]eek')
+m.nmap('gd', '<cmd>Lspsaga goto_definition<CR>', 'LSP: [g]oto [d]efinition')
+m.nmap('gf', '<cmd>Lspsaga lsp_finder<CR>', 'LSP: [g]o [f]ind')
+m.nmap('gt', '<cmd>Lspsaga peek_type_definition<CR>', 'LSP: [g]oto [t]ypedef (peek)')
+m.nmap('gT', '<cmd>Lspsaga goto_type_definition<CR>', 'LSP: [g]oto [t]ypedef')
 -- }}} Go(To) mappings
 
 -- {{{ LSP mappings
-mymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
-m.nname("<localleader>l", "LSP")
-m.nmap("<leader>la", ":CodeActionMenu<CR>", "Code Actions")
-m.nmap("<localleader>ll", ":AerialToggle<CR>", "Toggle Outline")
-m.nmap("<localleader>lr", ":Lspsaga rename<CR>", "Refactor word in buffer")
-m.nmap("<localleader>lR", ":Lspsaga rename ++project<CR>", "Refactor word in project")
-m.nmap("<localleader>lo", "<cmd>Lspsaga outline<CR>", "Toggle Outline (Alternate)")
-m.nmap("<localleader>lf", "<cmd>Lspsaga lsp_finder<CR>", "Find")
-m.nmap("<localleader>lth", ':lua require("lsp-inlayhints").toggle()<CR>')
-m.nmap("<localleader>ltl", ':LspLensToggle<CR>')
-m.nmap("<localleader>lk", ':DocsViewToggle<CR>')
-
+mymap('n', 'K', '<cmd>Lspsaga hover_doc ++keep<CR>')
+m.nname('<localleader>l', 'LSP')
+m.nmap('<leader>la', ':CodeActionMenu<CR>', 'Code Actions')
+m.nmap('<localleader>ll', ':AerialToggle<CR>', 'Toggle Outline')
+m.nmap('<localleader>lr', ':Lspsaga rename<CR>', 'Refactor word in buffer')
+m.nmap('<localleader>lR', ':Lspsaga rename ++project<CR>', 'Refactor word in project')
+m.nmap('<localleader>lo', '<cmd>Lspsaga outline<CR>', 'Toggle Outline (Alternate)')
+m.nmap('<localleader>lf', '<cmd>Lspsaga lsp_finder<CR>', 'Find')
+m.nmap('<localleader>lth', ':lua require("lsp-inlayhints").toggle()<CR>')
+m.nmap('<localleader>ltl', ':LspLensToggle<CR>')
+m.nmap('<localleader>lk', ':DocsViewToggle<CR>')
 
 m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 m.nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -121,21 +120,20 @@ m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 m.nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 m.nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
 m.nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-m.nmap('<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[W]orkspace [L]ist Folders')
+m.nmap('<leader>wl', function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, '[W]orkspace [L]ist Folders')
 m.nmap('K', vim.lsp.buf.hover)
-m.nmap('gi', vim.lsp.buf.implementation, "Go[to] Implementation")
-m.nmap('<C-k>', vim.lsp.buf.signature_help, "Lsp Signature")
-m.nmap('<space>wa', vim.lsp.buf.add_workspace_folder, "Workspace Add")
-m.nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, "Workspace Remove")
+m.nmap('gi', vim.lsp.buf.implementation, 'Go[to] Implementation')
+m.nmap('<C-k>', vim.lsp.buf.signature_help, 'Lsp Signature')
+m.nmap('<space>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add')
+m.nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove')
 m.nmap('<space>wl', function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, "Workspace List")
-m.nmap('<space>D', vim.lsp.buf.type_definition, "Type Definition")
-m.nmap('gr', vim.lsp.buf.references, "Buffer References")
-m.nmap('<space>f', vim.lsp.buf.formatting, "Format Buffer")
-
-
-
+end, 'Workspace List')
+m.nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
+m.nmap('gr', vim.lsp.buf.references, 'Buffer References')
+m.nmap('<space>f', vim.lsp.buf.formatting, 'Format Buffer')
 
 -- m.nmap("<localleader>lr", ":LspRestart<Cr>", "Restart LSP")
 -- m.nmap("<localleader>ls", ":LspStart<Cr>", "Start LSP")
@@ -144,11 +142,11 @@ m.nmap('<space>f', vim.lsp.buf.formatting, "Format Buffer")
 -- }}} LSP mappings
 
 -- {{{ Show mappings
-m.nname("<leader>s", "Show")
-m.nmap("<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", "Line diagnostics")
-m.nmap("<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", "Buffer diagnostics")
-m.nmap("<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>", "Workspace diagnostics")
-m.nmap("<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor diagnostics")
+m.nname('<leader>s', 'Show')
+m.nmap('<leader>sl', '<cmd>Lspsaga show_line_diagnostics<CR>', 'Line diagnostics')
+m.nmap('<leader>sb', '<cmd>Lspsaga show_buf_diagnostics<CR>', 'Buffer diagnostics')
+m.nmap('<leader>sw', '<cmd>Lspsaga show_workspace_diagnostics<CR>', 'Workspace diagnostics')
+m.nmap('<leader>sc', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Cursor diagnostics')
 -- }}} Show mappings
 
 -- {{{ Jump bindings
@@ -158,7 +156,7 @@ mymap('n', 'ss', ':HopWord<cr>')
 -- TODO: figure out why these remaps aren't working....
 -- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
 -- vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-i>', '<Tab>', { noremap = true, silent = true })
 
 -- {{{ fix to use mymap
 -- Keymaps for better default experience
@@ -173,21 +171,16 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- {{{ Buffer bindings
 mymap('n', '<localleader>bb', ':Telescope buffers theme=ivy<CR>')
 -- mymap('n', '<localleader>bd', ":lua require('bufdelete').bufdelete(0)<CR>")
-mymap('n', '<localleader>bd', ":bp<bar>sp<bar>bn<bar>bd<CR>")
-
-
-
-
+mymap('n', '<localleader>bd', ':bp<bar>sp<bar>bn<bar>bd<CR>')
 
 -- }}} Buffer bindings
 
 -- {{{ Error Bindings
-mymap("n", "<localleader>ej", ":lnext<CR>")
-mymap("n", "<localleader>ek", ":lprevious<CR>")
+mymap('n', '<localleader>ej', ':lnext<CR>')
+mymap('n', '<localleader>ek', ':lprevious<CR>')
 
-
-mymap("n", "<A-n>", ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
-mymap("n", "<A-p>", ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
+mymap('n', '<A-n>', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
+mymap('n', '<A-p>', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
 
 -- mymap('n', '<localleader>ej', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
 -- mymap('n', '<localleader>ek', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
@@ -281,40 +274,34 @@ local function neovideScale(amount)
   vim.g.neovide_scale_factor = temp
 end
 
-
 local resize_gui_font = function(delta)
   vim.g.gui_font_size = o.font_size + delta
   o.font_size = o.font_size + delta
   refresh_gui_font()
-  neovideScale(delta/10)
+  neovideScale(delta / 10)
 end
 
-vim.api.nvim_create_user_command(
-  'IncreaseGuiFont',
-  function()
-    resize_gui_font(1)
-  end,
-  {bang = true}
-)
+vim.api.nvim_create_user_command('IncreaseGuiFont', function()
+  resize_gui_font(1)
+end, { bang = true })
 
-vim.api.nvim_create_user_command(
-  'DecreaseGuiFont',
-  function()
-    resize_gui_font(-1)
-  end,
-  {bang = true}
-)
+vim.api.nvim_create_user_command('DecreaseGuiFont', function()
+  resize_gui_font(-1)
+end, { bang = true })
 
+mymap('n', '<C-=>', function()
+  resize_gui_font(1)
+end)
+mymap('n', '<C-->', function()
+  resize_gui_font(-1)
+end)
 
-mymap('n', '<C-=>', function() resize_gui_font(1) end)
-mymap('n', '<C-->', function() resize_gui_font(-1) end)
-
-m.nname("u", "UI")
-m.nmap('<localleader>ud', ':SetDarkMode<CR>', "Dark mode")
-m.nmap('<localleader>ul', ':SetLightMode<CR>', "Light Mode")
-m.nmap('<localleader>ut', ':ToggleDarkMode<CR>', "Toggle dark/light")
-m.nmap('<localleader>uu', ':RandomizeBG<CR>', "Randomize background (waldark)")
-m.nmap('<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", "Zenmode")
+m.nname('u', 'UI')
+m.nmap('<localleader>ud', ':SetDarkMode<CR>', 'Dark mode')
+m.nmap('<localleader>ul', ':SetLightMode<CR>', 'Light Mode')
+m.nmap('<localleader>ut', ':ToggleDarkMode<CR>', 'Toggle dark/light')
+m.nmap('<localleader>uu', ':RandomizeBG<CR>', 'Randomize background (waldark)')
+m.nmap('<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", 'Zenmode')
 
 -- }}} UI bindings
 
@@ -401,7 +388,7 @@ mymap('n', '<localleader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'
 mymap('n', '<localleader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
 mymap('n', '<localleader>ts', ":lua require('neotest').summary.toggle()<CR>")
 mymap('n', '<localleader>to', ":lua require('neotest').output_panel.toggle()<CR>")
-mymap('n', '<localleader>tz', ":ZenMode<CR>")
+mymap('n', '<localleader>tz', ':ZenMode<CR>')
 -- --   nnoremap <silent>[n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 -- --   nnoremap <silent>]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
@@ -489,43 +476,36 @@ mymap('n', '<localleader>rr', ':RustRunnables<CR>')
 mymap('n', '<localleader>ww', ':WindowsMaximize<CR>')
 -- }}} Window bindings
 
+mymap('n', '<C-h>', ':lua vim.lsp.buf.hover()<CR>')
 
-mymap("n", "<C-h>", ":lua vim.lsp.buf.hover()<CR>")
-
-mymap("n", "<localleader>k", ":lua hover.hover()<CR>")
+mymap('n', '<localleader>k', ':lua hover.hover()<CR>')
 
 function DeleteBuiltinMarks()
-  vim.cmd('delmarks 0-9')
-  vim.cmd('delmarks .')
-  vim.cmd('delmarks ^')
-  vim.cmd('delmarks >')
-  vim.cmd('delmarks <')
-  vim.cmd('delmarks [')
-  vim.cmd('delmarks ]')
+  vim.cmd 'delmarks 0-9'
+  vim.cmd 'delmarks .'
+  vim.cmd 'delmarks ^'
+  vim.cmd 'delmarks >'
+  vim.cmd 'delmarks <'
+  vim.cmd 'delmarks ['
+  vim.cmd 'delmarks ]'
   -- vim.cmd("delmarks \\'")
   -- vim.cmd('delmarks "')
 end
 
 vim.api.nvim_create_user_command('DeleteBuiltinMarks', function()
   DeleteBuiltinMarks()
-end,
-  { nargs = 0, desc = 'Delete all builtin automarks nvim' }
-)
+end, { nargs = 0, desc = 'Delete all builtin automarks nvim' })
 
 function MyJumpMarks()
   DeleteBuiltinMarks()
-  vim.cmd('Telescope marks')
+  vim.cmd 'Telescope marks'
 end
-
 
 vim.api.nvim_create_user_command('MyJumpMarks', function()
   MyJumpMarks()
-end,
-  { nargs = 0, desc = 'My jump to mark function' }
-)
+end, { nargs = 0, desc = 'My jump to mark function' })
 
-mymap("n", "<localleader>mm", ":MyJumpMarks<CR>")
-
+mymap('n', '<localleader>mm', ':MyJumpMarks<CR>')
 
 -- map("n", "<C-=>", function()
 --   neovideScale(0.1)
@@ -534,8 +514,6 @@ mymap("n", "<localleader>mm", ":MyJumpMarks<CR>")
 -- map("n", "<C-->", function()
 --   neovideScale(-0.1)
 -- end)
-
-
 
 -- TODO: find a home for this
 -- -- Return to last edit position when opening files

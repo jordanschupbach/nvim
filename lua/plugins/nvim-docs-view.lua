@@ -1,13 +1,13 @@
 -- https://github.com/amrbashir/nvim-docs-view
 
 return {
-  "amrbashir/nvim-docs-view",
+  'amrbashir/nvim-docs-view',
   opt = true,
-  cmd = { "DocsViewToggle" },
+  cmd = { 'DocsViewToggle' },
   config = function()
-    require("docs-view").setup {
-      position = "right",
+    require('docs-view').setup {
+      position = 'right',
       width = 60,
     }
-  end
+  end,
 }

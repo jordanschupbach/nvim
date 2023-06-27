@@ -1,8 +1,7 @@
-
 return {
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   dependencies = {
-    "williamboman/mason.nvim",
+    'williamboman/mason.nvim',
   },
   -- Setup mason so it can manage external tooling
   config = function()
@@ -13,7 +12,7 @@ return {
       ensure_installed = {
 
         -- you can pin a tool to a particular version
-        { 'golangci-lint',        version = 'v1.47.0' },
+        { 'golangci-lint', version = 'v1.47.0' },
 
         -- you can turn off/on auto_update per tool
         { 'bash-language-server', auto_update = true },

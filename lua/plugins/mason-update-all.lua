@@ -1,8 +1,8 @@
 return {
   'RubixDev/mason-update-all',
   dependencies = {
-    "williamboman/mason.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    'williamboman/mason.nvim',
+    'jose-elias-alvarez/null-ls.nvim',
   },
   config = function()
     require('mason-update-all').setup()

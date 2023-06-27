@@ -2,7 +2,6 @@ return {
 
   'feline-nvim/feline.nvim',
   config = function()
-
     if not present then
       return
     end

@@ -6,7 +6,7 @@ return {
 
   config = function()
     require('gitsigns').setup {
-      sign_priority=1,
+      sign_priority = 1,
       signs = {
         add = { text = '▍' },
         change = { text = '~' },

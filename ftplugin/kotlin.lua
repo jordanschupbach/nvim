@@ -1,4 +1,3 @@
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
@@ -8,11 +7,11 @@ local config = {
   cmd = {
     'kotlin-language-server',
   },
-  root_dir = {'settings.gradle.kts'},
+  root_dir = { 'settings.gradle.kts' },
   filetypes = { 'kotlin' },
   capabilities = capabilities,
 }
-require('lspconfig').kotlin_language_server.setup({config})
+require('lspconfig').kotlin_language_server.setup { config }
 
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)

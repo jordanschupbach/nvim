@@ -1,4 +1,3 @@
-
 -- local navbuddy = require("nvim-navbuddy")
 
 local servers = {
@@ -17,12 +16,12 @@ local servers = {
   -- elixerls = {},
   ltex = {
     on_attach = function(_, _) -- client, bufnr
-        -- rest of your on_attach process.
-        require("ltex_extra").setup { }
+      -- rest of your on_attach process.
+      require('ltex_extra').setup {}
     end,
     settings = {
-        ltex = { }
-    }
+      ltex = {},
+    },
   },
 
   jdtls = {

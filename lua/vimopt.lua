@@ -1,5 +1,5 @@
 local vimopt = vim.opt
-local o = require("options")
+local o = require 'options'
 
 vimopt.belloff = 'all'
 -- Specifies for which events the bell will not be rung. It is a comma-
@@ -10,8 +10,6 @@ vimopt.belloff = 'all'
 
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
-
-
 
 vim.g.gitblame_enabled = 0
 
@@ -35,7 +33,6 @@ vim.o.splitright = true
 vim.o.colorcolumn = 120
 vim.o.cc = 120
 vim.o.t_Co = 256
-
 
 vim.g.minimap_width = 2
 vim.g.minimap_auto_start = 0
@@ -93,7 +90,6 @@ vim.api.nvim_command 'set colorcolumn=120'
 vim.g.gui_font_size = o.font_size
 vim.g.gui_font_face = 'UbuntuMono Nerd Font Mono - Bold'
 -- vim.g.gui_font_face = "Menlo-Bold:h13"
-
 
 vim.wildmode = { 'full', 'longest', 'lastused' }
 -- Completion mode that is used for the character specified with 'wildchar'

@@ -59,8 +59,6 @@ return {
   end,
 }
 
-
-
 --   {
 --     'sidebar-nvim/sidebar.nvim',
 --     config = function()

@@ -1,12 +1,11 @@
 return {
   'williamboman/mason-lspconfig.nvim',
   dependencies = {
-    "williamboman/mason.nvim",
-    "SmiteshP/nvim-navbuddy",
+    'williamboman/mason.nvim',
+    'SmiteshP/nvim-navbuddy',
   },
   config = function()
-
-    local navbuddy = require("nvim-navbuddy")
+    local navbuddy = require 'nvim-navbuddy'
 
     local servers = {
       bashls = {},
@@ -24,12 +23,12 @@ return {
       -- elixerls = {},
       ltex = {
         on_attach = function(_, _) -- client, bufnr
-            -- rest of your on_attach process.
-            require("ltex_extra").setup { }
+          -- rest of your on_attach process.
+          require('ltex_extra').setup {}
         end,
         settings = {
-            ltex = { }
-        }
+          ltex = {},
+        },
       },
 
       jdtls = {
@@ -59,8 +58,8 @@ return {
           telemetry = { enable = false },
         },
         on_attach = function(client, bufnr)
-            navbuddy.attach(client, bufnr)
-        end
+          navbuddy.attach(client, bufnr)
+        end,
       },
     }
 
@@ -87,6 +86,5 @@ return {
         }
       end,
     }
-
   end,
 }

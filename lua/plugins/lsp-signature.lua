@@ -7,7 +7,6 @@ return {
         border = 'rounded',
       },
     }
-
     require('lsp_signature').setup(cfg)
   end,
 }

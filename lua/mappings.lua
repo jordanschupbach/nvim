@@ -1,61 +1,52 @@
 -- local hover = require(".my.lsp.hover")
 
+local o = require('options')
+
+-- {{{ mymap fun
+--- Adds a new normal binding map.
+--- Examples:
+--- <pre>lua
+---   vim.keymap.set('n', 'lhs', function() print("real lua function") end)
+--- </pre>
+---
+---@param m string|table     Mode short-name, see |nvim_set_keymap()|.
+---                          Can also be list of modes to create mapping on multiple modes.
+---@param k string           Left-hand side |{lhs}| of the mapping.
+---@param v string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
+---
 local function mymap(m, k, v)
   vim.keymap.set(m, k, v, { silent = true, remap = true })
 end
+-- }}} mymap fun
 
--- Lsp Saga
+-- {{{ Commented but maybe useful
+vim.keymap.set({ 'n', 'i' }, '<C-k>', function()       require('lsp_signature').toggle_float_win()
+end, { silent = true, noremap = true, desc = 'toggle signature' })
+--
+-- vim.keymap.set({ 'n' }, '<Leader>k', function()
+--  vim.lsp.buf.signature_help()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
+--
+--
+--
+-- Errors b/c vim.diagnostics doesn't exist?
+-- mymap('n', '[d', ':lua vim.diagnostics.goto_prev()<CR>')
+-- mymap('n', ']d', ':lua vim.diagnostics.goto_next()<CR>')
+-- mymap('n', '<leader>e', ':lua vim.diagnostics.open_float()<CR>')
+-- mymap('n', '<leader>q', ':lua vim.diagnostics.setloclist()<CR>')
+--
+--
+-- place this in one of your configuration file(s)
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- mymap('n', 'f', ":lua require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true }<cr>")
+-- mymap('n', 'F', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true }<cr>')
+-- mymap('n', 't', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }<cr>')
+-- mymap('n', 'T', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>')
+--
+-- }}} Commented but maybe useful
 
--- LSP finder - Find the symbol's definition
--- If there is no definition, it will instead be hidden
--- When you use an action in finder like "open vsplit",
--- you can use <C-t> to jump back
-mymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
-
--- Code action
-mymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
-
--- Rename all occurrences of the hovered word for the entire file
-mymap("n", "gr", "<cmd>Lspsaga rename<CR>")
-
--- Rename all occurrences of the hovered word for the selected files
-mymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
-
--- Peek definition
--- You can edit the file containing the definition in the floating window
--- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
--- It also supports tagstack
--- Use <C-t> to jump back
-mymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
-
--- Go to definition
-mymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
-
--- Peek type definition
--- You can edit the file containing the type definition in the floating window
--- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
--- It also supports tagstack
--- Use <C-t> to jump back
-mymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
-
--- Go to type definition
-mymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
-
-
--- Show line diagnostics
--- You can pass argument ++unfocus to
--- unfocus the show_line_diagnostics floating window
-mymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
-
--- Show buffer diagnostics
-mymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-
--- Show workspace diagnostics
-mymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
-
--- Show cursor diagnostics
-mymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
-
+-- {{{ Inbox
 -- Diagnostic jump
 -- You can use <C-o> to jump back to your previous location
 mymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
@@ -69,23 +60,6 @@ mymap("n", "]E", function()
   require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
 end)
 
--- Toggle outline
-mymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
-
--- Hover Doc
--- If there is no hover doc,
--- there will be a notification stating that
--- there is no information available.
--- To disable it just use ":Lspsaga hover_doc ++quiet"
--- Pressing the key twice will enter the hover window
-mymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
--- If you want to keep the hover window in the top right hand corner,
--- you can pass the ++keep argument
--- Note that if you use hover with ++keep, pressing this key again will
--- close the hover window. If you want to jump to the hover window
--- you should use the wincmd command "<C-w>w"
-mymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
 
 -- Call hierarchy
 mymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
@@ -94,48 +68,92 @@ mymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
 -- Floating terminal
 mymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
 
-
-
-
-
-
--- mymap('lh', '<C-k>', ':lua require("lsp-inlayhints").toggle()')
-
--- vim.keymap.set({ 'n' }, '<C-k>', function()       require('lsp_signature').toggle_float_win()
--- end, { silent = true, noremap = true, desc = 'toggle signature' })
---
--- vim.keymap.set({ 'n' }, '<Leader>k', function()
---  vim.lsp.buf.signature_help()
--- end, { silent = true, noremap = true, desc = 'toggle signature' })
---
---
-
-
-
 mymap('n', '<C-a>', ':ChatGPTCompleteCode<CR>')
 
-mymap('n', '<leader>la', ':CodeActionMenu<CR>')
-mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()')
+mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()<CR>')
+-- mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help<CR>')
+-- }}} Inbox
 
-mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help')
-mymap('n', '[d', ':lua vim.diagnostics.goto_prev()')
-mymap('n', ']d', ':lua vim.diagnostics.goto_next()')
-mymap('n', '<leader>e', ':lua vim.diagnostics.open_float()')
-mymap('n', '<leader>q', ':lua vim.diagnostics.setloclist()')
+local m = require'mapx'.setup{ global = true, whichkey = true }
 
-mymap('n', '<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>")
+-- {{{ Code action mappings
+m.vmap("<leader>ca", "<cmd>Lspsaga code_action<CR>", "Code Action")
+m.nmap("<leader>ca", "<cmd>Lspsaga code_action<CR>", "Code Action")
+-- }}} Code action mappings
+
+-- {{{ Go(To) mappings
+m.nname("g", "Go(To)")
+m.nmap("gp", "<cmd>Lspsaga peek_definition<CR>", "LSP: [g]o [p]eek")
+m.nmap("gd", "<cmd>Lspsaga goto_definition<CR>", "LSP: [g]oto [d]efinition")
+m.nmap("gf", "<cmd>Lspsaga lsp_finder<CR>", "LSP: [g]o [f]ind")
+m.nmap("gt", "<cmd>Lspsaga peek_type_definition<CR>", "LSP: [g]oto [t]ypedef (peek)")
+m.nmap("gT", "<cmd>Lspsaga goto_type_definition<CR>", "LSP: [g]oto [t]ypedef")
+-- }}} Go(To) mappings
+
+-- {{{ LSP mappings
+mymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
+m.nname("<localleader>l", "LSP")
+m.nmap("<leader>la", ":CodeActionMenu<CR>", "Code Actions")
+m.nmap("<localleader>ll", ":AerialToggle<CR>", "Toggle Outline")
+m.nmap("<localleader>lr", ":Lspsaga rename<CR>", "Refactor word in buffer")
+m.nmap("<localleader>lR", ":Lspsaga rename ++project<CR>", "Refactor word in project")
+m.nmap("<localleader>lo", "<cmd>Lspsaga outline<CR>", "Toggle Outline (Alternate)")
+m.nmap("<localleader>lf", "<cmd>Lspsaga lsp_finder<CR>", "Find")
+m.nmap("<localleader>lth", ':lua require("lsp-inlayhints").toggle()<CR>')
+m.nmap("<localleader>ltl", ':LspLensToggle<CR>')
+m.nmap("<localleader>lk", ':DocsViewToggle<CR>')
+
+
+m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+m.nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+m.nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+m.nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+m.nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+m.nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+--
+-- -- See `:help K` for why this keymap
+m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+-- -- nmap('<A-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+--
+-- Lesser used LSP functionality
+m.nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+m.nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+m.nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+m.nmap('<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[W]orkspace [L]ist Folders')
+m.nmap('K', vim.lsp.buf.hover)
+m.nmap('gi', vim.lsp.buf.implementation, "Go[to] Implementation")
+m.nmap('<C-k>', vim.lsp.buf.signature_help, "Lsp Signature")
+m.nmap('<space>wa', vim.lsp.buf.add_workspace_folder, "Workspace Add")
+m.nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, "Workspace Remove")
+m.nmap('<space>wl', function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, "Workspace List")
+m.nmap('<space>D', vim.lsp.buf.type_definition, "Type Definition")
+m.nmap('gr', vim.lsp.buf.references, "Buffer References")
+m.nmap('<space>f', vim.lsp.buf.formatting, "Format Buffer")
 
 
 
--- Hop bindings
--- place this in one of your configuration file(s)
--- local hop = require('hop')
--- local directions = require('hop.hint').HintDirection
--- mymap('n', 'f', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.AFTER_CURSOR, current_line_only = true }<cr>')
--- mymap('n', 'F', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true }<cr>')
--- mymap('n', 't', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }<cr>')
--- mymap('n', 'T', ':lua require(\'hop\').hint_char1({ direction = require(\'hop.hint\').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>')
+
+-- m.nmap("<localleader>lr", ":LspRestart<Cr>", "Restart LSP")
+-- m.nmap("<localleader>ls", ":LspStart<Cr>", "Start LSP")
+-- m.nmap("<localleader>lS", ":LspStop<Cr>", "Stop LSP")
+
+-- }}} LSP mappings
+
+-- {{{ Show mappings
+m.nname("<leader>s", "Show")
+m.nmap("<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", "Line diagnostics")
+m.nmap("<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", "Buffer diagnostics")
+m.nmap("<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>", "Workspace diagnostics")
+m.nmap("<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor diagnostics")
+-- }}} Show mappings
+
+-- {{{ Jump bindings
 mymap('n', 'ss', ':HopWord<cr>')
+-- }}} Jump bindings
 
 -- TODO: figure out why these remaps aren't working....
 -- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
@@ -250,18 +268,53 @@ mymap('t', '<A-9>', ':tabn9<CR>')
 -- }}} Terminal
 
 -- {{{ UI bindings
---
-mymap('n', '<C-=>', function()
-  ResizeGuiFont(1)
-end)
-mymap('n', '<C-->', function()
-  ResizeGuiFont(-1)
-end)
 
-mymap('n', '<localleader>ud', ':SetDarkMode<CR>')
-mymap('n', '<localleader>ul', ':SetLightMode<CR>')
-mymap('n', '<localleader>ut', ':ToggleDarkMode<CR>')
-mymap('n', '<localleader>uu', ':RandomizeBG<CR>')
+local refresh_gui_font = function()
+  vim.opt.guifont = string.format('%s:h%s', vim.g.gui_font_face, vim.g.gui_font_size)
+end
+
+local function neovideScale(amount)
+  local temp = vim.g.neovide_scale_factor + amount
+  if temp < 0.5 then
+    return
+  end
+  vim.g.neovide_scale_factor = temp
+end
+
+
+local resize_gui_font = function(delta)
+  vim.g.gui_font_size = o.font_size + delta
+  o.font_size = o.font_size + delta
+  refresh_gui_font()
+  neovideScale(delta/10)
+end
+
+vim.api.nvim_create_user_command(
+  'IncreaseGuiFont',
+  function()
+    resize_gui_font(1)
+  end,
+  {bang = true}
+)
+
+vim.api.nvim_create_user_command(
+  'DecreaseGuiFont',
+  function()
+    resize_gui_font(-1)
+  end,
+  {bang = true}
+)
+
+
+mymap('n', '<C-=>', function() resize_gui_font(1) end)
+mymap('n', '<C-->', function() resize_gui_font(-1) end)
+
+m.nname("u", "UI")
+m.nmap('<localleader>ud', ':SetDarkMode<CR>', "Dark mode")
+m.nmap('<localleader>ul', ':SetLightMode<CR>', "Light Mode")
+m.nmap('<localleader>ut', ':ToggleDarkMode<CR>', "Toggle dark/light")
+m.nmap('<localleader>uu', ':RandomizeBG<CR>', "Randomize background (waldark)")
+m.nmap('<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", "Zenmode")
 
 -- }}} UI bindings
 
@@ -472,6 +525,16 @@ end,
 )
 
 mymap("n", "<localleader>mm", ":MyJumpMarks<CR>")
+
+
+-- map("n", "<C-=>", function()
+--   neovideScale(0.1)
+-- end)
+--
+-- map("n", "<C-->", function()
+--   neovideScale(-0.1)
+-- end)
+
 
 
 -- TODO: find a home for this

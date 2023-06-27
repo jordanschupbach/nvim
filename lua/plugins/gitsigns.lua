@@ -3,16 +3,17 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
+
   config = function()
     require('gitsigns').setup {
+      sign_priority=1,
       signs = {
-        add = { text = '+' },
+        add = { text = '▍' },
         change = { text = '~' },
-        delete = { text = '_' },
+        delete = { text = '' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
     }
   end,
-
 }

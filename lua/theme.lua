@@ -47,6 +47,7 @@ vim.cmd [[highlight Dash guibg=#D19A66 gui=bold]]
 
 
 local set_lightmode = function()
+  vim.opt.background = 'light'
   vim.cmd [[colorscheme kanagawa-lotus]]
   vim.fn.setenv('LD_THEME', 'light')
   os.execute "export LD_THEME='light'"
@@ -56,6 +57,7 @@ local set_lightmode = function()
 end
 
 local set_darkmode = function()
+  vim.opt.background = 'dark'
   vim.cmd [[colorscheme kanagawa-wave]]
   vim.fn.setenv('LD_THEME', 'dark')
   os.execute "export LD_THEME='dark'"

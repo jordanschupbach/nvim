@@ -58,3 +58,26 @@ return {
     sidebar.setup(opts)
   end,
 }
+
+
+
+--   {
+--     'sidebar-nvim/sidebar.nvim',
+--     config = function()
+--       local sidebar = require 'sidebar-nvim'
+--       local opts = {
+--         open = true,
+--         side = 'right',
+--         sections = { 'datetime', 'git', 'diagnostics', 'todos', 'symbols' },
+--         todos = {
+--           icon = '',
+--           ignored_paths = { '~' }, -- ignore certain paths, this will prevent huge folders like $HOME to hog Neovim with TODO searching
+--           initially_closed = false, -- whether the groups should be initially closed on start. You can manually open/close groups later.
+--         },
+--         symbols = {
+--           icon = 'ƒ',
+--         },
+--       }
+--       sidebar.setup(opts)
+--     end,
+--   },

@@ -83,6 +83,23 @@ return {
     --  * <leader>fn new file
     --  * <leader>fe edit file
     -- and hide <leader>1
+    wk.register( {
+      h = {
+        name = 'Harpoon', -- group name
+        a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add' },
+        h = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Harpoon' },
+        j = { ':lua require("harpoon.ui").nav_next()<CR>', 'Next' },
+        k = { ':lua require("harpoon.ui").nav_prev()<CR>', 'Previous' },
+      },
+      -- t = {
+      --   name = 'Terminal', -- group name
+      --   t = { ':lua require("harpoon.term").gotoTerminal(1)<CR>', 'Terminal 1' },
+      --   a = { ':lua require("harpoon.term").gotoTerminal(1)<CR>', 'Terminal 1' },
+      --   s = { ':lua require("harpoon.term").gotoTerminal(2)<CR>', 'Terminal 2' },
+      --   d = { ':lua require("harpoon.term").gotoTerminal(3)<CR>', 'Terminal 3' },
+      --   f = { ':lua require("harpoon.term").gotoTerminal(4)<CR>', 'Terminal 4' },
+      -- },
+    }, { prefix = '<leader>' })
 
     wk.register({
 
@@ -134,11 +151,11 @@ return {
       },
 
 
-      f = {
-        name = 'Files',
-        -- f = { "<cmd>NvimTreeToggle<cr>", 'File Tree' },
-        f = { "<cmd>NeoTreeShowToggle<cr>", 'File Tree' },
-      },
+      -- f = {
+      --   name = 'Files',
+      --   -- f = { "<cmd>NvimTreeToggle<cr>", 'File Tree' },
+      --   f = { "<cmd>NeoTreeShowToggle<cr>", 'File Tree' },
+      -- },
 
 
       g = {
@@ -168,10 +185,10 @@ return {
         d = { ':Telescope lsp_definitions<CR>', 'Definition' },
       },
 
-      l = {
-        name = 'Jump', -- group name
-        l = { ':AerialToggle<CR>', 'Sidebar' },
-      },
+      -- l = {
+      --   name = 'Jump', -- group name
+      --   l = { ':AerialToggle<CR>', 'Sidebar' },
+      -- },
 
 
       m = {

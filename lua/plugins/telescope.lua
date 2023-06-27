@@ -8,6 +8,7 @@ return {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ["<C-h>"] = "which_key",
 
         -- IMPORTANT
         -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`

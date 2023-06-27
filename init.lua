@@ -1,6 +1,7 @@
 -- MisEnPlace
 -- my nvim configuration
 
+
 -- Lazy bootstrap
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -17,10 +18,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- pre-lazy requires
-require 'options'
--- require('autocommands')
--- require('dicthover')
--- require('rebuildjdtls')
+require 'vimopt'
 
 -- Setup plugins using lazy
 require('lazy').setup 'plugins'
@@ -28,7 +26,6 @@ require('lazy').setup 'plugins'
 -- Setup lsp (after lazy)
 require 'lsp'
 require 'utilities'
-
 
 require 'theme'
 
@@ -48,9 +45,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- hover = require("hover")
 
 require'lspconfig'.hls.setup{}
+require'lspconfig'.r_language_server.setup{}
 
-print("Hello world")
-
+-- Setup mappings last
 require 'mappings'
 
 -- vim: ts=2 sts=2 sw=2 et

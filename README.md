@@ -1,3 +1,3 @@
-# MiseEnPlace
+# NViM-MiseEnPlace
 
-My personal configs - this is for neovim
+My personal neovim distribution

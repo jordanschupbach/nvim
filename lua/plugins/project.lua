@@ -15,6 +15,7 @@ return {
       -- All the patterns used to detect root dir, when **"pattern"** is in
       -- detection_methods
       patterns = {
+        '.projectnvim',
         '.git',
         '_darcs',
         '.hg',

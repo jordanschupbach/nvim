@@ -181,7 +181,7 @@ return {
         a = { ':AnyJump<CR>', 'AnyJump' },
         b = { ':AnyJumpBack<CR>', 'AnyJumpBack' },
         j = { ':HopChar2<CR>', 'Jump (HopChar2)' },
-        l = { ':AnyJumpLastResult<CR>', 'AnyJumpLastResult' },
+        -- l = { ':AnyJumpLastResult<CR>', 'AnyJumpLastResult' },
         d = { ':Telescope lsp_definitions<CR>', 'Definition' },
       },
 

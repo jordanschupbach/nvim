@@ -1,42 +1,6 @@
--- {{{ Setup theme
+local utilities = require 'utilities'
 
-require 'utilities'
-
--- -- see if the file exists
--- function file_exists(file)
---   local f = io.open(file, "rb")
---   if f then f:close() end
---   return f ~= nil
--- end
---
--- -- get all lines from a file, returns an empty
--- -- list/table if the file does not exist
--- function lines_from(file)
---   if not file_exists(file) then return {} end
---   local lines = {}
---   for line in io.lines(file) do
---     lines[#lines + 1] = line
---   end
---   return lines
--- end
---
--- -- tests the functions above
--- local file = 'test.lua'
--- local lines = lines_from(file)
---
--- -- print all line numbers and their contents
--- for k,v in pairs(lines) do
---   print('line[' .. k .. ']', v)
--- end
-
--- print("hello world")
--- for k,v in pairs(dmode) do
---   print('line[' .. k .. ']', v)
--- end
-
--- TODO: something funny about the global darkmode variable
--- local ui = require(".misenplace.ui")
---ui.toggle_darkmode()
+local Darkmode = true
 
 vim.cmd [[highlight Headline1 guibg=#1e2718]]
 vim.cmd [[highlight Headline2 guibg=#21262d]]
@@ -68,7 +32,8 @@ local randomize_background = function()
 end
 
 -- Toggle darkmode
---- Sets LD_THEME environment variable, runs waldark and sets colorscheme
+--- Sets LD_THEME environment variable,
+--runs waldark and sets colorscheme
 local toggle_darkmode = function()
   -- Read in darkmode from file and toggle
   if Darkmode then
@@ -110,7 +75,8 @@ end
 
 set_wal()
 
-dmode = lines_from '/home/jordan/.scripts/.mode'
+local dmode = utilities.lines_from '/home/jordan/.scripts/.mode'
+
 if dmode[1] == 'dark' then
   Darkmode = true -- TODO: Load this from a cache
   set_darkmode()
@@ -121,7 +87,10 @@ else
   print 'was light'
 end
 
--- set_lightmode()
--- toggle_darkmode()
-
--- }}} Setup theme
+if Darkmode then
+  vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#1e1c16 guibg=#1e1c16]]
+  vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#1e1c16 guibg=#1e1c16]]
+else
+  vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#cccccc guibg=#cccccc]]
+  vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#cccccc guibg=#cccccc]]
+end

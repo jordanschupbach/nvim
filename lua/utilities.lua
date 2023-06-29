@@ -1,11 +1,13 @@
-function Dump(o)
+local utilities = {}
+
+utilities.dump = function(o)
   if type(o) == 'table' then
     local s = '{ '
     for k, v in pairs(o) do
       if type(k) ~= 'number' then
         k = '"' .. k .. '"'
       end
-      s = s .. '[' .. k .. '] = ' .. Dump(v) .. ','
+      s = s .. '[' .. k .. '] = ' .. utilities.dump(v) .. ','
     end
     return s .. '} '
   else
@@ -16,7 +18,7 @@ end
 -- http://lua-users.org/wiki/FileInputOutput
 
 -- see if the file exists
-function file_exists(file)
+utilities.file_exists = function(file)
   local f = io.open(file, 'rb')
   if f then
     f:close()
@@ -26,8 +28,8 @@ end
 
 -- get all lines from a file, returns an empty
 -- list/table if the file does not exist
-function lines_from(file)
-  if not file_exists(file) then
+utilities.lines_from = function(file)
+  if not utilities.file_exists(file) then
     return {}
   end
   local lines = {}
@@ -37,23 +39,16 @@ function lines_from(file)
   return lines
 end
 
-function waldark_toggle()
+utilities.waldark_toggle = function()
   io.popen 'waldark '
 end
 
-function waldark_dark()
+utilities.waldark_dark = function()
   io.popen 'waldark --dark'
 end
 
-function waldark_light()
+utilities.waldark_light = function()
   io.popen 'waldark --light'
 end
 
--- -- tests the functions above
--- local file = 'test.lua'
--- local lines = lines_from(file)
-
--- -- print all line numbers and their contents
--- for k,v in pairs(lines) do
---   print('line[' .. k .. ']', v)
--- end
+return utilities

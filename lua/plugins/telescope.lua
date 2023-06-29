@@ -9,18 +9,22 @@ return {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
         ['<C-h>'] = 'which_key',
+        ['<C-s>'] = 'delete',
 
         -- IMPORTANT
         -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
         -- ["<C-h>"] = require("telescope.nvim").extensions.hop.hop,  -- hop.hop_toggle_selection
         -- custom hop loop to multi selects and sending selected entries to quickfix list
-        ['<C-space>'] = function(prompt_bufnr)
-          local opts = {
-            callback = actions.toggle_selection,
-            loop_callback = actions.send_selected_to_qflist,
-          }
-          require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
-        end,
+        -- ['<C-space>'] = function(prompt_bufnr)
+        --   local opts = {
+        --     callback = actions.toggle_selection,
+        --     loop_callback = actions.send_selected_to_qflist,
+        --   }
+        --   require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
+        -- end,
+      },
+      n = {
+        ['d'] = 'delete',
       },
     },
   },
@@ -37,6 +41,8 @@ return {
     'smartpde/telescope-recent-files',
     'tyru/open-browser.vim',
     'fhill2/telescope-ultisnips.nvim',
+    "AckslD/nvim-neoclip.lua",
+    'xiyaowong/telescope-emoji.nvim',
   },
   -- keys = {
   --   { "<localleader>po", "<cmd>Telescope project<cr>", desc = "NeoTree"},
@@ -57,6 +63,18 @@ return {
           override_file_sorter = true, -- override the file sorter
           case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
+        },
+
+        -- https://github.com/xiyaowong/telescope-emoji.nvim
+        emoji = {
+          action = function(emoji)
+            -- argument emoji is a table.
+            -- {name="", value="", cagegory="", description=""}
+            vim.fn.setreg("*", emoji.value)
+            print([[Press p or "*p to paste this emoji]] .. emoji.value)
+            -- insert emoji when picked
+            vim.api.nvim_put({ emoji.value }, 'c', false, true)
+          end,
         },
 
         hop = {
@@ -122,6 +140,10 @@ return {
     require('telescope').setup {}
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension 'luasnip')
+    pcall(require('telescope').load_extension 'neoclip')
+    pcall(require('telescope').load_extension 'session-lens')
+
+    pcall(require("telescope").load_extension("emoji"))
     pcall(require('telescope').load_extension 'file_browser')
     pcall(require('telescope').load_extension, 'project')
     pcall(require('telescope').load_extension, 'ag')

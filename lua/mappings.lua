@@ -88,7 +88,10 @@ m.nmap('gd', '<cmd>Lspsaga goto_definition<CR>', 'LSP: [g]oto [d]efinition')
 m.nmap('gf', '<cmd>Lspsaga lsp_finder<CR>', 'LSP: [g]o [f]ind')
 m.nmap('gt', '<cmd>Lspsaga peek_type_definition<CR>', 'LSP: [g]oto [t]ypedef (peek)')
 m.nmap('gT', '<cmd>Lspsaga goto_type_definition<CR>', 'LSP: [g]oto [t]ypedef')
+m.nmap('gr', ':Telescope lsp_references theme=ivy<CR>', 'LSP: [g]oto [r]eferences')
+m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 -- }}} Go(To) mappings
+
 
 -- {{{ LSP mappings
 mymap('n', 'K', '<cmd>Lspsaga hover_doc ++keep<CR>')
@@ -106,7 +109,7 @@ m.nmap('<localleader>lk', ':DocsViewToggle<CR>')
 m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 m.nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+-- m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 m.nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 m.nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 m.nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
@@ -132,7 +135,7 @@ m.nmap('<space>wl', function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, 'Workspace List')
 m.nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
-m.nmap('gr', vim.lsp.buf.references, 'Buffer References')
+-- m.nmap('gr', vim.lsp.buf.references, 'Buffer References')
 m.nmap('<space>f', vim.lsp.buf.formatting, 'Format Buffer')
 
 -- m.nmap("<localleader>lr", ":LspRestart<Cr>", "Restart LSP")
@@ -151,12 +154,23 @@ m.nmap('<leader>sc', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Cursor diagnos
 
 -- {{{ Jump bindings
 mymap('n', 'ss', ':HopWord<cr>')
+
+m.nmap('<leader>o', '<cmd>Portal jumplist backward<cr>', 'Portal jump back')
+m.nmap('<leader>i', '<cmd>Portal jumplist forward<cr>', 'Portal jump forward')
+
+m.nmap('<M-o>', ":lua require('bufjump').backward()<cr>", 'Bufjump back')
+m.nmap('<M-i>', ":lua require('bufjump').forward()<cr>", 'Bufjump forward')
+m.nmap('<localleader>jl', ':Telescope jumplist<CR>', 'Jumplist')
+
+-- vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
+-- vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
+
 -- }}} Jump bindings
 
 -- TODO: figure out why these remaps aren't working....
 -- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
 -- vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', '<C-i>', '<Tab>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-i>', '<Tab>', { noremap = true, silent = true })
 
 -- {{{ fix to use mymap
 -- Keymaps for better default experience
@@ -207,6 +221,7 @@ mymap('n', 'gt', ':lua require("goto-preview").goto_type_implementation()<CR>')
 mymap('n', '<A-return>', ':SlimeSendCurrentLine<CR>')
 mymap('v', '<A-return>', ':SlimeSend<CR>')
 mymap('v', 's', ':SlimeSend<CR>')
+mymap('v', 'S', ':SlimeSend<CR>')
 -- }}} GoTo bindings
 
 -- {{{ Tabs
@@ -345,10 +360,11 @@ mymap('n', '<localleader>pf', ':Telescope fd theme=ivy<CR>')
 mymap('n', '<localleader>po', ':Telescope project theme=ivy<CR>')
 mymap('n', '<localleader>pr', ':Telescope live_grep theme=ivy<CR>')
 mymap('n', '/', ':Telescope current_buffer_fuzzy_find theme=ivy<CR>')
-mymap('n', '<A-x>', ':Telescope builtin theme=ivy<CR>')
-mymap('i', '<A-x>', ':Telescope builtin theme=ivy<CR>')
 mymap('n', '<C-p>', ':Telescope <CR>')
 mymap('n', '<localleader><CR>', ':terminal<CR>')
+
+mymap('n', '<A-x>', ':Telescope commands theme=ivy<CR>')
+mymap('i', '<A-x>', ':Telescope commands theme=ivy<CR>')
 -- }}} Telescope
 
 -- {{{ Commenting

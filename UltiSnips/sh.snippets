@@ -29,6 +29,12 @@ snippet #! "#!/usr/bin/env (!env)" b
 `!p snip.rv = '#!/usr/bin/env ' + getShell() + "\n" `
 endsnippet
 
+
+snippet checkforfolder "Check for a Folder" b
+[ -d ~/foldername ]
+endsnippet
+
+
 snippet sbash "safe bash options" b
 #!/usr/bin/env bash
 set -euo pipefail

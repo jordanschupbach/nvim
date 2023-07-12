@@ -28,6 +28,36 @@ return {
       git_change = utils.get_highlight('diffChanged').fg,
     }
 
+    local function setup_colors()
+      return {
+        bright_bg = utils.get_highlight("Folded").bg,
+        bright_fg = utils.get_highlight("Folded").fg,
+        red = utils.get_highlight("DiagnosticError").fg,
+        dark_red = utils.get_highlight("DiffDelete").bg,
+        green = utils.get_highlight("String").fg,
+        blue = utils.get_highlight("Function").fg,
+        gray = utils.get_highlight("NonText").fg,
+        orange = utils.get_highlight("Constant").fg,
+        purple = utils.get_highlight("Statement").fg,
+        cyan = utils.get_highlight("Special").fg,
+        diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+        diag_error = utils.get_highlight("DiagnosticError").fg,
+        diag_hint = utils.get_highlight("DiagnosticHint").fg,
+        diag_info = utils.get_highlight("DiagnosticInfo").fg,
+        git_del = utils.get_highlight("diffDeleted").fg,
+        git_add = utils.get_highlight("diffAdded").fg,
+        git_change = utils.get_highlight("diffChanged").fg,
+      }
+    end
+
+    vim.api.nvim_create_augroup("Heirline", { clear = true })
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = function()
+        utils.on_colorscheme(setup_colors)
+      end,
+      group = "Heirline",
+    })
+
     -- Vi Mode {{{
     local ViMode = {
       -- get vim current mode, this information will be required by the provider
@@ -134,7 +164,7 @@ return {
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ':e')
         self.icon, self.icon_color =
-          require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+            require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
       end,
       provider = function(self)
         return self.icon and (self.icon .. ' ')
@@ -200,7 +230,7 @@ return {
       FileIcon,
       utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
       FileFlags,
-      { provider = '%<' } -- this means that the statusline is cut here when there's not enough space
+      { provider = '%<' }                      -- this means that the statusline is cut here when there's not enough space
     )
 
     -- }}} FileNameBlock
@@ -302,8 +332,8 @@ return {
         self.status_dict = vim.b.gitsigns_status_dict
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
       end,
-
       hl = { fg = 'orange' },
+
 
       { -- git branch name
         provider = function(self)
@@ -348,9 +378,83 @@ return {
     }
     -- }}} Git
 
+
+    -- {{{ Tabpage
+    local Tabpage = {
+      provider = function(self)
+        return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
+      end,
+      hl = function(self)
+        if not self.is_active then
+          return "TabLine"
+        else
+          return "TabLineSel"
+        end
+      end,
+    }
+
+    local TabpageClose = {
+      provider = "%999X  %X",
+      hl = "TabLine",
+    }
+
+    local TabPages = {
+      -- only show this component if there's 2 or more tabpages
+      condition = function()
+        return #vim.api.nvim_list_tabpages() >= 2
+      end,
+      { provider = "%=" },
+      utils.make_tablist(Tabpage),
+      TabpageClose,
+    }
+
+
+    -- }}} Tabpage
+
+
+
+
+    -- {{{ Tabline offset
+    local TabLineOffset = {
+      condition = function(self)
+        local win = vim.api.nvim_tabpage_list_wins(0)[1]
+        local bufnr = vim.api.nvim_win_get_buf(win)
+        self.winid = win
+
+        if vim.bo[bufnr].filetype == "NvimTree" then
+          self.title = "NvimTree"
+          return true
+          -- elseif vim.bo[bufnr].filetype == "TagBar" then
+          --     ...
+        end
+      end,
+
+      provider = function(self)
+        local title = self.title
+        local width = vim.api.nvim_win_get_width(self.winid)
+        local pad = math.ceil((width - #title) / 2)
+        return string.rep(" ", pad) .. title .. string.rep(" ", pad)
+      end,
+
+      hl = function(self)
+        if vim.api.nvim_get_current_win() == self.winid then
+          return "TablineSel"
+        else
+          return "Tabline"
+        end
+      end,
+    }
+
+    -- }}} Tabline offset
+
+local Align = { provider = "%=" }
+local Space = { provider = " " }
+
     local StatusLine = {
       { ViMode },
+      { Space },
       { FileNameBlock },
+      { Align },
       { LSPActive },
       { Diagnostics },
       { Git },

@@ -2,7 +2,7 @@ local util = require 'vim.lsp.util'
 
 local M = {}
 
-docBufferHandle = 0
+local docBufferHandle = 0
 
 -- shows doc in a buffer below
 M.hover = function()
@@ -24,7 +24,7 @@ M.hover = function()
 
     -- nvim.fn.bufexists("asdf")
     -- print("Hello" .. name)
-    local doc_buf_exists = (vim.fn.bufexists 'myDoc' == 1)
+    local doc_buf_exists = (vim.fn.bufexists("myDoc") == 1)
     if not doc_buf_exists then
       vim.api.nvim_command [[ vsplit myDoc ]]
       docBufferHandle = vim.api.nvim_get_current_buf()
@@ -41,8 +41,8 @@ M.hover = function()
       local IsDocBufferVisible = false
       local DocWindowHandle = 0
       local wins = vim.api.nvim_list_wins()
-      for k, v in pairs(wins) do
-        buf = vim.api.nvim_win_get_buf(v)
+      for _, v in pairs(wins) do
+        local buf = vim.api.nvim_win_get_buf(v)
         if buf == docBufferHandle then
           IsDocBufferVisible = true
           DocWindowHandle = v

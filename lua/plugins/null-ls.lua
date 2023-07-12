@@ -25,14 +25,8 @@ return {
         null_ls.builtins.diagnostics.checkstyle.with {
           -- args = { "-f", "sarif", vim.api.nvim_buf_get_name(0), "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
           -- args = { "-f", "sarif", "/home/jordan/work/navy/JSAPPHIRE/subprojects/reasonerxmlio/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
-          -- args = { "-f", "sarif", "/home/jordan/git_repos/reu2023/*", "-c", "/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml" },
-          args = {
-            '-f',
-            'sarif',
-            '/home/jordan/work/navy/JSAPPHIRE/javabayesnet/*',
-            '-c',
-            '/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml',
-          },
+          args = { "-f", "sarif", "/home/jordan/git_repos/reu2023/*", "-c", "/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml" },
+          -- args = { '-f', 'sarif', '/home/jordan/work/navy/JSAPPHIRE/charm/*', '-c', '/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml', },
           -- args = { "-f", "sarif", "/home/jordan/templates/jtemplate/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
           -- args = { "-f", "sarif", ".", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
         },

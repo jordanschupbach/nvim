@@ -2,6 +2,7 @@
 
 local o = require 'options'
 
+
 -- {{{ mymap fun
 --- Adds a new normal binding map.
 --- Examples:
@@ -76,6 +77,8 @@ mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()<CR>')
 
 local m = require('mapx').setup { global = true, whichkey = true }
 
+m.nmap('vv', 'V', 'visual line')
+
 -- {{{ Code action mappings
 m.vmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
@@ -91,7 +94,6 @@ m.nmap('gT', '<cmd>Lspsaga goto_type_definition<CR>', 'LSP: [g]oto [t]ypedef')
 m.nmap('gr', ':Telescope lsp_references theme=ivy<CR>', 'LSP: [g]oto [r]eferences')
 m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 -- }}} Go(To) mappings
-
 
 -- {{{ LSP mappings
 mymap('n', 'K', '<cmd>Lspsaga hover_doc ++keep<CR>')
@@ -166,11 +168,6 @@ m.nmap('<localleader>jl', ':Telescope jumplist<CR>', 'Jumplist')
 -- vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
 
 -- }}} Jump bindings
-
--- TODO: figure out why these remaps aren't working....
--- vim.api.nvim_set_keymap('n', "<C-o>", "<C-O>", { noremap = false, silent = true })
--- vim.api.nvim_set_keymap('n', "<C-i>", "<Tab>", { noremap = false, silent = true })
--- vim.api.nvim_set_keymap('n', '<C-i>', '<Tab>', { noremap = true, silent = true })
 
 -- {{{ fix to use mymap
 -- Keymaps for better default experience

@@ -1,4 +1,5 @@
 return {
+  'sindrets/diffview.nvim',
   'jubnzv/virtual-types.nvim',
   'ap/vim-css-color',
   'wfxr/minimap.vim',
@@ -18,7 +19,7 @@ return {
   'jpalardy/vim-slime',
   'mfussenegger/nvim-jdtls',
   'mfussenegger/nvim-dap',
-  'mtikekar/nvim-send-to-term',
+  -- 'mtikekar/nvim-send-to-term',
   'nvim-lua/plenary.nvim',
   'nvim-neotest/neotest-python',
   'nvim-neotest/neotest-plenary',

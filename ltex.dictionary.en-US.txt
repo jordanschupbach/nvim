@@ -1,2 +1,4 @@
 MiseEnPlace
 neovim
+neovim
+NViM-MiseEnPlace

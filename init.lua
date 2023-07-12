@@ -15,3 +15,5 @@ require 'utilities'
 require 'theme'
 require 'commands'
 require 'mappings'
+
+print(vim.fn.stdpath('data'))

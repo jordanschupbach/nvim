@@ -1,5 +1,22 @@
 return {
   'nvim-telescope/telescope.nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'nvim-telescope/telescope-project.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-symbols.nvim',
+    'nvim-telescope/telescope-hop.nvim',
+    'L3MON4D3/LuaSnip',
+    'kelly-lin/telescope-ag',
+    'benfowler/telescope-luasnip.nvim',
+    'nvim-lua/plenary.nvim',
+    'smartpde/telescope-recent-files',
+    'tyru/open-browser.vim',
+    'fhill2/telescope-ultisnips.nvim',
+    "AckslD/nvim-neoclip.lua",
+    'xiyaowong/telescope-emoji.nvim',
+    'folke/flash.nvim',
+  },
   defaults = {
     prompt_prefix = ' ',
     selection_caret = '📌 ',
@@ -9,7 +26,7 @@ return {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
         ['<C-h>'] = 'which_key',
-        ['<C-s>'] = 'delete',
+        -- ['<C-s>'] = 'delete',
 
         -- IMPORTANT
         -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
@@ -28,22 +45,33 @@ return {
       },
     },
   },
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    'nvim-telescope/telescope-project.nvim',
-    'nvim-telescope/telescope-file-browser.nvim',
-    'nvim-telescope/telescope-symbols.nvim',
-    'nvim-telescope/telescope-hop.nvim',
-    'L3MON4D3/LuaSnip',
-    'kelly-lin/telescope-ag',
-    'benfowler/telescope-luasnip.nvim',
-    'nvim-lua/plenary.nvim',
-    'smartpde/telescope-recent-files',
-    'tyru/open-browser.vim',
-    'fhill2/telescope-ultisnips.nvim',
-    "AckslD/nvim-neoclip.lua",
-    'xiyaowong/telescope-emoji.nvim',
-  },
+  optional = true,
+  opts = function(_, opts)
+    local function flash(prompt_bufnr)
+    require('flash').jump {
+      pattern = '^',
+      label = { after = { 0, 0 } },
+      search = {
+        mode = 'search',
+        exclude = {
+          function(win)
+            return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= 'TelescopeResults'
+          end,
+        },
+      },
+      action = function(match)
+        local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+        picker:set_selection(match.pos[1] - 1)
+      end,
+    }
+    end
+    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+      mappings = {
+        n = { s = flash },
+        i = { ["<c-s>"] = flash },
+      },
+    })
+  end,
   -- keys = {
   --   { "<localleader>po", "<cmd>Telescope project<cr>", desc = "NeoTree"},
   --   { "<localleader>yy", "<cmd>Telescope luasnip<cr>", desc = "NeoTree"},
@@ -141,7 +169,7 @@ return {
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension 'luasnip')
     pcall(require('telescope').load_extension 'neoclip')
-    pcall(require('telescope').load_extension 'session-lens')
+    -- pcall(require('telescope').load_extension 'session-lens')
 
     pcall(require("telescope").load_extension("emoji"))
     pcall(require('telescope').load_extension 'file_browser')

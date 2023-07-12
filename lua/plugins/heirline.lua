@@ -58,6 +58,19 @@ return {
       group = "Heirline",
     })
 
+    -- {{{ HelpFileName
+    local HelpFileName = {
+      condition = function()
+        return vim.bo.filetype == "help"
+      end,
+      provider = function()
+        local filename = vim.api.nvim_buf_get_name(0)
+        return vim.fn.fnamemodify(filename, ":t")
+      end,
+      hl = { fg = colors.blue },
+    }
+    -- }}} HelpFileName
+
     -- Vi Mode {{{
     local ViMode = {
       -- get vim current mode, this information will be required by the provider
@@ -149,6 +162,15 @@ return {
     }
 
     -- Vi Mode }}}
+
+    -- {{{ FileType
+    local FileType = {
+      provider = function()
+        return string.upper(vim.bo.filetype)
+      end,
+      hl = { fg = utils.get_highlight("Type").fg, bold = true },
+    }
+    -- }}} FileType
 
     -- {{{ FileNameBlock
     local FileNameBlock = {
@@ -247,7 +269,7 @@ return {
       -- Or complicate things a bit and get the servers names
       provider = function()
         local names = {}
-        for i, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
+        for _, server in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
           table.insert(names, server.name)
         end
         return ' [' .. table.concat(names, ' ') .. ']'
@@ -378,7 +400,6 @@ return {
     }
     -- }}} Git
 
-
     -- {{{ Tabpage
     local Tabpage = {
       provider = function(self)
@@ -410,9 +431,6 @@ return {
 
 
     -- }}} Tabpage
-
-
-
 
     -- {{{ Tabline offset
     local TabLineOffset = {
@@ -447,10 +465,10 @@ return {
 
     -- }}} Tabline offset
 
-local Align = { provider = "%=" }
-local Space = { provider = " " }
+    local Align = { provider = "%=" }
+    local Space = { provider = " " }
 
-    local StatusLine = {
+    local DefaultStatusline = {
       { ViMode },
       { Space },
       { FileNameBlock },
@@ -461,11 +479,77 @@ local Space = { provider = " " }
       -- { LSPMessages },
     }
 
+    local InactiveStatusline = {
+      condition = conditions.is_not_active,
+      FileType,
+      Space,
+      FileName,
+      Align,
+    }
+
+
+    local SpecialStatusline = {
+      condition = function()
+        return conditions.buffer_matches({
+          buftype = { "nofile", "prompt", "help", "quickfix" },
+          filetype = { "^git.*", "fugitive" },
+        })
+      end,
+
+      FileType,
+      Space,
+      HelpFileName,
+      Align
+    }
+
+    local TerminalName = {
+      -- we could add a condition to check that buftype == 'terminal'
+      -- or we could do that later (see #conditional-statuslines below)
+      provider = function()
+        local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
+        return " " .. tname
+      end,
+      hl = { fg = "blue", bold = true },
+    }
+
+    local TerminalStatusline = {
+      condition = function()
+        return conditions.buffer_matches({ buftype = { "terminal" } })
+      end,
+      hl = { bg = "dark_red" },
+      -- Quickly add a condition to the ViMode to only show it when buffer is active!
+      { condition = conditions.is_active, ViMode, Space },
+      FileType,
+      Space,
+      TerminalName,
+      Align,
+    }
+
+
+    local StatusLines = {
+      hl = function()
+        if conditions.is_active() then
+          return "StatusLine"
+        else
+          return "StatusLineNC"
+        end
+      end,
+      -- the first statusline with no condition, or which condition returns true is used.
+      -- think of it as a switch case with breaks to stop fallthrough.
+      fallthrough = false,
+      SpecialStatusline,
+      TerminalStatusline,
+      InactiveStatusline,
+      DefaultStatusline,
+    }
+
+
+
     local WinBar = { {}, { {}, {} } }
-    local TabLine = { {}, {}, {} }
+    local TabLine = { { TabPages }, {}, {} }
 
     require('heirline').setup {
-      statusline = StatusLine,
+      statusline = StatusLines,
       winbar = WinBar,
       tabline = TabLine,
       opts = {

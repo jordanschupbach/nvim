@@ -9,10 +9,10 @@ return {
       sign_priority = 1,
       signs = {
         add = { text = '▍' },
-        change = { text = '~' },
-        delete = { text = '' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+        change = { text = '▍' },
+        delete = { text = '▍' },
+        topdelete = { text = '▍' },
+        changedelete = { text = '▍' },
       },
     }
   end,

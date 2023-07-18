@@ -15,6 +15,7 @@ local set_lightmode = function ()
   else
     vim.cmd [[colorscheme zellner]]
   end
+  -- vim.cmd [[colorscheme zellner]]
   vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
   vim.fn.setenv('LD_THEME', 'light')
   if (ju.exists(conf.default_light_wallpaper) and g.darkmode) then
@@ -37,6 +38,7 @@ local set_darkmode = function()
   else
     vim.cmd [[colorscheme slate]]
   end
+  -- vim.cmd [[colorscheme slate]]
   vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
   if (ju.exists(conf.default_dark_wallpaper) and not g.darkmode) then
 	  os.execute('DISPLAY=:0 feh --bg-scale ' .. conf.default_dark_wallpaper)
@@ -122,7 +124,7 @@ local dmode = ju.lines_from('/home/jordan/.scripts/.mode')
 --   set_lightmode()
 --   print 'was light'
 -- end
--- 
+--
 -- if Darkmode then
 --   vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#1e1c16 guibg=#1e1c16]]
 --   vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#1e1c16 guibg=#1e1c16]]
@@ -130,8 +132,3 @@ local dmode = ju.lines_from('/home/jordan/.scripts/.mode')
 --   vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#cccccc guibg=#cccccc]]
 --   vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#cccccc guibg=#cccccc]]
 -- end
-
-
-
-
-

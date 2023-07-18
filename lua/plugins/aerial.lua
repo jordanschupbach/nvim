@@ -1,3 +1,5 @@
+-- https://github.com/stevearc/aerial.nvim
+
 return {
   'stevearc/aerial.nvim',
   config = function()

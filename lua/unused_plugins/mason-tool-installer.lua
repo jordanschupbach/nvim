@@ -30,6 +30,7 @@ return {
         'impl',
         'json-to-struct',
         'luacheck',
+        'mypy',
         'misspell',
         'revive',
         'shellcheck',

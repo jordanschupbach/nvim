@@ -1,3 +1,5 @@
+-- https://github.com/folke/lsp-colors.nvim
+
 return {
   'folke/lsp-colors.nvim',
   config = function()

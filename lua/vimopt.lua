@@ -9,7 +9,8 @@ vimopt.belloff = 'all'
 -------------------------------------------------------------------------------
 
 vim.opt.spelllang = 'en_us'
-vim.opt.spell = true
+-- vim.opt.spell = true
+vim.opt.spell = false
 
 vim.g.gitblame_enabled = 0
 
@@ -357,7 +358,7 @@ vimopt.shada = {
 -------------------------------------------------------------------------------
 
 -- vim.opt.background = "dark"
-vim.opt.background = 'light'
+-- vim.opt.background = 'light'
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 

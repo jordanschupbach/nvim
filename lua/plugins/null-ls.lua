@@ -1,5 +1,8 @@
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main
+
 return {
   'jose-elias-alvarez/null-ls.nvim', -- Formatting engine
+  dependencies = {'lewis6991/gitsigns.nvim'},
   ft = { 'cpp', 'java', 'lua', 'r', 'python', 'markdown', 'zig' },
   config = function()
     local null_ls = require 'null-ls'

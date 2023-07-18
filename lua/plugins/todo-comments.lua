@@ -1,3 +1,5 @@
+-- https://github.com/folke/todo-comments.nvim
+
 return {
   'folke/todo-comments.nvim',
   requires = 'nvim-lua/plenary.nvim',

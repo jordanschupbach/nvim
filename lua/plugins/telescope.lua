@@ -1,3 +1,5 @@
+-- https://github.com/nvim-telescope/telescope.nvim
+
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
@@ -6,6 +8,7 @@ return {
     'nvim-telescope/telescope-file-browser.nvim',
     'nvim-telescope/telescope-symbols.nvim',
     'nvim-telescope/telescope-hop.nvim',
+    -- 'nvim-telescope/telescope-ui-select.nvim',
     'L3MON4D3/LuaSnip',
     'kelly-lin/telescope-ag',
     'benfowler/telescope-luasnip.nvim',
@@ -19,7 +22,7 @@ return {
   },
   defaults = {
     prompt_prefix = ' ',
-    selection_caret = '📌 ',
+    selection_caret = '* ', -- TODO: CHANGEME
     path_display = { 'smart' },
     mappings = {
       i = {
@@ -82,14 +85,20 @@ return {
   config = function()
     require('telescope').setup {
       prompt_prefix = ' ',
-      selection_caret = '📌 ',
+      selection_caret = '* ',
       path_display = { 'smart' },
       extensions = {
+        -- ["ui-select"] = {
+        --   require("telescope.themes").get_dropdown {
+        --     -- even more opts
+        --   },
+        -- },
+
         fzf = {
-          fuzzy = true, -- false will only do exact matching
+          fuzzy = true,                   -- false will only do exact matching
           override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true, -- override the file sorter
-          case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+          override_file_sorter = true,    -- override the file sorter
+          case_mode = 'smart_case',       -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
         },
 
@@ -172,6 +181,7 @@ return {
     -- pcall(require('telescope').load_extension 'session-lens')
 
     pcall(require("telescope").load_extension("emoji"))
+    -- pcall(require("telescope").load_extension("ui-select"))
     pcall(require('telescope').load_extension 'file_browser')
     pcall(require('telescope').load_extension, 'project')
     pcall(require('telescope').load_extension, 'ag')

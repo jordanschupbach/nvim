@@ -5,21 +5,15 @@ return {
   -- You can optionally lazy-load heirline on UiEnter
   -- to make sure all required plugins and colorschemes are loaded before setup
   -- event = "UiEnter",
-  dependencies = {
-    "glepnir/lspsaga.nvim",
-    "SmiteshP/nvim-navic",
-    "nvim-tree/nvim-web-devicons",
-},
+  dependencies = {"glepnir/lspsaga.nvim"},
   config = function()
     local conditions = require 'heirline.conditions'
     local utils = require 'heirline.utils'
 
     -- {{{ Colors
     local colors = {
-        -- bright_bg = utils.get_highlight("Folded").bg,
-        -- bright_fg = utils.get_highlight("Folded").fg,
-        bright_bg = utils.get_highlight("NonText").fg,
-        bright_fg = utils.get_highlight("NonText").fg,
+      bright_bg = utils.get_highlight('Folded').bg,
+      bright_fg = utils.get_highlight('Folded').fg,
       red = utils.get_highlight('DiagnosticError').fg,
       dark_red = utils.get_highlight('DiffDelete').bg,
       green = utils.get_highlight('String').fg,
@@ -39,10 +33,8 @@ return {
 
     local function setup_colors()
       return {
-        -- bright_bg = utils.get_highlight("Folded").bg,
-        -- bright_fg = utils.get_highlight("Folded").fg,
-        bright_bg = utils.get_highlight("NonText").fg,
-        bright_fg = utils.get_highlight("NonText").fg,
+        bright_bg = utils.get_highlight("Folded").bg,
+        bright_fg = utils.get_highlight("Folded").fg,
         red = utils.get_highlight("DiagnosticError").fg,
         dark_red = utils.get_highlight("DiffDelete").bg,
         green = utils.get_highlight("String").fg,

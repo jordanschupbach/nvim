@@ -1,3 +1,5 @@
+-- https://github.com/folke/trouble.nvim
+
 return {
   'folke/trouble.nvim',
   config = function()
@@ -40,8 +42,8 @@ return {
       auto_jump = { 'lsp_definitions' }, -- for the given modes, automatically jump if there is only a single result
       signs = {
         -- icons / text used for a diagnostic
-        error = '',
-        warning = '',
+        error = '',
+        warning = '',
         hint = '',
         information = '',
         other = '﫠',

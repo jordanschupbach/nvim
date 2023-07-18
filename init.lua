@@ -1,19 +1,23 @@
 -- MisEnPlace
 
+
 -- Boostrap Lazy
-require 'lazybootstrap'
+require('lazybootstrap')
 
 -- pre-plugin requires
-require 'vimopt'
+-- g = require('global-vars')
+--- - local ju = require('jutils')
+-- local config = require('config')
+require('vimopt')
 
+-- require('plugin-free-commands')
+-- require('global-vars')
 -- Setup plugins using lazy
-require('lazy').setup 'plugins'
+require('lazy').setup('plugins')
+require('newtheme')
 
 -- post-plugin requires
-require 'lsp'
-require 'utilities'
-require 'theme'
-require 'commands'
+-- require 'lsp'
 require 'mappings'
 
-print(vim.fn.stdpath('data'))
+-- print(vim.fn.stdpath('data'))

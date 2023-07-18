@@ -1,5 +1,7 @@
 local utilities = require 'utilities'
 
+g = require('globals')
+
 local Darkmode = true
 
 vim.cmd [[highlight Headline1 guibg=#1e2718]]
@@ -15,6 +17,7 @@ local set_lightmode = function()
   os.execute 'waldark --light'
   os.execute "sed -i -- 's/dark/light/' ~/.scripts/.mode"
   Darkmode = false
+  g.darkmode = false
 end
 
 local set_darkmode = function()
@@ -22,9 +25,11 @@ local set_darkmode = function()
   vim.cmd [[colorscheme kanagawa-wave]]
   vim.fn.setenv('LD_THEME', 'dark')
   os.execute "export LD_THEME='dark'"
-  os.execute 'waldark --dark'
+  -- os.execute 'waldark --dark'
+  os.execute 'wal -i /home/jordan/wallpapers/dark_wallpapers/neon-cyberpunk-wallpaper.jpg'
   os.execute "sed -i -- 's/light/dark/' ~/.scripts/.mode"
   Darkmode = true
+  g.darkmode = true
 end
 
 local randomize_background = function()
@@ -45,23 +50,11 @@ local toggle_darkmode = function()
   end
 end
 
-vim.api.nvim_create_user_command('ToggleDarkMode', function()
-  toggle_darkmode()
-end, {
-  desc = 'Toggle Dark Mode',
-})
 
-vim.api.nvim_create_user_command('SetDarkMode', function()
-  set_darkmode()
-end, {
-  desc = 'Set Dark Mode',
-})
+local set_wal = function()
+  vim.o.colorscheme = 'wal'
+end
 
-vim.api.nvim_create_user_command('SetLightMode', function()
-  set_lightmode()
-end, {
-  desc = 'Set Light Mode',
-})
 
 vim.api.nvim_create_user_command('RandomizeBG', function()
   randomize_background()
@@ -69,9 +62,24 @@ end, {
   desc = 'Set Light Mode',
 })
 
-local set_wal = function()
-  vim.o.colorscheme = 'wal'
-end
+vim.api.nvim_create_user_command('SetDarkMode', function()
+  ju.set_darkmode()
+end, {
+  desc = 'Set Dark Mode',
+})
+
+vim.api.nvim_create_user_command('SetLightMode', function()
+  ju.set_lightmode()
+end, {
+  desc = 'Set Light Mode',
+})
+
+vim.api.nvim_create_user_command('ToggleDarkMode', function()
+  ju.toggle_darkmode()
+end, {
+  desc = 'Toggle Dark Mode',
+})
+
 
 set_wal()
 
@@ -94,3 +102,6 @@ else
   vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#cccccc guibg=#cccccc]]
   vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#cccccc guibg=#cccccc]]
 end
+
+
+

@@ -1,0 +1,14 @@
+snippet condaenv "CondaEnvironment" b
+# Conda Environment for Project: ${0:ProjectName}
+name: ${0:ProjectName}
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - scikit-learn
+  - numpy
+  - matplotlib
+  - pip
+  - pip:
+    - pip
+endsnippet

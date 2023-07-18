@@ -79,6 +79,8 @@ local m = require('mapx').setup { global = true, whichkey = true }
 
 m.nmap('vv', 'V', 'visual line')
 
+m.nmap('<C-TAB>', ":tabnext", "Next tab")
+
 -- {{{ Code action mappings
 m.vmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
@@ -96,7 +98,10 @@ m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 -- }}} Go(To) mappings
 
 -- {{{ LSP mappings
-mymap('n', 'K', '<cmd>Lspsaga hover_doc ++keep<CR>')
+
+m.nmap('K', '<cmd>Lspsaga hover_doc ++keep<CR>', 'Hover Documentation')
+-- m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+
 m.nname('<localleader>l', 'LSP')
 m.nmap('<leader>la', ':CodeActionMenu<CR>', 'Code Actions')
 m.nmap('<localleader>ll', ':AerialToggle<CR>', 'Toggle Outline')
@@ -109,7 +114,8 @@ m.nmap('<localleader>ltl', ':LspLensToggle<CR>')
 m.nmap('<localleader>lk', ':DocsViewToggle<CR>')
 
 m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-m.nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+m.nmap('<leader>ca', ":lua vim.lsp.buf.code_action()<CR>", '[C]ode [A]ction')
+-- m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 -- m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 m.nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
@@ -118,7 +124,6 @@ m.nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocum
 m.nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 --
 -- -- See `:help K` for why this keymap
-m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 -- -- nmap('<A-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 --
 -- Lesser used LSP functionality
@@ -155,7 +160,8 @@ m.nmap('<leader>sc', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Cursor diagnos
 -- }}} Show mappings
 
 -- {{{ Jump bindings
-mymap('n', 'ss', ':HopWord<cr>')
+
+m.nmap('<localleader>jw', '<cmd>VisitLinkNearest<cr>', 'Link')
 
 m.nmap('<leader>o', '<cmd>Portal jumplist backward<cr>', 'Portal jump back')
 m.nmap('<leader>i', '<cmd>Portal jumplist forward<cr>', 'Portal jump forward')
@@ -309,8 +315,8 @@ mymap('n', '<C-->', function()
 end)
 
 m.nname('u', 'UI')
-m.nmap('<localleader>ud', ':SetDarkMode<CR>', 'Dark mode')
-m.nmap('<localleader>ul', ':SetLightMode<CR>', 'Light Mode')
+m.nmap('<localleader>ud', ':DarkMode<CR>', 'Dark mode')
+m.nmap('<localleader>ul', ':LightMode<CR>', 'Light Mode')
 m.nmap('<localleader>ut', ':ToggleDarkMode<CR>', 'Toggle dark/light')
 m.nmap('<localleader>uu', ':RandomizeBG<CR>', 'Randomize background (waldark)')
 m.nmap('<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", 'Zenmode')

@@ -1,5 +1,5 @@
--- Projects
--- use("ahmedkhalf/project.nvim")
+-- https://github.com/ahmedkhalf/project.nvim
+
 return {
   'ahmedkhalf/project.nvim',
   config = function()

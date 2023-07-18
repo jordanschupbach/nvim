@@ -45,10 +45,21 @@ with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
 $0
 endsnippet
 
+snippet helloworld "Hello World" b
+if __name__ == "__main__":
+    print("Hello World")
+endsnippet
+
+
 snippet for "for loop" b
 for ${1:item} in ${2:iterable}:
 	${3:${VISUAL:pass}}
 endsnippet
+
+snippet shebang "shebang" b
+#!/usr/bin/env python3
+endsnippet
+
 
 ##########
 # COMMON #

@@ -5,13 +5,16 @@ return {
   -- You can optionally lazy-load heirline on UiEnter
   -- to make sure all required plugins and colorschemes are loaded before setup
   -- event = "UiEnter",
-  dependencies = {"glepnir/lspsaga.nvim"},
+  dependencies = { 'glepnir/lspsaga.nvim' },
   config = function()
     local conditions = require 'heirline.conditions'
     local utils = require 'heirline.utils'
 
     -- {{{ Colors
     local colors = {
+
+      -- button_bg = utils.get_highlight().bg
+
       bright_bg = utils.get_highlight('Folded').bg,
       bright_fg = utils.get_highlight('Folded').fg,
       red = utils.get_highlight('DiagnosticError').fg,
@@ -33,35 +36,35 @@ return {
 
     local function setup_colors()
       return {
-        bright_bg = utils.get_highlight("Folded").bg,
-        bright_fg = utils.get_highlight("Folded").fg,
-        red = utils.get_highlight("DiagnosticError").fg,
-        dark_red = utils.get_highlight("DiffDelete").bg,
-        green = utils.get_highlight("String").fg,
-        blue = utils.get_highlight("Function").fg,
-        gray = utils.get_highlight("NonText").fg,
-        orange = utils.get_highlight("Constant").fg,
-        purple = utils.get_highlight("Statement").fg,
-        cyan = utils.get_highlight("Special").fg,
-        diag_warn = utils.get_highlight("DiagnosticWarn").fg,
-        diag_error = utils.get_highlight("DiagnosticError").fg,
-        diag_hint = utils.get_highlight("DiagnosticHint").fg,
-        diag_info = utils.get_highlight("DiagnosticInfo").fg,
-        git_del = utils.get_highlight("diffDeleted").fg,
-        git_add = utils.get_highlight("diffAdded").fg,
-        git_change = utils.get_highlight("diffChanged").fg,
+        bright_bg = utils.get_highlight('Folded').bg,
+        bright_fg = utils.get_highlight('Folded').fg,
+        red = utils.get_highlight('DiagnosticError').fg,
+        dark_red = utils.get_highlight('DiffDelete').bg,
+        green = utils.get_highlight('String').fg,
+        blue = utils.get_highlight('Function').fg,
+        gray = utils.get_highlight('NonText').fg,
+        orange = utils.get_highlight('Constant').fg,
+        purple = utils.get_highlight('Statement').fg,
+        cyan = utils.get_highlight('Special').fg,
+        diag_warn = utils.get_highlight('DiagnosticWarn').fg,
+        diag_error = utils.get_highlight('DiagnosticError').fg,
+        diag_hint = utils.get_highlight('DiagnosticHint').fg,
+        diag_info = utils.get_highlight('DiagnosticInfo').fg,
+        git_del = utils.get_highlight('diffDeleted').fg,
+        git_add = utils.get_highlight('diffAdded').fg,
+        git_change = utils.get_highlight('diffChanged').fg,
       }
     end
 
     -- }}} Colors
 
     -- {{{ Autos
-    vim.api.nvim_create_augroup("Heirline", { clear = true })
-    vim.api.nvim_create_autocmd("ColorScheme", {
+    vim.api.nvim_create_augroup('Heirline', { clear = true })
+    vim.api.nvim_create_autocmd('ColorScheme', {
       callback = function()
         utils.on_colorscheme(setup_colors)
       end,
-      group = "Heirline",
+      group = 'Heirline',
     })
     -- }}} Autos
 
@@ -70,11 +73,11 @@ return {
     -- {{{ HelpFileName
     local HelpFileName = {
       condition = function()
-        return vim.bo.filetype == "help"
+        return vim.bo.filetype == 'help'
       end,
       provider = function()
         local filename = vim.api.nvim_buf_get_name(0)
-        return vim.fn.fnamemodify(filename, ":t")
+        return vim.fn.fnamemodify(filename, ':t')
       end,
       hl = { fg = colors.blue },
     }
@@ -178,7 +181,7 @@ return {
       provider = function()
         return string.upper(vim.bo.filetype)
       end,
-      hl = { fg = utils.get_highlight("Type").fg, bold = true },
+      hl = { fg = utils.get_highlight('Type').fg, bold = true },
     }
 
     -- }}} FileType
@@ -197,7 +200,7 @@ return {
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ':e')
         self.icon, self.icon_color =
-            require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+          require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
       end,
       provider = function(self)
         return self.icon and (self.icon .. ' ')
@@ -263,7 +266,7 @@ return {
       FileIcon,
       utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
       FileFlags,
-      { provider = '%<' }                      -- this means that the statusline is cut here when there's not enough space
+      { provider = '%<' } -- this means that the statusline is cut here when there's not enough space
     )
 
     -- }}} FileNameBlock
@@ -367,7 +370,6 @@ return {
       end,
       hl = { fg = 'orange' },
 
-
       { -- git branch name
         provider = function(self)
           return ' ' .. self.status_dict.head
@@ -417,46 +419,50 @@ return {
 
     -- The easy way.
     local Navic = {
-      condition = function() return require("nvim-navic").is_available() end,
-      provider = function()
-        return require("nvim-navic").get_location({ highlight = true })
+      condition = function()
+        return require('nvim-navic').is_available()
       end,
-      update = 'CursorMoved'
+      provider = function()
+        return require('nvim-navic').get_location { highlight = true }
+      end,
+      update = 'CursorMoved',
     }
 
     -- Full nerd (with icon colors and clickable elements)!
     -- works in multi window, but does not support flexible components (yet ...)
     local Navic = {
-      condition = function() return require("nvim-navic").is_available() end,
+      condition = function()
+        return require('nvim-navic').is_available()
+      end,
       static = {
         -- create a type highlight map
         type_hl = {
-          File = "Directory",
-          Module = "@include",
-          Namespace = "@namespace",
-          Package = "@include",
-          Class = "@structure",
-          Method = "@method",
-          Property = "@property",
-          Field = "@field",
-          Constructor = "@constructor",
-          Enum = "@field",
-          Interface = "@type",
-          Function = "@function",
-          Variable = "@variable",
-          Constant = "@constant",
-          String = "@string",
-          Number = "@number",
-          Boolean = "@boolean",
-          Array = "@field",
-          Object = "@type",
-          Key = "@keyword",
-          Null = "@comment",
-          EnumMember = "@field",
-          Struct = "@structure",
-          Event = "@keyword",
-          Operator = "@operator",
-          TypeParameter = "@type",
+          File = 'Directory',
+          Module = '@include',
+          Namespace = '@namespace',
+          Package = '@include',
+          Class = '@structure',
+          Method = '@method',
+          Property = '@property',
+          Field = '@field',
+          Constructor = '@constructor',
+          Enum = '@field',
+          Interface = '@type',
+          Function = '@function',
+          Variable = '@variable',
+          Constant = '@constant',
+          String = '@string',
+          Number = '@number',
+          Boolean = '@boolean',
+          Array = '@field',
+          Object = '@type',
+          Key = '@keyword',
+          Null = '@comment',
+          EnumMember = '@field',
+          Struct = '@structure',
+          Event = '@keyword',
+          Operator = '@operator',
+          TypeParameter = '@type',
         },
         -- bit operation dark magic, see below...
         enc = function(line, col, winnr)
@@ -468,10 +474,10 @@ return {
           local col = bit.band(bit.rshift(c, 6), 1023)
           local winnr = bit.band(c, 63)
           return line, col, winnr
-        end
+        end,
       },
       init = function(self)
-        local data = require("nvim-navic").get_data() or {}
+        local data = require('nvim-navic').get_data() or {}
         local children = {}
         -- create a child for each level
         for i, d in ipairs(data) do
@@ -484,7 +490,7 @@ return {
             },
             {
               -- escape `%`s (elixir) and buggy default separators
-              provider = d.name:gsub("%%", "%%%%"):gsub("%s*->%s*", ''),
+              provider = d.name:gsub('%%', '%%%%'):gsub('%s*->%s*', ''),
               -- highlight icon only or location name as well
               -- hl = self.type_hl[d.type],
 
@@ -496,14 +502,14 @@ return {
                   local line, col, winnr = self.dec(minwid)
                   vim.api.nvim_win_set_cursor(vim.fn.win_getid(winnr), { line, col })
                 end,
-                name = "heirline_navic",
+                name = 'heirline_navic',
               },
             },
           }
           -- add a separator only if needed
           if #data > 1 and i < #data then
             table.insert(child, {
-              provider = " > ",
+              provider = ' > ',
               hl = { fg = 'bright_fg' },
             })
           end
@@ -516,8 +522,8 @@ return {
       provider = function(self)
         return self.child:eval()
       end,
-      hl = { fg = "gray" },
-      update = 'CursorMoved'
+      hl = { fg = 'gray' },
+      update = 'CursorMoved',
     }
 
     -- }}} Navic
@@ -527,20 +533,20 @@ return {
     local Tabpage = {
       provider = function(self)
         -- return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
-        return "%" .. self.tabnr .. "T " .. " %T"
+        return '%' .. self.tabnr .. 'T ' .. ' %T'
       end,
       hl = function(self)
         if not self.is_active then
-          return "TabLine"
+          return 'TabLine'
         else
-          return "TabLineSel"
+          return 'TabLineSel'
         end
       end,
     }
 
     local TabpageClose = {
-      provider = "%999X  %X",
-      hl = "TabLine",
+      provider = '%999X  %X',
+      hl = 'TabLine',
     }
 
     local TabPages = {
@@ -548,11 +554,10 @@ return {
       condition = function()
         return #vim.api.nvim_list_tabpages() >= 2
       end,
-      { provider = "%=" },
+      { provider = '%=' },
       utils.make_tablist(Tabpage),
       TabpageClose,
     }
-
 
     -- }}} Tabpage
 
@@ -563,8 +568,8 @@ return {
         local bufnr = vim.api.nvim_win_get_buf(win)
         self.winid = win
 
-        if vim.bo[bufnr].filetype == "NvimTree" then
-          self.title = "NvimTree"
+        if vim.bo[bufnr].filetype == 'NvimTree' then
+          self.title = 'NvimTree'
           return true
           -- elseif vim.bo[bufnr].filetype == "TagBar" then
           --     ...
@@ -575,14 +580,14 @@ return {
         local title = self.title
         local width = vim.api.nvim_win_get_width(self.winid)
         local pad = math.ceil((width - #title) / 2)
-        return string.rep(" ", pad) .. title .. string.rep(" ", pad)
+        return string.rep(' ', pad) .. title .. string.rep(' ', pad)
       end,
 
       hl = function(self)
         if vim.api.nvim_get_current_win() == self.winid then
-          return "TablineSel"
+          return 'TablineSel'
         else
-          return "Tabline"
+          return 'Tabline'
         end
       end,
     }
@@ -590,130 +595,129 @@ return {
     -- }}} Tabline offset
 
     -- {{{ Bufferline
-local TablineBufnr = {
-    provider = function(self)
-        return tostring(self.bufnr) .. ". "
-    end,
-    hl = "Comment",
-}
+    local TablineBufnr = {
+      provider = function(self)
+        return tostring(self.bufnr) .. '. '
+      end,
+      hl = 'Comment',
+    }
 
--- we redefine the filename component, as we probably only want the tail and not the relative path
-local TablineFileName = {
-    provider = function(self)
+    -- we redefine the filename component, as we probably only want the tail and not the relative path
+    local TablineFileName = {
+      provider = function(self)
         -- self.filename will be defined later, just keep looking at the example!
         local filename = self.filename
-        filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
+        filename = filename == '' and '[No Name]' or vim.fn.fnamemodify(filename, ':t')
         return filename
-    end,
-    hl = function(self)
+      end,
+      hl = function(self)
         return { bold = self.is_active or self.is_visible, italic = true }
-    end,
-}
+      end,
+    }
 
--- this looks exactly like the FileFlags component that we saw in
--- #crash-course-part-ii-filename-and-friends, but we are indexing the bufnr explicitly
--- also, we are adding a nice icon for terminal buffers.
-local TablineFileFlags = {
-    {
+    -- this looks exactly like the FileFlags component that we saw in
+    -- #crash-course-part-ii-filename-and-friends, but we are indexing the bufnr explicitly
+    -- also, we are adding a nice icon for terminal buffers.
+    local TablineFileFlags = {
+      {
         condition = function(self)
-            return vim.api.nvim_buf_get_option(self.bufnr, "modified")
+          return vim.api.nvim_buf_get_option(self.bufnr, 'modified')
         end,
-        provider = "[+]",
-        hl = { fg = "green" },
-    },
-    {
+        provider = '[+]',
+        hl = { fg = 'green' },
+      },
+      {
         condition = function(self)
-            return not vim.api.nvim_buf_get_option(self.bufnr, "modifiable")
-                or vim.api.nvim_buf_get_option(self.bufnr, "readonly")
+          return not vim.api.nvim_buf_get_option(self.bufnr, 'modifiable')
+            or vim.api.nvim_buf_get_option(self.bufnr, 'readonly')
         end,
         provider = function(self)
-            if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
-                return "  "
-            else
-                return ""
-            end
+          if vim.api.nvim_buf_get_option(self.bufnr, 'buftype') == 'terminal' then
+            return '  '
+          else
+            return ''
+          end
         end,
-        hl = { fg = "orange" },
-    },
-}
+        hl = { fg = 'orange' },
+      },
+    }
 
--- Here the filename block finally comes together
-local TablineFileNameBlock = {
-    init = function(self)
+    -- Here the filename block finally comes together
+    local TablineFileNameBlock = {
+      init = function(self)
         self.filename = vim.api.nvim_buf_get_name(self.bufnr)
-    end,
-    hl = function(self)
+      end,
+      hl = function(self)
         if self.is_active then
-            return "TabLineSel"
+          return 'TabLineSel'
         -- why not?
         -- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
         --     return { fg = "gray" }
         else
-            return "TabLine"
+          return 'TabLine'
         end
-    end,
-    on_click = {
+      end,
+      on_click = {
         callback = function(_, minwid, _, button)
-            if (button == "m") then -- close on mouse middle click
-                vim.schedule(function()
-                    vim.api.nvim_buf_delete(minwid, { force = false })
-                end)
-            else
-                vim.api.nvim_win_set_buf(0, minwid)
-            end
+          if button == 'm' then -- close on mouse middle click
+            vim.schedule(function()
+              vim.api.nvim_buf_delete(minwid, { force = false })
+            end)
+          else
+            vim.api.nvim_win_set_buf(0, minwid)
+          end
         end,
         minwid = function(self)
-            return self.bufnr
+          return self.bufnr
         end,
-        name = "heirline_tabline_buffer_callback",
-    },
-    TablineBufnr,
-    FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
-    TablineFileName,
-    TablineFileFlags,
-}
+        name = 'heirline_tabline_buffer_callback',
+      },
+      TablineBufnr,
+      FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
+      TablineFileName,
+      TablineFileFlags,
+    }
 
--- a nice "x" button to close the buffer
-local TablineCloseButton = {
-    condition = function(self)
-        return not vim.api.nvim_buf_get_option(self.bufnr, "modified")
-    end,
-    { provider = " " },
-    {
-        provider = "",
-        hl = { fg = "gray" },
+    -- a nice "x" button to close the buffer
+    local TablineCloseButton = {
+      condition = function(self)
+        return not vim.api.nvim_buf_get_option(self.bufnr, 'modified')
+      end,
+      { provider = ' ' },
+      {
+        provider = '',
+        hl = { fg = 'gray' },
         on_click = {
-            callback = function(_, minwid)
-                vim.schedule(function()
-                    vim.api.nvim_buf_delete(minwid, { force = false })
-                    vim.cmd.redrawtabline()
-                end)
-            end,
-            minwid = function(self)
-                return self.bufnr
-            end,
-            name = "heirline_tabline_close_buffer_callback",
+          callback = function(_, minwid)
+            vim.schedule(function()
+              vim.api.nvim_buf_delete(minwid, { force = false })
+              vim.cmd.redrawtabline()
+            end)
+          end,
+          minwid = function(self)
+            return self.bufnr
+          end,
+          name = 'heirline_tabline_close_buffer_callback',
         },
-    },
-}
+      },
+    }
 
--- The final touch!
-local TablineBufferBlock = utils.surround({ "", "" }, function(self)
-    if self.is_active then
-        return utils.get_highlight("TabLineSel").bg
-    else
-        return utils.get_highlight("TabLine").bg
-    end
-end, { TablineFileNameBlock, TablineCloseButton })
+    -- The final touch!
+    local TablineBufferBlock = utils.surround({ '', '' }, function(self)
+      if self.is_active then
+        return utils.get_highlight('TabLineSel').bg
+      else
+        return utils.get_highlight('TabLine').bg
+      end
+    end, { TablineFileNameBlock, TablineCloseButton })
 
--- and here we go
-local BufferLine = utils.make_buflist(
-    TablineBufferBlock,
-    { provider = "", hl = { fg = "gray" } }, -- left truncation, optional (defaults to "<")
-    { provider = "", hl = { fg = "gray" } } -- right trunctation, also optional (defaults to ...... yep, ">")
-    -- by the way, open a lot of buffers and try clicking them ;)
-)
-
+    -- and here we go
+    local BufferLine = utils.make_buflist(
+      TablineBufferBlock,
+      { provider = '', hl = { fg = 'gray' } }, -- left truncation, optional (defaults to "<")
+      { provider = '', hl = { fg = 'gray' } } -- right trunctation, also optional (defaults to ...... yep, ">")
+      -- by the way, open a lot of buffers and try clicking them ;)
+    )
 
     -- }}} Bufferline
 
@@ -725,12 +729,12 @@ local BufferLine = utils.make_buflist(
       -- %L = number of lines in the buffer
       -- %c = column number
       -- %P = percentage through file of displayed window
-      provider = "%7(%l/%3L%):%2c %P",
+      provider = '%7(%l/%3L%):%2c %P',
     }
     -- I take no credits for this! :lion:
     local ScrollBar = {
       static = {
-        sbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' }
+        sbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' },
         -- Another variant, because the more choice the better.
         -- sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
       },
@@ -740,13 +744,13 @@ local BufferLine = utils.make_buflist(
         local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
         return string.rep(self.sbar[i], 2)
       end,
-      hl = { fg = "blue", bg = "bright_bg" },
+      hl = { fg = 'blue', bg = 'bright_bg' },
     }
 
     -- }}} Ruler & ScrollBar
 
-    local Align = { provider = "%=" }
-    local Space = { provider = " " }
+    local Align = { provider = '%=' }
+    local Space = { provider = ' ' }
 
     --- }}} Components
 
@@ -759,7 +763,7 @@ local BufferLine = utils.make_buflist(
       { FileNameBlock },
       { Align },
       { LSPActive },
-      { Ruler},
+      { Ruler },
       { ScrollBar },
       { ViMode },
       -- { LSPMessages },
@@ -773,36 +777,35 @@ local BufferLine = utils.make_buflist(
       Align,
     }
 
-
     local SpecialStatusline = {
       condition = function()
-        return conditions.buffer_matches({
-          buftype = { "nofile", "prompt", "help", "quickfix" },
-          filetype = { "^git.*", "fugitive" },
-        })
+        return conditions.buffer_matches {
+          buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
+          filetype = { '^git.*', 'fugitive' },
+        }
       end,
 
       FileType,
       Space,
       HelpFileName,
-      Align
+      Align,
     }
 
     local TerminalName = {
       -- we could add a condition to check that buftype == 'terminal'
       -- or we could do that later (see #conditional-statuslines below)
       provider = function()
-        local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
-        return " " .. tname
+        local tname, _ = vim.api.nvim_buf_get_name(0):gsub('.*:', '')
+        return ' ' .. tname
       end,
-      hl = { fg = "blue", bold = true },
+      hl = { fg = 'blue', bold = true },
     }
 
     local TerminalStatusline = {
       condition = function()
-        return conditions.buffer_matches({ buftype = { "terminal" } })
+        return conditions.buffer_matches { buftype = { 'terminal' } }
       end,
-      hl = { bg = "dark_red" },
+      hl = { bg = 'dark_red' },
       -- Quickly add a condition to the ViMode to only show it when buffer is active!
       { condition = conditions.is_active, ViMode, Space },
       FileType,
@@ -811,18 +814,15 @@ local BufferLine = utils.make_buflist(
       Align,
     }
 
-
-
-
     -- }}} Statusline
 
     -- {{{ Build Lines
     local StatusLines = {
       hl = function()
         if conditions.is_active() then
-          return "StatusLine"
+          return 'StatusLine'
         else
-          return "StatusLineNC"
+          return 'StatusLineNC'
         end
       end,
       -- the first statusline with no condition, or which condition returns true is used.
@@ -834,11 +834,9 @@ local BufferLine = utils.make_buflist(
       DefaultStatusline,
     }
 
-
-
     -- local WinBar = { { require(lspsaga.symbol.winbar).get_bar() }, { {}, {} } }
-    local WinBar = { {Navic}, { {}, {} } }
-    local TabLine = { {TabPages }, {}, {} }
+    local WinBar = { { Navic }, { {}, {} } }
+    local TabLine = { { TabPages }, {}, {} }
     -- local TabLine = { {BufferLine}, {}, {} }
 
     -- }}} Build Lines
@@ -855,6 +853,5 @@ local BufferLine = utils.make_buflist(
     }
 
     -- }}} Setup Heirline
-
   end,
 }

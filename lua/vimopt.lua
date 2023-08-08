@@ -48,8 +48,8 @@ vim.opt.list = true
 vim.opt.listchars:append 'space:⋅'
 vim.opt.listchars:append 'eol:↴'
 
--- TODO: Move me to vim-rooter config
-vim.g.rooter_patterns = { '.git', 'Makefile', '*.sln', 'build/env.sh' }
+-- -- TODO: Move me to vim-rooter config
+-- vim.g.rooter_patterns = { '.git', 'Makefile', '*.sln', 'build/env.sh' }
 
 -- Set highlight on search
 vim.o.hlsearch = false

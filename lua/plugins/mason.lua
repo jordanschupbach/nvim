@@ -1,6 +1,7 @@
 -- https://github.com/williamboman/mason.nvim
 
-return { 'williamboman/mason.nvim',
+return {
+  'williamboman/mason.nvim',
   -- Setup mason so it can manage external tooling
   config = function()
     -- local DEFAULT_SETTINGS = {
@@ -107,6 +108,5 @@ return { 'williamboman/mason.nvim',
     --     apply_language_filter = "<C-f>", }, }, }
     require('mason').setup()
     -- require('mason').setup() end, build = ":MasonUpdate" -- :MasonUpdate updates registry contents
-
-  end
+  end,
 }

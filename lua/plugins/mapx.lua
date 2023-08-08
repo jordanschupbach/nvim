@@ -6,6 +6,6 @@ return {
     require('mapx').setup {}
   end,
   dependencies = {
-    'nvim-telescope/telescope.nvim'
-  }
+    'nvim-telescope/telescope.nvim',
+  },
 }

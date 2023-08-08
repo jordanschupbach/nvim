@@ -7,7 +7,7 @@ return {
       mappings = {
         'java',
         {
-          pattern = "/src/main/(.*)/.*.java",
+          pattern = '/src/main/(.*)/.*.java',
           target = 'src/test/(.*)/.*Test.java',
           transformer = 'lowercase',
         },

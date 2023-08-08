@@ -60,6 +60,25 @@ snippet shebang "shebang" b
 #!/usr/bin/env python3
 endsnippet
 
+snippet numpy "numpy" b
+import numpy as np
+endsnippet
+
+snippet matplotlib "matplotlib" b
+import matplotlib.pyplot as plt  # type: ignore
+endsnippet
+
+snippet scatterplot "scatterplot" b
+X = np.random.normal(0.0, 1.0, 200).reshape((100, 2))
+plt.scatter(X[:, 0], X[:, 1])
+plt.show()
+endsnippet
+
+
+snippet typeignore "typeignore" b
+# type: ignore
+endsnippet
+
 
 ##########
 # COMMON #
@@ -178,15 +197,15 @@ def get_style(snip):
 
 def format_arg(arg, style):
 	if style == DOXYGEN:
-		return "@param %s TODO" % arg
+		return "@param %s td" % arg
 	elif style == SPHINX:
 		return ":param %s: TODO" % arg
 	elif style == NORMAL:
-		return ":%s: TODO" % arg
+		return ":%s: td" % arg
 	elif style == GOOGLE:
-		return "%s (%s): TODO" % (arg, arg.type or "TODO")
+		return "%s (%s): td" % (arg, arg.type or "TODO")
 	elif style == JEDI:
-		return ":type %s: TODO" % arg
+		return ":type %s: td" % arg
 	elif style == NUMPY:
 		return "%s : TODO" % arg
 
@@ -317,7 +336,7 @@ class ${1:MyClass}(${2:object}):
 	`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
 
 	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
+		`!p snip.rv = triple_quotes(snip)`${5:td: to be defined.}`!p
 snip.rv = ""
 snip >> 2
 
@@ -345,7 +364,7 @@ write_slots_args(args, snip)
 `
 
 	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
+		`!p snip.rv = triple_quotes(snip)`${5:td: to be defined.}`!p
 snip.rv = ""
 snip >> 2
 
@@ -564,7 +583,7 @@ snippet def "function with docstrings" b
 def ${1:function}(`!p
 if snip.indent:
 	snip.rv = 'self' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+	`!p snip.rv = triple_quotes(snip)`${4:td: Docstring for $1.}`!p
 write_function_docstring(t, snip) `
 	${5:${VISUAL:pass}}
 endsnippet
@@ -575,7 +594,7 @@ snippet defc "class method with docstrings" b
 def ${1:function}(`!p
 if snip.indent:
 	snip.rv = 'cls' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+	`!p snip.rv = triple_quotes(snip)`${4:td: Docstring for $1.}`!p
 write_function_docstring(t, snip) `
 	${5:${VISUAL:pass}}
 endsnippet
@@ -584,7 +603,7 @@ endsnippet
 snippet defs "static method with docstrings" b
 @staticmethod
 def ${1:function}(${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+	`!p snip.rv = triple_quotes(snip)`${4:td: Docstring for $1.}`!p
 write_function_docstring(t, snip) `
 	${5:${VISUAL:pass}}
 endsnippet
@@ -612,7 +631,7 @@ endsnippet
 snippet rwprop "Read write property" b
 def ${1:name}():
 	`!p snip.rv = triple_quotes(snip) if t[2] else ''
-`${2:TODO: Docstring for $1.}`!p
+`${2:td: Docstring for $1.}`!p
 if t[2]:
 	snip >> 1
 

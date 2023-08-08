@@ -36,6 +36,32 @@ snippet ponce "#pragma once include guard"
 
 endsnippet
 
+snippet includeiostream
+#include<iostream>
+endsnippet
+
+
+snippet includevector
+#include<vector>
+endsnippet
+
+snippet includerandom
+#include<random>
+endsnippet
+
+snippet copyright
+// Copyright 2023 <Jordan Schupbach>
+
+endsnippet
+
+snippet runif "runif" b
+  std::mt19937_64 mt64;
+  mt64.seed(42);
+  std::uniform_real_distribution<double> distribution(0.0, 1.0);
+  double val = distribution(mt64);
+  std::cout << "Random uniform value: " << val << std::endl;
+endsnippet
+
 snippet main
 int main(int argc, char *argv[])
 {

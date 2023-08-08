@@ -1,4 +1,6 @@
-return { 'romgrk/kirby.nvim', dependencies = {
+return {
+  'romgrk/kirby.nvim',
+  dependencies = {
     { 'romgrk/fzy-lua-native', build = 'make install' },
     { 'romgrk/kui.nvim' },
     { 'nvim-tree/nvim-web-devicons' },

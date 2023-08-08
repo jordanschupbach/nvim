@@ -17,12 +17,12 @@ return {
       patterns = {
         '.projectnvim',
         '.git',
-        '_darcs',
-        '.hg',
-        '.bzr',
-        '.svn',
-        'Makefile',
-        'package.json',
+        -- '_darcs',
+        -- '.hg',
+        -- '.bzr',
+        -- '.svn',
+        -- 'Makefile',
+        -- 'package.json',
       },
 
       -- Table of lsp clients to ignore by name
@@ -34,7 +34,7 @@ return {
       exclude_dirs = {},
 
       -- Show hidden files in telescope
-      show_hidden = false,
+      show_hidden = true,
 
       -- When set to false, you will get a message when project.nvim changes your
       -- directory.
@@ -44,7 +44,7 @@ return {
       -- * global (default)
       -- * tab
       -- * win
-      scope_chdir = 'global',
+      scope_chdir = 'tab',
 
       -- Path where project.nvim will store the project history for use in
       -- telescope

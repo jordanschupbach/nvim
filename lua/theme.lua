@@ -1,6 +1,6 @@
 local utilities = require 'utilities'
 
-g = require('globals')
+g = require 'globals'
 
 local Darkmode = true
 
@@ -11,10 +11,10 @@ vim.cmd [[highlight Dash guibg=#D19A66 gui=bold]]
 
 local set_lightmode = function()
   vim.opt.background = 'light'
-  vim.cmd [[colorscheme kanagawa-lotus]]
+  require 'misenplacecolors'
   vim.fn.setenv('LD_THEME', 'light')
   os.execute "export LD_THEME='light'"
-  os.execute 'waldark --light'
+  -- os.execute 'waldark --light'
   os.execute "sed -i -- 's/dark/light/' ~/.scripts/.mode"
   Darkmode = false
   g.darkmode = false
@@ -26,7 +26,7 @@ local set_darkmode = function()
   vim.fn.setenv('LD_THEME', 'dark')
   os.execute "export LD_THEME='dark'"
   -- os.execute 'waldark --dark'
-  os.execute 'wal -i /home/jordan/wallpapers/dark_wallpapers/neon-cyberpunk-wallpaper.jpg'
+  -- os.execute 'wal -i /home/jordan/wallpapers/dark_wallpapers/neon-cyberpunk-wallpaper.jpg'
   os.execute "sed -i -- 's/light/dark/' ~/.scripts/.mode"
   Darkmode = true
   g.darkmode = true
@@ -50,11 +50,9 @@ local toggle_darkmode = function()
   end
 end
 
-
 local set_wal = function()
   vim.o.colorscheme = 'wal'
 end
-
 
 vim.api.nvim_create_user_command('RandomizeBG', function()
   randomize_background()
@@ -80,17 +78,16 @@ end, {
   desc = 'Toggle Dark Mode',
 })
 
-
-set_wal()
+-- set_wal()
 
 local dmode = utilities.lines_from '/home/jordan/.scripts/.mode'
 
 if dmode[1] == 'dark' then
-  Darkmode = true -- TODO: Load this from a cache
+  Darkmode = true
   set_darkmode()
   print 'was dark'
 else
-  Darkmode = false -- TODO: Load this from a cache
+  Darkmode = false
   set_lightmode()
   print 'was light'
 end
@@ -102,6 +99,3 @@ else
   vim.cmd [[highlight FidgetTitle ctermfg=110 guifg=#cccccc guibg=#cccccc]]
   vim.cmd [[highlight FidgetTask ctermfg=110 guifg=#cccccc guibg=#cccccc]]
 end
-
-
-

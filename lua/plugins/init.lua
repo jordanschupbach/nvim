@@ -18,7 +18,7 @@ return {
   -- 'junegunn/fzf.vim',
   -- 'L3MON4D3/LuaSnip',
   -- 'jpalardy/vim-slime',
-  -- 'mfussenegger/nvim-jdtls',
+  'mfussenegger/nvim-jdtls',
   -- 'mfussenegger/nvim-dap',
   -- -- 'mtikekar/nvim-send-to-term',
   -- 'nvim-lua/plenary.nvim',

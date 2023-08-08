@@ -13,10 +13,31 @@ return {
   config = function()
     -- local navbuddy = require 'nvim-navbuddy'
 
+    -- local util = require("nvim-lspconfig.util")
+    -- local jdtls_config = require("lsp.jdtls").setup()
+
+    local ensured_servers = {
+      -- bashls = {},
+      -- cmake = {},
+      phpactor = {},
+      clangd = {},
+      jdtls = {},
+      pyright = {},
+      -- rust_analyzer = {},
+      r_language_server = {
+        cmd = { 'R', '--slave', '-e', "'languageserver::run()'" },
+        filetypes = { 'R', 'r', 'rmd', 'Rmd' },
+      },
+      -- hls = {},
+      -- -- tsserver = {},
+      -- zls = {},
+      lua_ls = require 'lsp.lua-ls',
+    }
+
     local servers = {
       -- bashls = {},
       -- cmake = {},
-      clangd = { },
+      clangd = {},
       -- -- clojure_lsp = {},
       -- gopls = {},
       -- gradle_ls = {},
@@ -55,18 +76,41 @@ return {
       --     ltex = {},
       --   },
       -- },
-      -- -- -- jdtls = {
-      -- -- --   -- on_attach = function(client, bufnr)
-      -- -- --   --     navbuddy.attach(client, bufnr)
-      -- -- --   -- end
-      -- -- -- },
-      -- pyright = { },
+      jdtls = {}, -- jdtls_config
+
+      -- on_attach = function(client, bufnr)
+      --     navbuddy.attach(client, bufnr)
+      -- end
+      -- },
+      phpactor = {},
+      pyright = {},
       -- rust_analyzer = {},
-      -- -- r_language_server = { },
-      -- -- -- hls = {},
+      r_language_server = {
+        cmd = { 'R', '--slave', '-e', "'languageserver::run()'" },
+        filetypes = { 'R', 'r', 'rmd', 'Rmd' },
+      },
+      hls = {
+
+        filetypes = { 'haskell', 'lhaskell', 'cabal', 'hs' },
+        cmd = { '/home/jordan/.local/share/nvim/mason/bin/haskell-language-server-wrapper', '--lsp' },
+        single_file_support = true,
+        root_dir = '/home/jordan/scratchpads/haskell-scratchpad/',
+        -- root_dir = function (filepath)
+        --   return (
+        --     util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project')(filepath)
+        --     or util.root_pattern('*.cabal', 'package.yaml')(filepath)
+        --   )
+        -- end,
+        settings = {
+          haskell = {
+            cabalFormattingProvider = 'cabalfmt',
+            formattingProvider = 'ormolu',
+          },
+        },
+      },
       -- -- tsserver = {},
       -- zls = {},
-      lua_ls = require("lsp.lua-ls")
+      lua_ls = require 'lsp.lua-ls',
     }
 
     -- Setup neovim lua configuration
@@ -77,10 +121,10 @@ return {
     capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     -- Ensure the servers above are installed
-    local mason_lspconfig = require('mason-lspconfig')
+    local mason_lspconfig = require 'mason-lspconfig'
 
     mason_lspconfig.setup {
-      ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = vim.tbl_keys(ensured_servers),
     }
     mason_lspconfig.setup_handlers {
       function(server_name)

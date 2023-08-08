@@ -24,7 +24,7 @@ M.hover = function()
 
     -- nvim.fn.bufexists("asdf")
     -- print("Hello" .. name)
-    local doc_buf_exists = (vim.fn.bufexists("myDoc") == 1)
+    local doc_buf_exists = (vim.fn.bufexists 'myDoc' == 1)
     if not doc_buf_exists then
       vim.api.nvim_command [[ vsplit myDoc ]]
       docBufferHandle = vim.api.nvim_get_current_buf()

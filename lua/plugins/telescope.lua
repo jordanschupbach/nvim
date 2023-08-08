@@ -16,72 +16,83 @@ return {
     'smartpde/telescope-recent-files',
     'tyru/open-browser.vim',
     'fhill2/telescope-ultisnips.nvim',
-    "AckslD/nvim-neoclip.lua",
+    'AckslD/nvim-neoclip.lua',
     'xiyaowong/telescope-emoji.nvim',
     'folke/flash.nvim',
   },
-  defaults = {
-    prompt_prefix = ' ',
-    selection_caret = '* ', -- TODO: CHANGEME
-    path_display = { 'smart' },
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-        ['<C-h>'] = 'which_key',
-        -- ['<C-s>'] = 'delete',
+  -- defaults = {
+  --   prompt_prefix = ' ',
+  --   selection_caret = '* ', -- TODO: CHANGEME
+  --   path_display = { 'smart' },
+  --   vimgrep_arguments = {
+  --     'rg',
+  --     '--color=never',
+  --     '--no-heading',
+  --     '--with-filename',
+  --     '--line-number',
+  --     '--column',
+  --     '--smart-case',
+  --     '--no-ignore', -- **This is the added flag**
+  --     '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
+  --   },
+  --   mappings = {
+  --     i = {
+  --       ['<C-u>'] = false,
+  --       ['<C-d>'] = false,
+  --       ['<C-h>'] = 'which_key',
+  --       -- ['<C-s>'] = 'delete',
 
-        -- IMPORTANT
-        -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
-        -- ["<C-h>"] = require("telescope.nvim").extensions.hop.hop,  -- hop.hop_toggle_selection
-        -- custom hop loop to multi selects and sending selected entries to quickfix list
-        -- ['<C-space>'] = function(prompt_bufnr)
-        --   local opts = {
-        --     callback = actions.toggle_selection,
-        --     loop_callback = actions.send_selected_to_qflist,
-        --   }
-        --   require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
-        -- end,
-      },
-      n = {
-        ['d'] = 'delete',
-      },
-    },
-  },
-  optional = true,
-  opts = function(_, opts)
-    local function flash(prompt_bufnr)
-    require('flash').jump {
-      pattern = '^',
-      label = { after = { 0, 0 } },
-      search = {
-        mode = 'search',
-        exclude = {
-          function(win)
-            return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= 'TelescopeResults'
-          end,
-        },
-      },
-      action = function(match)
-        local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
-        picker:set_selection(match.pos[1] - 1)
-      end,
-    }
-    end
-    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-      mappings = {
-        n = { s = flash },
-        i = { ["<c-s>"] = flash },
-      },
-    })
-  end,
-  -- keys = {
-  --   { "<localleader>po", "<cmd>Telescope project<cr>", desc = "NeoTree"},
-  --   { "<localleader>yy", "<cmd>Telescope luasnip<cr>", desc = "NeoTree"},
-  --   -- vim.keymap.set({ "n" }, "<leader>fs", function()
-  --   --     telescope_extensions.luasnip.luasnip()
-  --   -- end, NOREMAP_SILENT)
+  --       -- IMPORTANT
+  --       -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
+  --       -- ["<C-h>"] = require("telescope.nvim").extensions.hop.hop,  -- hop.hop_toggle_selection
+  --       -- custom hop loop to multi selects and sending selected entries to quickfix list
+  --       -- ['<C-space>'] = function(prompt_bufnr)
+  --       --   local opts = {
+  --       --     callback = actions.toggle_selection,
+  --       --     loop_callback = actions.send_selected_to_qflist,
+  --       --   }
+  --       --   require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
+  --       -- end,
+  --     },
+  --     n = {
+  --       ['d'] = 'delete',
+  --     },
+  --   },
   -- },
+  -- optional = true,
+  -- opts = function(_, opts)
+  --   local function flash(prompt_bufnr)
+  --     require('flash').jump {
+  --       pattern = '^',
+  --       label = { after = { 0, 0 } },
+  --       search = {
+  --         mode = 'search',
+  --         exclude = {
+  --           function(win)
+  --             return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= 'TelescopeResults'
+  --           end,
+  --         },
+  --       },
+  --       action = function(match)
+  --         local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+  --         picker:set_selection(match.pos[1] - 1)
+  --       end,
+  --     }
+  --   end
+  --   opts.defaults = vim.tbl_deep_extend('force', opts.defaults or {}, {
+  --     mappings = {
+  --       n = { s = flash },
+  --       i = { ['<c-s>'] = flash },
+  --     },
+  --   })
+  -- end,
+  -- -- keys = {
+  -- --   { "<localleader>po", "<cmd>Telescope project<cr>", desc = "NeoTree"},
+  -- --   { "<localleader>yy", "<cmd>Telescope luasnip<cr>", desc = "NeoTree"},
+  -- --   -- vim.keymap.set({ "n" }, "<leader>fs", function()
+  -- --   --     telescope_extensions.luasnip.luasnip()
+  -- --   -- end, NOREMAP_SILENT)
+  -- -- },
   config = function()
     require('telescope').setup {
       prompt_prefix = ' ',
@@ -95,10 +106,10 @@ return {
         -- },
 
         fzf = {
-          fuzzy = true,                   -- false will only do exact matching
+          fuzzy = true, -- false will only do exact matching
           override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true,    -- override the file sorter
-          case_mode = 'smart_case',       -- or "ignore_case" or "respect_case"
+          override_file_sorter = true, -- override the file sorter
+          case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
         },
 
@@ -107,7 +118,7 @@ return {
           action = function(emoji)
             -- argument emoji is a table.
             -- {name="", value="", cagegory="", description=""}
-            vim.fn.setreg("*", emoji.value)
+            vim.fn.setreg('*', emoji.value)
             print([[Press p or "*p to paste this emoji]] .. emoji.value)
             -- insert emoji when picked
             vim.api.nvim_put({ emoji.value }, 'c', false, true)
@@ -180,7 +191,7 @@ return {
     pcall(require('telescope').load_extension 'neoclip')
     -- pcall(require('telescope').load_extension 'session-lens')
 
-    pcall(require("telescope").load_extension("emoji"))
+    pcall(require('telescope').load_extension 'emoji')
     -- pcall(require("telescope").load_extension("ui-select"))
     pcall(require('telescope').load_extension 'file_browser')
     pcall(require('telescope').load_extension, 'project')

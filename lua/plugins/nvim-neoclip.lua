@@ -1,17 +1,17 @@
 return {
-  "AckslD/nvim-neoclip.lua",
+  'AckslD/nvim-neoclip.lua',
   dependencies = {
     -- you'll need at least one of these
-    {'nvim-telescope/telescope.nvim'},
+    { 'nvim-telescope/telescope.nvim' },
     -- {'ibhagwan/fzf-lua'},
   },
   config = function()
-    require('neoclip').setup({
+    require('neoclip').setup {
       history = 1000,
       enable_persistent_history = false,
       length_limit = 1048576,
       continuous_sync = false,
-      db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+      db_path = vim.fn.stdpath 'data' .. '/databases/neoclip.sqlite3',
       filter = nil,
       preview = true,
       prompt = nil,
@@ -44,9 +44,9 @@ return {
             paste = '<cr>',
             -- paste = '<c-p>',
             -- paste_behind = '<c-k>',
-            replay = '<c-q>',  -- replay a macro
-            delete = '<c-d>',  -- delete an entry
-            edit = '<c-e>',  -- edit an entry
+            replay = '<c-q>', -- replay a macro
+            delete = '<c-d>', -- delete an entry
+            edit = '<c-e>', -- edit an entry
             custom = {},
           },
           n = {
@@ -68,6 +68,6 @@ return {
           custom = {},
         },
       },
-    })
+    }
   end,
 }

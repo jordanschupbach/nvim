@@ -33,6 +33,7 @@ return { -- Highlight, edit, and navigate code
         'lua',
         'make',
         'markdown',
+        'markdown_inline',
         'python',
         'r',
         'rust',

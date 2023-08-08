@@ -48,10 +48,21 @@ $0
 endsnippet
 
 
+snippet run "run" b
+	public static void run() {
+		double[][] m = new double[][] {{42.0}}
+		System.out.println(m);
+		System.out.println("Hello World!");
+	}
+endsnippet
 
+snippet printField "printField" b
+		System.out.println("Value of id is : " + myClass.getId().toString() + "\n");
+endsnippet
 
-
-
+snippet printClass "printClass" b
+		System.out.println("Value of myClass is :\n " + myClass.toString() + "\n");
+endsnippet
 
 snippet /o|v/ "new Object or variable" br
 ${1:Object} ${2:var} = new $1($3);

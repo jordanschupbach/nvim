@@ -20,6 +20,10 @@ return {
 
     local sidebar = require 'sidebar-nvim'
     local opts = {
+      diagnostics = {
+          icon = "",
+      },
+
       open = false,
       disable_default_keybindings = 0,
       bindings = nil,
@@ -29,11 +33,6 @@ return {
       update_interval = 1000,
       section_separator = { '', '-----', '' },
       section_title_separator = { '' },
-      containers = {
-        attach_shell = '/bin/sh',
-        show_all = true,
-        interval = 5000,
-      },
       datetime = {
         format = '%a %b %d, %H:%M',
         clocks = { { name = 'local' } },
@@ -41,8 +40,9 @@ return {
       sections = {
         -- "datetime",
         -- "git",
-        -- "diagnostics" ,
-        section,
+        'diagnostics',
+        'containers',
+        -- section,
         'todos',
         'symbols',
       },
@@ -53,6 +53,13 @@ return {
       },
       symbols = {
         icon = 'ƒ',
+      },
+      containers = {
+        icon = '',
+        use_podman = false,
+        attach_shell = '/bin/sh',
+        show_all = true, -- whether to run `docker ps` or `docker ps -a`
+        interval = 5000, -- the debouncer time frame to limit requests to the docker daemon
       },
     }
     sidebar.setup(opts)

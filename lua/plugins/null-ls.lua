@@ -2,7 +2,7 @@
 
 return {
   'jose-elias-alvarez/null-ls.nvim', -- Formatting engine
-  dependencies = {'lewis6991/gitsigns.nvim'},
+  dependencies = { 'lewis6991/gitsigns.nvim' },
   ft = { 'cpp', 'java', 'lua', 'r', 'python', 'markdown', 'zig' },
   config = function()
     local null_ls = require 'null-ls'
@@ -28,7 +28,13 @@ return {
         null_ls.builtins.diagnostics.checkstyle.with {
           -- args = { "-f", "sarif", vim.api.nvim_buf_get_name(0), "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
           -- args = { "-f", "sarif", "/home/jordan/work/navy/JSAPPHIRE/subprojects/reasonerxmlio/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
-          args = { "-f", "sarif", "/home/jordan/git_repos/reu2023/*", "-c", "/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml" },
+          args = {
+            '-f',
+            'sarif',
+            '/home/jordan/git_repos/reu2023/*',
+            '-c',
+            '/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml',
+          },
           -- args = { '-f', 'sarif', '/home/jordan/work/navy/JSAPPHIRE/charm/*', '-c', '/home/jordan/git_repos/reu2023/config/checkstyle/checkstyle.xml', },
           -- args = { "-f", "sarif", "/home/jordan/templates/jtemplate/*", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
           -- args = { "-f", "sarif", ".", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },

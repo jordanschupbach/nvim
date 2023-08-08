@@ -9,6 +9,7 @@ return {
   keys = {
     { '<localleader>ff', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
   },
+  cmd = { 'NvimTreeToggle' },
   config = {
     respect_buf_cwd = true,
     sync_root_with_cwd = true,

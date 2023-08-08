@@ -1,7 +1,20 @@
 -- local hover = require(".my.lsp.hover")
 
 local o = require 'options'
+local m = require('mapx').setup { global = true, whichkey = true }
 
+-- local ngit = require"neogit"
+
+m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
+m.nmap('<C-1>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
+m.nmap('<C-2>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
+
+m.nmap('<A-n>', ':tabnext<CR>', 'Next Tab')
+m.nmap('<A-p>', ':tabprevious<CR>', 'Previous Tab')
+m.nmap('<A-c>', ':tabnew)<CR>', 'Create Tab')
+
+m.nmap('<leader>ff', '<cmd>NvimTreeToggle<cr>', 'File Tree')
+m.nmap('<leader>ss', '<cmd>SidebarNvimToggle<cr>', 'Sidebar')
 
 -- {{{ mymap fun
 --- Adds a new normal binding map.
@@ -75,16 +88,82 @@ mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()<CR>')
 -- mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help<CR>')
 -- }}} Inbox
 
-local m = require('mapx').setup { global = true, whichkey = true }
-
+-- {{{ Simple convenience
 m.nmap('vv', 'V', 'visual line')
+m.nmap('<C-TAB>', ':tabnext', 'Next tab')
+-- }}} Simple convenience
 
-m.nmap('<C-TAB>', ":tabnext", "Next tab")
+-- {{{ Anyjump
+m.nname('<leader>a', 'AnyJump')
+m.nmap('<leader>aa', ':AerialToggle<CR>', 'Toggle Outline')
+m.nmap('<leader>ab', ':AnyJumpBack<CR>', 'Toggle Outline')
+m.nmap('<leader>al', ':AnyJumpLastResult<CR>', 'Toggle Outline')
+-- }}} Anyjump
+
+-- {{{ Buffers
+m.nname('<leader>b', 'Buffers')
+m.nmap('<leader>bb', ':Telescope buffers theme=ivy<CR>', 'Buffers')
+-- }}} Buffers
+
+-- {{{ Comment
+m.nname('<leader>c', 'Comment')
+m.nmap('<leader>cc', ':CommentToggle<CR>', 'Comment')
+-- }}} Comment
 
 -- {{{ Code action mappings
 m.vmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 -- }}} Code action mappings
+
+-- {{{ Errors
+
+-- m.nmap("<A-n>", ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Next Error')
+-- m.nmap('<A-p>', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>", "Previous Error")
+
+m.nname('<leader>e', 'Errors')
+m.nmap('<leader>eb', ':Trouble document_diagnostics<CR>', 'Buffer')
+m.nmap('<leader>ee', ':TroubleToggle<CR>', 'Errors List')
+-- m.nmap('<leader>ef', ':CodeActionMenu<CR>', 'Errors List')
+m.nmap('<leader>eg', ":lua require('trouble').first({skip_groups = true, jump = true})<CR>", 'First')
+m.nmap('<leader>eG', ":lua require('trouble').last({skip_groups = true, jump = true})<CR>", 'Last')
+m.nmap('<leader>ej', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>", 'Next')
+m.nmap('<leader>ek', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>", 'Previous')
+m.nmap('<leader>ep', ':Trouble workspace_diagnostics<CR>', 'Project')
+-- }}} Errors
+
+-- {{{ Git
+m.nname('<leader>g', 'Git')
+m.nmap('<leader>ga', ':require("diaglist").open_all_diagnostics()', 'All')
+m.nmap('<leader>gb', '<cmd>Telescope git_branches theme=ivy<cr>', 'Branches')
+m.nmap('<leader>gc', '<cmd>Telescope git_commits theme=ivy<cr>', 'Commits')
+m.nmap('<leader>gf', '<cmd>Telescope git_files theme=ivy<cr>', 'Files')
+m.nmap('<leader>gg', '<cmd>Neogit kind=vsplit<cr>', 'NeoGit')
+m.nmap('<leader>gj', ':Gitsigns prev_hunk<cr>', 'Next Hunk')
+m.nmap('<leader>gk', ':Gitsigns prev_hunk<cr>', 'Previous Hunk')
+m.nmap('<leader>gs', ':Gitsigns stage_hunk<cr>', 'Stage Hunk')
+m.nmap('<leader>gu', ':Gitsigns undo_stage_hunk<cr>', 'Undo Stage Hunk')
+-- }}} Git
+
+-- {{{ Help
+m.nname('<leader>h', 'Help')
+m.nmap('<leader>hk', ':Telescope keymaps theme=ivy<cr>', 'Keys')
+-- }}} Help
+
+-- {{{ Jump bindings
+
+m.nmap('<leader>jw', '<cmd>VisitLinkNearest<cr>', 'Link')
+
+m.nmap('<leader>o', '<cmd>Portal jumplist backward<cr>', 'Portal jump back')
+m.nmap('<leader>i', '<cmd>Portal jumplist forward<cr>', 'Portal jump forward')
+
+m.nmap('<M-o>', ":lua require('bufjump').backward()<cr>", 'Bufjump back')
+m.nmap('<M-i>', ":lua require('bufjump').forward()<cr>", 'Bufjump forward')
+m.nmap('<leader>jl', ':Telescope jumplist<CR>', 'Jumplist')
+
+-- vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
+-- vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
+
+-- }}} Jump bindings
 
 -- {{{ Go(To) mappings
 m.nname('g', 'Go(To)')
@@ -102,19 +181,19 @@ m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 m.nmap('K', '<cmd>Lspsaga hover_doc ++keep<CR>', 'Hover Documentation')
 -- m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-m.nname('<localleader>l', 'LSP')
+m.nname('<leader>l', 'LSP')
 m.nmap('<leader>la', ':CodeActionMenu<CR>', 'Code Actions')
-m.nmap('<localleader>ll', ':AerialToggle<CR>', 'Toggle Outline')
-m.nmap('<localleader>lr', ':Lspsaga rename<CR>', 'Refactor word in buffer')
-m.nmap('<localleader>lR', ':Lspsaga rename ++project<CR>', 'Refactor word in project')
-m.nmap('<localleader>lo', '<cmd>Lspsaga outline<CR>', 'Toggle Outline (Alternate)')
-m.nmap('<localleader>lf', '<cmd>Lspsaga lsp_finder<CR>', 'Find')
-m.nmap('<localleader>lth', ':lua require("lsp-inlayhints").toggle()<CR>')
-m.nmap('<localleader>ltl', ':LspLensToggle<CR>')
-m.nmap('<localleader>lk', ':DocsViewToggle<CR>')
+m.nmap('<leader>ll', ':AerialToggle<CR>', 'Toggle Outline')
+m.nmap('<leader>lr', ':Lspsaga rename<CR>', 'Refactor word in buffer')
+m.nmap('<leader>lR', ':Lspsaga rename ++project<CR>', 'Refactor word in project')
+m.nmap('<leader>lo', '<cmd>Lspsaga outline<CR>', 'Toggle Outline (Alternate)')
+m.nmap('<leader>lf', '<cmd>Lspsaga lsp_finder<CR>', 'Find')
+m.nmap('<leader>lth', ':lua require("lsp-inlayhints").toggle()<CR>')
+m.nmap('<leader>ltl', ':LspLensToggle<CR>')
+m.nmap('<leader>lk', ':DocsViewToggle<CR>')
 
 m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-m.nmap('<leader>ca', ":lua vim.lsp.buf.code_action()<CR>", '[C]ode [A]ction')
+m.nmap('<leader>ca', ':CodeActionMenu<CR>', '[C]ode [A]ction')
 -- m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
 m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 -- m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -145,9 +224,9 @@ m.nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
 -- m.nmap('gr', vim.lsp.buf.references, 'Buffer References')
 m.nmap('<space>f', vim.lsp.buf.formatting, 'Format Buffer')
 
--- m.nmap("<localleader>lr", ":LspRestart<Cr>", "Restart LSP")
--- m.nmap("<localleader>ls", ":LspStart<Cr>", "Start LSP")
--- m.nmap("<localleader>lS", ":LspStop<Cr>", "Stop LSP")
+-- m.nmap("<leader>lr", ":LspRestart<Cr>", "Restart LSP")
+-- m.nmap("<leader>ls", ":LspStart<Cr>", "Start LSP")
+-- m.nmap("<leader>lS", ":LspStop<Cr>", "Stop LSP")
 
 -- }}} LSP mappings
 
@@ -158,22 +237,6 @@ m.nmap('<leader>sb', '<cmd>Lspsaga show_buf_diagnostics<CR>', 'Buffer diagnostic
 m.nmap('<leader>sw', '<cmd>Lspsaga show_workspace_diagnostics<CR>', 'Workspace diagnostics')
 m.nmap('<leader>sc', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Cursor diagnostics')
 -- }}} Show mappings
-
--- {{{ Jump bindings
-
-m.nmap('<localleader>jw', '<cmd>VisitLinkNearest<cr>', 'Link')
-
-m.nmap('<leader>o', '<cmd>Portal jumplist backward<cr>', 'Portal jump back')
-m.nmap('<leader>i', '<cmd>Portal jumplist forward<cr>', 'Portal jump forward')
-
-m.nmap('<M-o>', ":lua require('bufjump').backward()<cr>", 'Bufjump back')
-m.nmap('<M-i>', ":lua require('bufjump').forward()<cr>", 'Bufjump forward')
-m.nmap('<localleader>jl', ':Telescope jumplist<CR>', 'Jumplist')
-
--- vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
--- vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
-
--- }}} Jump bindings
 
 -- {{{ fix to use mymap
 -- Keymaps for better default experience
@@ -186,31 +249,31 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- }}} fix to use mymap
 
 -- {{{ Buffer bindings
-mymap('n', '<localleader>bb', ':Telescope buffers theme=ivy<CR>')
--- mymap('n', '<localleader>bd', ":lua require('bufdelete').bufdelete(0)<CR>")
-mymap('n', '<localleader>bd', ':bp<bar>sp<bar>bn<bar>bd<CR>')
+mymap('n', '<leader>bb', ':Telescope buffers theme=ivy<CR>')
+-- mymap('n', '<leader>bd', ":lua require('bufdelete').bufdelete(0)<CR>")
+mymap('n', '<leader>bd', ':bp<bar>sp<bar>bn<bar>bd<CR>')
 
 -- }}} Buffer bindings
 
 -- {{{ Error Bindings
-mymap('n', '<localleader>ej', ':lnext<CR>')
-mymap('n', '<localleader>ek', ':lprevious<CR>')
+mymap('n', '<leader>ej', ':lnext<CR>')
+mymap('n', '<leader>ek', ':lprevious<CR>')
 
 mymap('n', '<A-n>', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
 mymap('n', '<A-p>', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
 
--- mymap('n', '<localleader>ej', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
--- mymap('n', '<localleader>ek', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
-mymap('n', '<localleader>egg', ":lua require('trouble').first({skip_groups = true, jump = true})<CR>")
-mymap('n', '<localleader>eG', "lua require('trouble').last({skip_groups = true, jump = true})<CR>")
+-- mymap('n', '<leader>ej', ":lua require('trouble').next({skip_groups = true, jump = true})<CR>")
+-- mymap('n', '<leader>ek', ":lua require('trouble').previous({skip_groups = true, jump = true})<CR>")
+mymap('n', '<leader>egg', ":lua require('trouble').first({skip_groups = true, jump = true})<CR>")
+mymap('n', '<leader>eG', "lua require('trouble').last({skip_groups = true, jump = true})<CR>")
 
-mymap('n', '<localleader>ee', ':TroubleToggle<CR>')
-mymap('n', '<localleader>eb', ':Trouble document_diagnostics<CR>')
-mymap('n', '<localleader>ep', ':Trouble workspace_diagnostics<CR>')
-mymap('n', '<localleader>ef', ':CodeActionMenu<CR>')
+mymap('n', '<leader>ee', ':TroubleToggle<CR>')
+mymap('n', '<leader>eb', ':Trouble document_diagnostics<CR>')
+mymap('n', '<leader>ep', ':Trouble workspace_diagnostics<CR>')
+mymap('n', '<leader>ef', ':CodeActionMenu<CR>')
 
 -- Use diaglist???
-mymap('n', '<localleader>ea', ":lua require('diaglist').open_all_diagnostics()<CR>")
+mymap('n', '<leader>ea', ":lua require('diaglist').open_all_diagnostics()<CR>")
 
 -- -- nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
 -- -- nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
@@ -218,24 +281,35 @@ mymap('n', '<localleader>ea', ":lua require('diaglist').open_all_diagnostics()<C
 -- }}} Error Bindings
 
 -- {{{ GoTo bindings
+
 mymap('n', 'gd', ':lua require("goto-preview").goto_preview_definition()<CR>')
+mymap('n', 'gm', ':MyJumpMarks<CR>')
 mymap('n', 'gt', ':lua require("goto-preview").goto_type_definition()<CR>')
 mymap('n', 'gt', ':lua require("goto-preview").goto_type_implementation()<CR>')
-mymap('n', '<A-return>', ':SlimeSendCurrentLine<CR>')
-mymap('v', '<A-return>', ':SlimeSend<CR>')
 mymap('v', 's', ':SlimeSend<CR>')
 mymap('v', 'S', ':SlimeSend<CR>')
+
 -- }}} GoTo bindings
 
+-- {{{ Slime
+
+mymap('n', '<A-return>', ':SlimeSendCurrentLine<CR>')
+mymap('v', '<A-return>', ':SlimeSend<CR>')
+mymap('n', '<leader>sc', ':lua require("goto-preview").goto_preview_definition()<CR>')
+mymap('n', '<leader>sc', ':lua SlimeConfig <CR>')
+
+-- }}} Slime
+
 -- {{{ Tabs
+
 -- mymap('n', '<C-w>', ':BufferClose<CR>')
-mymap('n', '<localleader><Tab>k', ':tabonly<CR>')
-mymap('n', '<localleader><Tab>h', ':tabprevious<CR>')
-mymap('n', '<localleader><Tab>l', ':tabnext<CR>')
-mymap('n', '<localleader><Tab>L', ':tabmove<CR>')
--- mymap('n', '<localleader><Tab>H', ':BufferMove<CR>')
-mymap('n', '<localleader><Tab>d', ':tabclose<CR>')
-mymap('n', '<localleader><Tab>c', ':tabnew<CR>')
+mymap('n', '<leader><Tab>k', ':tabonly<CR>')
+mymap('n', '<leader><Tab>h', ':tabprevious<CR>')
+mymap('n', '<leader><Tab>l', ':tabnext<CR>')
+mymap('n', '<leader><Tab>L', ':tabmove<CR>')
+-- mymap('n', '<leader><Tab>H', ':BufferMove<CR>')
+mymap('n', '<leader><Tab>d', ':tabclose<CR>')
+mymap('n', '<leader><Tab>c', ':tabnew<CR>')
 mymap('n', '<C-Tab>', ':tabnext<CR>')
 mymap('n', '<A-S-Tab>', ':tabprevious<CR>')
 mymap('n', '<A-Tab>', ':tabnext<CR>')
@@ -251,6 +325,7 @@ mymap('n', '<A-6>', ':tabn6<CR>')
 mymap('n', '<A-7>', ':tabn7<CR>')
 mymap('n', '<A-8>', ':tabn8<CR>')
 mymap('n', '<A-9>', ':tabn9<CR>')
+
 -- }}} Tabs
 
 -- {{{ Terminal
@@ -315,11 +390,11 @@ mymap('n', '<C-->', function()
 end)
 
 m.nname('u', 'UI')
-m.nmap('<localleader>ud', ':DarkMode<CR>', 'Dark mode')
-m.nmap('<localleader>ul', ':LightMode<CR>', 'Light Mode')
-m.nmap('<localleader>ut', ':ToggleDarkMode<CR>', 'Toggle dark/light')
-m.nmap('<localleader>uu', ':RandomizeBG<CR>', 'Randomize background (waldark)')
-m.nmap('<localleader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", 'Zenmode')
+m.nmap('<leader>ud', ':DarkMode<CR>', 'Dark mode')
+m.nmap('<leader>ul', ':LightMode<CR>', 'Light Mode')
+m.nmap('<leader>ut', ':ToggleDarkMode<CR>', 'Toggle dark/light')
+m.nmap('<leader>uu', ':RandomizeBG<CR>', 'Randomize background (waldark)')
+m.nmap('<leader>uz', ":lua require('zen-mode').toggle({ window = { width = .85} })<cr>", 'Zenmode')
 
 -- }}} UI bindings
 
@@ -338,41 +413,44 @@ mymap('n', '<A-S-h>', ':vertical resize -1<CR>')
 -- }}} Window bindings
 
 -- {{{ Debugger
-mymap('n', '<localleader>dd', ":lua require'dap-go'.debug_test()<CR>") -- Make this filetype dependent
-mymap('n', '<localleader>db', ":lua require'dap'.toggle_breakpoint()<CR>")
-mymap('n', '<localleader>dB', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-mymap('n', '<localleader>dlp', ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>")
-mymap('n', '<localleader>dd', ":lua require'dap'.continue()<CR>")
-mymap('n', '<localleader>do', ":lua require'dap'.step_over()<CR>")
-mymap('n', '<localleader>di', ":lua require'dap'.step_into()<CR>")
-mymap('n', '<localleader>dO', ":lua require'dap'.step_out()<CR>")
-mymap('n', '<localleader>dr', ":lua require'dap'.repl.open()<CR>")
-mymap('n', '<localleader>dm', ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>")
+mymap('n', '<leader>dd', ":lua require'dap-go'.debug_test()<CR>") -- Make this filetype dependent
+mymap('n', '<leader>db', ":lua require'dap'.toggle_breakpoint()<CR>")
+mymap('n', '<leader>dB', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+mymap('n', '<leader>dlp', ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>")
+mymap('n', '<leader>dd', ":lua require'dap'.continue()<CR>")
+mymap('n', '<leader>do', ':DapStepOver<CR>')
+mymap('n', '<leader>di', ':DapStepInto<CR>')
+mymap('n', '<leader>dO', ':DapStepOut<CR>')
+mymap('n', '<leader>dr', ":lua require'dap'.repl.open()<CR>")
+mymap('n', '<leader>dm', ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>")
+mymap('n', '<leader>dt', ":lua require'neotest'.run.run({strategy = 'dap'})<CR>")
+mymap('n', '<leader>du', ":lua require'dapui'.toggle()<CR>")
+
 -- }}} Debugger
 
 -- {{{ Todo
-mymap('n', '<localleader>TT', ':TodoTrouble<CR>')
+mymap('n', '<leader>TT', ':TodoTrouble<CR>')
 --  }}}
 
 -- {{{ Snippets
-mymap('n', '<localleader>yy', ':Telescope ultisnips theme=ivy<CR>')
+mymap('n', '<leader>yy', ':Telescope ultisnips theme=ivy<CR>')
 -- }}} Snippets
 
 -- {{{ Telescope
-mymap('n', '<localleader>pf', ':Telescope fd theme=ivy<CR>')
-mymap('n', '<localleader>po', ':Telescope project theme=ivy<CR>')
-mymap('n', '<localleader>pr', ':Telescope live_grep theme=ivy<CR>')
+mymap('n', '<leader>pf', ':Telescope fd theme=ivy<CR>')
+mymap('n', '<leader>po', ':Telescope project theme=ivy<CR>')
+mymap('n', '<leader>pr', ':Telescope live_grep theme=ivy<CR>')
 mymap('n', '/', ':Telescope current_buffer_fuzzy_find theme=ivy<CR>')
 mymap('n', '<C-p>', ':Telescope <CR>')
-mymap('n', '<localleader><CR>', ':terminal<CR>')
+mymap('n', '<leader><CR>', ':terminal<CR>')
 
 mymap('n', '<A-x>', ':Telescope commands theme=ivy<CR>')
 mymap('i', '<A-x>', ':Telescope commands theme=ivy<CR>')
 -- }}} Telescope
 
 -- {{{ Commenting
-mymap('v', '<localleader>cc', ':CommentToggle<CR>')
-mymap('n', '<localleader>cc', ':CommentToggle<CR>')
+mymap('v', '<leader>cc', ':CommentToggle<CR>')
+mymap('n', '<leader>cc', ':CommentToggle<CR>')
 
 -- mymap("v", "<C-c><C-c>", ":CommentToggle<CR>")
 -- mymap("n", "<C-c><C-c>", ":CommentToggle<CR>")
@@ -380,34 +458,34 @@ mymap('n', '<localleader>cc', ':CommentToggle<CR>')
 -- }}} Commenting
 
 -- {{{ Jump bindings
-mymap('n', '<localleader>jj', ':HopChar2<CR>')
+mymap('n', '<leader>jj', ':HopChar2<CR>')
 
 -- jump bindings
-mymap('n', '<localleader>jd', ':Telescope lsp_definitions<CR>')
-mymap('n', '<localleader>ja', ':AnyJump<CR>')
-mymap('n', '<localleader>ab', ':AnyJumpBack<CR>')
-mymap('n', '<localleader>al', ':AnyJumpLastResult<CR>')
+mymap('n', '<leader>jd', ':Telescope lsp_definitions<CR>')
+mymap('n', '<leader>ja', ':AnyJump<CR>')
+mymap('n', '<leader>ab', ':AnyJumpBack<CR>')
+mymap('n', '<leader>al', ':AnyJumpLastResult<CR>')
 
--- mymap("n", "<localleader>jj", ':lua require("goto-preview").goto_preview_definition()<CR>')
+-- mymap("n", "<leader>jj", ':lua require("goto-preview").goto_preview_definition()<CR>')
 
 -- mymap("n", "<C-h>", ":lua vim.lsp.buf.hover()<CR>")
 
--- mymap("n", "<localleader>k", ":lua hover.hover()<CR>")
+-- mymap("n", "<leader>k", ":lua hover.hover()<CR>")
 
-mymap('n', '<localleader>jq', ':lua require("goto-preview").close_all_win()<CR>')
-mymap('n', '<localleader>jt', ':lua require("goto-preview").goto_preview_type_definition()<CR>')
-mymap('n', '<localleader>ji', ':lua require("goto-preview").goto_preview_implementation()<CR>')
-mymap('n', '<localleader>jr', ':lua require("goto-preview").goto_preview_references()<CR>')
+mymap('n', '<leader>jq', ':lua require("goto-preview").close_all_win()<CR>')
+mymap('n', '<leader>jt', ':lua require("goto-preview").goto_preview_type_definition()<CR>')
+mymap('n', '<leader>ji', ':lua require("goto-preview").goto_preview_implementation()<CR>')
+mymap('n', '<leader>jr', ':lua require("goto-preview").goto_preview_references()<CR>')
 
 -- }}} Jump bindings
 
 -- {{{ Test bindings
-mymap('n', '<localleader>tt', ":lua require('neotest').run.run()<CR>")
-mymap('n', '<localleader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-mymap('n', '<localleader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-mymap('n', '<localleader>ts', ":lua require('neotest').summary.toggle()<CR>")
-mymap('n', '<localleader>to', ":lua require('neotest').output_panel.toggle()<CR>")
-mymap('n', '<localleader>tz', ':ZenMode<CR>')
+mymap('n', '<leader>tt', ":lua require('neotest').run.run()<CR>")
+mymap('n', '<leader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
+mymap('n', '<leader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
+mymap('n', '<leader>ts', ":lua require('neotest').summary.toggle()<CR>")
+mymap('n', '<leader>to', ":lua require('neotest').output_panel.toggle()<CR>")
+mymap('n', '<leader>tz', ':ZenMode<CR>')
 -- --   nnoremap <silent>[n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 -- --   nnoremap <silent>]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
@@ -415,28 +493,28 @@ mymap('n', '<localleader>tz', ':ZenMode<CR>')
 
 -- {{{ Java dev bindings
 -- -- jdtls test bindings...?
--- -- mymap("n", "<localleader>Tc", ":lua require'jdtls'.test_class()<CR>")
--- -- mymap("n", "<localleader>Tm", ":lua require'jdtls'.test_nearest_method()<CR>")
+-- -- mymap("n", "<leader>Tc", ":lua require'jdtls'.test_class()<CR>")
+-- -- mymap("n", "<leader>Tm", ":lua require'jdtls'.test_nearest_method()<CR>")
 -- }}} Java dev bindings
 
 -- {{{ Git bindings
 -- Git bindings
--- mymap('n', '<localleader>gg', ':Magit<CR>')
-mymap('n', '<localleader>gg', ':lua require("neogit").open({ kind = "vsplit" })<CR>')
-mymap('n', '<localleader>gj', ':VGit hunk_down <CR>')
-mymap('n', '<localleader>gk', ':VGit hunk_up <CR>')
+-- mymap('n', '<leader>gg', ':Magit<CR>')
+mymap('n', '<leader>gg', ':lua require("neogit").open({ kind = "vsplit" })<CR>')
+mymap('n', '<leader>gj', ':VGit hunk_down <CR>')
+mymap('n', '<leader>gk', ':VGit hunk_up <CR>')
 
-mymap('n', '<localleader>gj', ':lua require("gitsigns.actions").next_hunk()<CR>')
-mymap('n', '<localleader>gk', ':lua require("gitsigns.actions").prev_hunk()<CR>')
-mymap('n', '<localleader>gs', ':lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>')
--- mymap('n', '<localleader>gs', 'lua require"gitsigns".stage_hunk()<CR>')
+mymap('n', '<leader>gj', ':lua require("gitsigns.actions").next_hunk()<CR>')
+mymap('n', '<leader>gk', ':lua require("gitsigns.actions").prev_hunk()<CR>')
+mymap('n', '<leader>gs', ':lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>')
+-- mymap('n', '<leader>gs', 'lua require"gitsigns".stage_hunk()<CR>')
 
 -- 		['x <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
 -- 		['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
 
--- mymap('n', '<localleader>gs', ':VGit buffer_hunk_stage <CR>')
+-- mymap('n', '<leader>gs', ':VGit buffer_hunk_stage <CR>')
 
--- mymap('n', '<localleader>gc', ':lua require("neogit").open({ "commit" })<CR>')
+-- mymap('n', '<leader>gc', ':lua require("neogit").open({ "commit" })<CR>')
 
 -- open using defaults
 -- neogit.open()
@@ -450,8 +528,8 @@ mymap('n', '<localleader>gs', ':lua require"gitsigns".stage_hunk({vim.fn.line(".
 -- open home directory
 -- neogit.open({ cwd = "~" })
 
-mymap('n', '<localleader>gb', ':Telescope git_branches theme=ivy<CR>')
-mymap('n', '<localleader>gc', ':Telescope git_commits theme=ivy<CR>')
+mymap('n', '<leader>gb', ':Telescope git_branches theme=ivy<CR>')
+mymap('n', '<leader>gc', ':Telescope git_commits theme=ivy<CR>')
 
 -- nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
 -- nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
@@ -459,45 +537,52 @@ mymap('n', '<localleader>gc', ':Telescope git_commits theme=ivy<CR>')
 -- nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 --
 
--- mymap('n', '<localleader>gs', ':Telescope git_status theme=ivy<CR>')
-mymap('n', '<localleader>gf', ':Telescope git_files theme=ivy<CR>')
+-- mymap('n', '<leader>gs', ':Telescope git_status theme=ivy<CR>')
+mymap('n', '<leader>gf', ':Telescope git_files theme=ivy<CR>')
 
 -- }}}
 
 -- {{{ Help bindings
-mymap('n', '<localleader>hk', ':Telescope keymaps theme=ivy<CR>')
+mymap('n', '<leader>hk', ':Telescope keymaps theme=ivy<CR>')
 -- }}} Help bindings
 
 -- {{{ Todo
-mymap('n', '<localleader>TT', ':TodoTrouble<CR>')
+mymap('n', '<leader>TT', ':TodoTrouble<CR>')
 -- }}} Todo
 
 -- {{{ Project bindings
 mymap('n', '<C-k>', ':BuildMe<CR>')
-mymap('n', '<localleader>pb', ':BuildMe<CR>')
-mymap('n', '<localleader>pf', ':Telescope fd theme=ivy<CR>')
-mymap('n', '<localleader>po', ':Telescope project theme=ivy<CR>')
-mymap('n', '<localleader>pr', ':Telescope live_grep theme=ivy<CR>')
-mymap('n', '<localleader>ps', ':split<CR>:terminal<CR>')
+mymap('n', '<leader>pb', ':BuildMe<CR>')
+mymap('n', '<leader>pf', ':Telescope fd theme=ivy<CR>')
+mymap('n', '<leader>po', ':Telescope project theme=ivy<CR>')
+mymap('n', '<leader>pr', ':Telescope live_grep theme=ivy<CR>')
+mymap('n', '<leader>ps', ':split<CR>:terminal<CR>')
 --  mymap("n", "<C-k>", ":BuildMe<CR>")
 
 -- }}} Project bindings
 
 -- {{{ language bindings?
-mymap('n', '<localleader>ll', ':AerialToggle<CR>')
+mymap('n', '<leader>ll', ':AerialToggle<CR>')
 -- }}} language bindings?
 
 -- {{{ Rust bindings
-mymap('n', '<localleader>rr', ':RustRunnables<CR>')
+-- mymap('n', '<leader>rr', ':RustRunnables<CR>')
+
+m.nmap('<leader>rr', '<Plug>(Luadev-RunLine)', 'Run lua')
+m.vmap('<leader>rr', '<Plug>(Luadev-Run)', 'Run lua')
+m.nmap('<C-S-p>', '<CMD>BuildMe<CR>', 'Build Project')
+
 -- }}} Rust bindings
 
 -- {{{ Window bindings
-mymap('n', '<localleader>ww', ':WindowsMaximize<CR>')
+mymap('n', '<leader>ww', ':WindowsMaximize<CR>')
 -- }}} Window bindings
 
 mymap('n', '<C-h>', ':lua vim.lsp.buf.hover()<CR>')
 
 mymap('n', '<localleader>k', ':lua hover.hover()<CR>')
+
+-- {{{ Delete builtin marks
 
 function DeleteBuiltinMarks()
   vim.cmd 'delmarks 0-9'
@@ -507,13 +592,15 @@ function DeleteBuiltinMarks()
   vim.cmd 'delmarks <'
   vim.cmd 'delmarks ['
   vim.cmd 'delmarks ]'
-  -- vim.cmd("delmarks \\'")
-  -- vim.cmd('delmarks "')
 end
 
 vim.api.nvim_create_user_command('DeleteBuiltinMarks', function()
   DeleteBuiltinMarks()
 end, { nargs = 0, desc = 'Delete all builtin automarks nvim' })
+
+-- }}} Delete builtin marks
+
+-- {{{ My Jump Marks
 
 function MyJumpMarks()
   DeleteBuiltinMarks()
@@ -524,6 +611,8 @@ vim.api.nvim_create_user_command('MyJumpMarks', function()
   MyJumpMarks()
 end, { nargs = 0, desc = 'My jump to mark function' })
 
+-- }}} My Jump Marks
+
 mymap('n', '<localleader>mm', ':MyJumpMarks<CR>')
 
 -- map("n", "<C-=>", function()
@@ -533,15 +622,3 @@ mymap('n', '<localleader>mm', ':MyJumpMarks<CR>')
 -- map("n", "<C-->", function()
 --   neovideScale(-0.1)
 -- end)
-
--- TODO: find a home for this
--- -- Return to last edit position when opening files
--- vim.cmd([[
--- augroup augroup_all_files_vimscript
---   autocmd!
---   autocmd BufReadPost *
---       \ if line("'\"") > 0 && line("'\"") <= line("$") |
---       \   exe "normal! g`\"" |
---       \ endif
--- augroup END
--- ]])

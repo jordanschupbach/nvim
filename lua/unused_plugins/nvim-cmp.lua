@@ -7,9 +7,9 @@ return {
     'onsails/lspkind-nvim',
   },
   config = function()
-    local cmp = require('cmp')
-    local luasnip = require('luasnip')
-    local lspkind = require('lspkind')
+    local cmp = require 'cmp'
+    local luasnip = require 'luasnip'
+    local lspkind = require 'lspkind'
     require('cmp').setup {
       snippet = {
         expand = function(args)

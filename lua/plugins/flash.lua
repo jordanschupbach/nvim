@@ -1,16 +1,16 @@
 -- https://github.com/folke/flash.nvim
 
 return {
-  "folke/flash.nvim",
-  event = "VeryLazy",
+  'folke/flash.nvim',
+  event = 'VeryLazy',
   -----@type Flash.Config
   opts = {},
   keys = {
     {
-      "s",
-      mode = { "n", "x", "o" },
+      's',
+      mode = { 'n', 'x', 'o' },
       function()
-        require("flash").jump()
+        require('flash').jump()
         -- require("flash").jump({ -- Beginning of word
         --   search = {
         --     mode = function(str)
@@ -19,31 +19,31 @@ return {
         --   },
         -- })
       end,
-      desc = "Flash",
+      desc = 'Flash',
     },
     {
-      "S",
-      mode = { "n", "o", "x" },
+      'S',
+      mode = { 'n', 'o', 'x' },
       function()
-        require("flash").treesitter()
+        require('flash').treesitter()
       end,
-      desc = "Flash Treesitter",
+      desc = 'Flash Treesitter',
     },
     {
-      "r",
-      mode = "o",
+      'r',
+      mode = 'o',
       function()
-        require("flash").remote()
+        require('flash').remote()
       end,
-      desc = "Remote Flash",
+      desc = 'Remote Flash',
     },
     {
-      "R",
-      mode = { "o", "x" },
+      'R',
+      mode = { 'o', 'x' },
       function()
-        require("flash").treesitter_search()
+        require('flash').treesitter_search()
       end,
-      desc = "Flash Treesitter Search",
+      desc = 'Flash Treesitter Search',
     },
     -- {
     --   "<c-s>",

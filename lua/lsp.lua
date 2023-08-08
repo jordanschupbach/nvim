@@ -28,7 +28,7 @@ local servers = {
         end,
         settings = {
           ltex = {
-            load_langs = {"en-US"}, -- en-US as default
+            load_langs = { 'en-US' }, -- en-US as default
             -- boolean : whether to load dictionaries on startup
             init_check = true,
             -- string : relative or absolute paths to store dictionaries
@@ -42,7 +42,6 @@ local servers = {
             server_opts = nil,
           },
         },
-
       }
     end,
     settings = {

@@ -27,7 +27,7 @@ return {
       --   "auto" only performs full validation in NvimLightbulb.setup.
       --   "always" performs full validation in NvimLightbulb.update_lightbulb as well.
       --   "never" disables config validation.
-      validate_config = "auto",
+      validate_config = 'auto',
 
       -- Code action kinds to observe.
       -- To match all code actions, set to `nil`.
@@ -42,34 +42,34 @@ return {
         enabled = true,
         -- Text to show in the sign column.
         -- Must be between 1-2 characters.
-        text = "💡",
+        text = '💡',
         -- Highlight group to highlight the sign column text.
-        hl = "LightBulbSign",
+        hl = 'LightBulbSign',
       },
 
       -- 2. Virtual text.
       virtual_text = {
         enabled = false,
         -- Text to show in the virt_text.
-        text = "💡",
+        text = '💡',
         -- Position of virtual text given to |nvim_buf_set_extmark|.
         -- Can be a number representing a fixed column (see `virt_text_pos`).
         -- Can be a string representing a position (see `virt_text_win_col`).
-        pos = "eol",
+        pos = 'eol',
         -- Highlight group to highlight the virtual text.
-        hl = "LightBulbVirtualText",
+        hl = 'LightBulbVirtualText',
         -- How to combine other highlights with text highlight.
         -- See `hl_mode` of |nvim_buf_set_extmark|.
-        hl_mode = "combine",
+        hl_mode = 'combine',
       },
 
       -- 3. Floating window.
       float = {
         enabled = false,
         -- Text to show in the floating window.
-        text = "💡",
+        text = '💡',
         -- Highlight group to highlight the floating window.
-        hl = "LightBulbFloatWin",
+        hl = 'LightBulbFloatWin',
         -- Window options.
         -- See |vim.lsp.util.open_floating_preview| and |nvim_open_win|.
         -- Note that some options may be overridden by |open_floating_preview|.
@@ -84,23 +84,23 @@ return {
       status_text = {
         enabled = false,
         -- Text to set if a lightbulb is available.
-        text = "💡",
+        text = '💡',
         -- Text to set if a lightbulb is unavailable.
-        text_unavailable = "",
+        text_unavailable = '',
       },
 
       -- 5. Number column.
       number = {
         enabled = false,
         -- Highlight group to highlight the number column if there is a lightbulb.
-        hl = "LightBulbNumber",
+        hl = 'LightBulbNumber',
       },
 
       -- 6. Content line.
       line = {
         enabled = false,
         -- Highlight group to highlight the line if there is a lightbulb.
-        hl = "LightBulbLine",
+        hl = 'LightBulbLine',
       },
 
       -- Autocmd configuration.
@@ -114,9 +114,9 @@ return {
         -- Set to a negative value to avoid setting the updatetime.
         updatetime = 200,
         -- See |nvim_create_autocmd|.
-        events = { "CursorHold", "CursorHoldI" },
+        events = { 'CursorHold', 'CursorHoldI' },
         -- See |nvim_create_autocmd| and |autocmd-pattern|.
-        pattern = { "*" },
+        pattern = { '*' },
       },
 
       -- Scenarios to not show a lightbulb.
@@ -130,7 +130,6 @@ return {
       },
     }
     -- require("nvim-lightbulb").setup(default_config)
-    require("nvim-lightbulb").setup(default_config)
-  end
-
+    require('nvim-lightbulb').setup(default_config)
+  end,
 }

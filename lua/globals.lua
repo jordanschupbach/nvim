@@ -1,4 +1,4 @@
-local u = require('utilities')
+local u = require 'utilities'
 
 local dmodestring = u.lines_from('/home/jordan/.scripts/.mode')[1]
 

@@ -1,7 +1,7 @@
 return {
   'SmiteshP/nvim-navbuddy',
   dependencies = {
-    'SmiteshP/nvim-navic',
+    -- 'SmiteshP/nvim-navic',
     'MunifTanjim/nui.nvim',
     'numToStr/Comment.nvim', -- Optional
     'nvim-telescope/telescope.nvim', -- Optional

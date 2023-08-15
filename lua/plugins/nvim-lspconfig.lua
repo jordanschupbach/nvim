@@ -7,9 +7,9 @@ return { -- LSP Configuration & Plugins
     'williamboman/mason-lspconfig.nvim',
     'j-hui/fidget.nvim',
     'folke/neodev.nvim',
-    'SmiteshP/nvim-navbuddy',
+    -- 'SmiteshP/nvim-navbuddy',
     dependencies = {
-      'SmiteshP/nvim-navic',
+      -- 'SmiteshP/nvim-navic',
       'MunifTanjim/nui.nvim',
     },
     opts = { lsp = { auto_attach = true } },

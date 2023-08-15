@@ -2,6 +2,14 @@ local bundles = {
   vim.fn.glob '/home/jordan/git_repos/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
 }
 
+vim.list_extend(
+  bundles,
+  vim.split(
+    vim.fn.glob('/home/jordan/.vscode-oss/extensions/vscjava.vscode-java-test-0.39.1-universal/server/*.jar', 1),
+    '\n'
+  )
+)
+
 local function setup()
   local pkg_status, jdtls = pcall(require, 'jdtls')
   if not pkg_status then

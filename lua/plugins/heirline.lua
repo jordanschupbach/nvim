@@ -11,7 +11,7 @@ return {
   event = 'UiEnter',
   dependencies = {
     'glepnir/lspsaga.nvim',
-    'SmiteshP/nvim-navic',
+    -- 'SmiteshP/nvim-navic',
     'nvim-tree/nvim-web-devicons',
     'lewis6991/gitsigns.nvim',
   },
@@ -25,11 +25,17 @@ return {
       -- pylogo_bg = utils.get_highlight("PyLogo").bg,
       -- pylogo_fg = utils.get_highlight("PyLogo").fg,
 
+      js_logo_bg = utils.get_highlight('JSLogo').bg,
+      js_logo_fg = utils.get_highlight('JSLogo').fg,
+
       pylogo_bg = utils.get_highlight('PyLogo').bg,
       pylogo_fg = utils.get_highlight('PyLogo').fg,
+      shell_logo_bg = utils.get_highlight('ShellLogo').bg,
+      shell_logo_fg = utils.get_highlight('ShellLogo').fg,
       -- bright_bg = utils.get_highlight("Folded").bg,
       button_bg = utils.get_highlight('Folded').bg,
       lightdark_fg = utils.get_highlight('Normal').fg,
+      lightdark_bg = utils.get_highlight('StatusLine').bg,
       statusline_bg = utils.get_highlight('StatusLine').bg,
       -- bright_fg = utils.get_highlight("Folded").fg,
       -- button_bg = utils.get_highlight("TabLineSel").fg,
@@ -89,6 +95,10 @@ return {
     -- }}} Autos
 
     --- {{{ Components
+
+
+
+
 
     -- {{{ HelpFileName
     local HelpFileName = {
@@ -205,7 +215,22 @@ return {
         -- ⎞⎡⎛
       end,
       hl = function()
-        return { fg = mycolors.donJuan, bg = colors.button_bg }
+        return { fg = mycolors.donJuan }
+      end,
+    }
+    -- }}} Separator |
+
+    -- {{{ Separator |
+    local StatusLineSeparator = {
+      -- require('nvim-web-devicons').get_icon()
+      provider = function()
+        -- return "|"
+        return '❘'
+        -- return "⎞⎛"
+        -- ⎞⎡⎛
+      end,
+      hl = function()
+        return { fg = mycolors.donJuan }
       end,
     }
     -- }}} Separator |
@@ -217,7 +242,19 @@ return {
         return ' '
       end,
       hl = function()
-        return { fg = mycolors.donJuan, bg = colors.button_bg }
+        return { fg = mycolors.donJuan }
+      end,
+    }
+    -- }}} Space
+
+    -- {{{ Space
+    local StatusLineSpace = {
+      -- require('nvim-web-devicons').get_icon()
+      provider = function()
+        return ' '
+      end,
+      hl = function()
+        return { fg = mycolors.donJuan }
       end,
     }
     -- }}} Space
@@ -229,7 +266,7 @@ return {
         return ' '
       end,
       hl = function()
-        return { fg = mycolors.donJuan, bg = colors.statusline_bg }
+        return { fg = mycolors.donJuan }
       end,
     }
     -- }}} Space
@@ -349,7 +386,7 @@ return {
 
     local LSPActive = {
       condition = conditions.lsp_attached,
-      update = { 'LspAttach', 'LspDetach' },
+      update = { 'LspAttach', 'LspDetach', 'BufEnter' },
 
       -- You can keep it simple,
       -- provider = " [LSP]",
@@ -868,6 +905,13 @@ return {
 
     local Align = { provider = '%=' }
 
+
+    local actionHints = {
+      provider = require('lsp-progress').progress -- require("action-hints").statusline()
+    }
+
+
+
     --- }}} Components
 
     -- {{{ Buttons
@@ -880,6 +924,7 @@ return {
     -- 
     -- 
     -- 󰔦󰕃󰔦󰡟󰺛󰴭
+    -- 󰎦󰎧󰎩󰎪󰎬󰎭󰎮󰎪󰎰󰎱󰎳󰎵󰎶󰎸󰎹󰎻󰎼󰎾󰎡󰎣󰛦󰟟󰧑󰦌󰬯󰯻󰯺󰻕󰻖󱀇󱍢󱑷󱓞󱓟󱗃󱢴󱢊󱢋󱩡󱩲󱨚
 
     -- {{{ GithubButton 
     local GithubButton = {
@@ -901,7 +946,7 @@ return {
         -- return ""
       end,
       hl = function()
-        return { fg = mycolors.trackAndField, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.trackAndField, underline = true }
       end,
     }
     -- }}} GithubButton 
@@ -925,7 +970,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.trackAndField, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.trackAndField, underline = true }
       end,
     }
     -- }}} SettingsButton 
@@ -949,7 +994,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.donJuan, bg = colors.button_bg }
+        return { fg = mycolors.donJuan }
       end,
     }
     -- }}} SidebarButton 
@@ -973,7 +1018,7 @@ return {
         return '󱫠'
       end,
       hl = function()
-        return { fg = mycolors.trackAndField, bg = colors.statusline_bg, underline = true }
+        return { fg = mycolors.trackAndField, underline = true }
       end,
     }
     -- }}} PomodoroButtonOne 
@@ -997,7 +1042,7 @@ return {
         return '' .. require('pomodoro').statusline():sub(4)
       end,
       hl = function()
-        return { fg = mycolors.trackAndField, bg = colors.statusline_bg }
+        return { fg = mycolors.trackAndField }
       end,
     }
     -- }}} PomodoroButtonTwo 
@@ -1022,7 +1067,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = colors.lightdark_fg, bg = colors.button_bg, underline = true }
+        return { fg = colors.lightdark_fg, underline = true }
       end,
     }
 
@@ -1047,7 +1092,7 @@ return {
         return '󰄸'
       end,
       hl = function()
-        return { fg = mycolors.moussaka, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.moussaka, underline = true }
       end,
     }
     -- }}} TodoButton 󰄸
@@ -1072,7 +1117,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.appleIiLime, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.appleIiLime, underline = true }
       end,
     }
     -- }}} DebugButton 󰃤
@@ -1096,7 +1141,7 @@ return {
         return '󰂞'
       end,
       hl = function()
-        return { fg = mycolors.lightSalmon, bg = colors.statusline_bg, underline = true }
+        return { fg = mycolors.lightSalmon, underline = true }
       end,
     }
 
@@ -1123,7 +1168,7 @@ return {
         -- 󰊢
       end,
       hl = function()
-        return { fg = mycolors.phillipineOrange, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.phillipineOrange, underline = true }
       end,
     }
     -- }}} GitButton 󰊢
@@ -1147,7 +1192,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.bluePartyParrot, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.bluePartyParrot, underline = true }
       end,
     }
     -- }}} FileTreeButton 
@@ -1171,7 +1216,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.munchOnMelon, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.munchOnMelon, underline = true }
       end,
     }
     -- }}} FileTreeButton 󰂓
@@ -1195,7 +1240,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = colors.pylogo_fg, bg = colors.pylogo_bg, underline = true }
+        return { fg = '#bbbb33', underline = true }
       end,
     }
     -- }}} FileTreeButton 
@@ -1219,12 +1264,12 @@ return {
         return '󰟔'
       end,
       hl = function()
-        return { fg = mycolors.bluePartyParrot, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.bluePartyParrot, underline = true }
       end,
     }
     -- }}} RButton 󰟔
 
-    -- {{{ GoButton 
+    -- {{{ GoButton 
     local GoButton = {
       -- require('nvim-web-devicons').get_icon()
       on_click = {
@@ -1240,14 +1285,41 @@ return {
           require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
       end,
       provider = function()
-        return ''
+        return ''
         -- 
       end,
       hl = function()
-        return { fg = mycolors.vibrantMint, bg = colors.button_bg, underline = true }
+        -- return { fg = colors.bluePartyParrot, bg = colors.button_bg, underline = false, bold = true }
+        return { fg = '#0100ff', underline = true, bold = true }
       end,
     }
     -- }}} CPPButton 
+
+    -- {{{ Fortran Button 󰯺
+    local FortranButton = {
+      -- require('nvim-web-devicons').get_icon()
+      on_click = {
+        callback = function()
+          ju.start_fortran_scratchpad()
+        end,
+        name = 'FortranButton',
+      },
+      init = function(self)
+        local filename = self.filename
+        local extension = vim.fn.fnamemodify(filename, ':e')
+        self.icon, self.icon_color =
+          require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+      end,
+      provider = function()
+        return '󰯺'
+        -- 󰯺
+      end,
+      hl = function()
+        -- return { fg = colors.bluePartyParrot, bg = colors.button_bg, underline = false, bold = true }
+        return { fg = '#aa00ff', underline = true, bold = true }
+      end,
+    }
+    -- }}} FortranButton 󰯺
 
     -- {{{ JavascriptButton 
     local JavascriptButton = {
@@ -1269,7 +1341,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.sizzlingSunrise, bg = colors.button_bg, underline = true }
+        return { fg = '#bbbb33', underline = true }
       end,
     }
     -- }}} Javascript Button 
@@ -1293,7 +1365,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.crashPink, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.crashPink, underline = true }
       end,
     }
     -- }}} HaskellButton 
@@ -1318,7 +1390,7 @@ return {
         -- ''
       end,
       hl = function()
-        return { fg = mycolors.phillipineOrange, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.phillipineOrange, underline = true }
       end,
     }
     -- }}} HaskellButton 
@@ -1343,7 +1415,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.bluePartyParrot, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.bluePartyParrot, underline = true }
       end,
     }
     -- }}} CPPButton 
@@ -1353,9 +1425,9 @@ return {
       -- require('nvim-web-devicons').get_icon()
       on_click = {
         callback = function()
-          vim.cmd 'Neotest summary'
+          ju.start_c_scratchpad()
         end,
-        name = 'TestsButton',
+        name = 'CButton',
       },
       init = function(self)
         local filename = self.filename
@@ -1368,7 +1440,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.bluePartyParrot, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.bluePartyParrot, underline = true }
       end,
     }
     -- }}} CButton 
@@ -1389,11 +1461,11 @@ return {
           require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
       end,
       provider = function()
-        return ''
-        -- 
+        return ''
+        -- 
       end,
       hl = function()
-        return { fg = mycolors.phillipineOrange, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.phillipineOrange, underline = true }
       end,
     }
     -- }}} JavaButton 
@@ -1418,7 +1490,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.trackAndField, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.trackAndField, underline = true }
       end,
     }
     -- }}} RustButton 
@@ -1443,7 +1515,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.bluePartyParrot, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.bluePartyParrot, underline = true }
       end,
     }
     -- }}} LuaButton 
@@ -1468,7 +1540,7 @@ return {
         -- 
       end,
       hl = function()
-        return { fg = mycolors.phillipineOrange, bg = colors.button_bg, underline = true }
+        return { fg = mycolors.phillipineOrange, underline = true }
       end,
     }
     -- }}} ZigButton 
@@ -1492,7 +1564,7 @@ return {
         return ''
       end,
       hl = function()
-        return { fg = mycolors.pastelFirstSnow, bg = colors.button_bg, underline = true }
+        return { fg = '#999999', underline = true }
       end,
     }
     -- }}} ShellButton 
@@ -1508,26 +1580,31 @@ return {
       { StatusSpace },
       -- { FileNameBlock },
       { Align },
+
+
       { LSPActive },
       { venv },
 
       { NotificationButton },
-      { StatusSpace },
+      { StatusLineSpace },
       { PomodoroButtonOne },
       { PomodoroButtonTwo },
-      { Separator },
+      { StatusLineSeparator },
 
-      { Space },
-      { Separator },
+      { StatusLineSpace },
+      { StatusLineSeparator },
       { LightDarkButton },
-      { Space },
-      { Separator },
+
+      { StatusLineSpace },
+      { StatusLineSeparator },
       { SettingsButton },
-      { Space },
-      { Separator },
+
+      { StatusLineSpace },
+      { StatusLineSeparator },
       { SidebarButton },
-      { Space },
-      { Separator },
+
+      { StatusLineSpace },
+      { StatusLineSeparator },
 
       -- { Ruler},
       -- { Space },
@@ -1647,6 +1724,10 @@ return {
 
       { Space },
       { Separator },
+      { FortranButton },
+
+      { Space },
+      { Separator },
       { HaskellButton },
 
       { Space },
@@ -1690,6 +1771,49 @@ return {
     }
 
     -- local WinBar = { { require(lspsaga.symbol.winbar).get_bar() }, { {}, {} } }
+    local WinBar = {
+      { FileNameBlock },
+      {},
+      -- { require('lspsaga.symbol.winbar').get_bar() },
+      {Align},
+      {actionHints}, }
+
+    local WinBarNC = {
+      {},
+      {},
+      -- { require('lspsaga.symbol.winbar').get_bar() },
+      -- {Align},
+      -- {actionHints},
+    }
+
+
+    local InactiveWinBar = {
+      condition = conditions.is_not_active,
+      {},
+      {},
+    }
+
+
+    local WinBars = {
+      -- hl = function()
+      --   if conditions.is_active() then
+      --     return 'WinBar'
+      --   else
+      --     return 'WinBarNC'
+      --   end
+      -- end,
+      -- the first statusline with no condition, or which condition returns true is used.
+      -- think of it as a switch case with breaks to stop fallthrough.
+      fallthrough = false,
+      -- SpecialStatusline,
+      -- TerminalStatusline,
+      InactiveWinBar,
+      WinBar,
+    }
+
+
+
+
     -- local WinBar = { {Navic}, { {}, {} } }
     -- local WinBar = { {}, { {}, {} } }
     -- local TabLine = { {TabPages }, {}, {} }
@@ -1701,7 +1825,7 @@ return {
 
     require('heirline').setup {
       statusline = StatusLines,
-      -- winbar = WinBar,
+      winbar = WinBars,
       tabline = TabLine,
       opts = {
         colors = colors,

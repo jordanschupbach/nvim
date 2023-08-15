@@ -14,7 +14,7 @@ local M = {
   -- {{{ Editor
 
   -- ColorColumn	Used for the columns set with 'colorcolumn'.
-  ColorColumn = { bg = colors.phillipineOrange },
+  ColorColumn = { bg = '#525203' },
 
   -- -- Conceal		Placeholder characters substituted for concealed text (see 'conceallevel').
   -- Conceal = { fg = theme.ui.special, bold = true },
@@ -211,8 +211,10 @@ local M = {
   -- CodeActionText = { fg = colors.vibrantMint, bg = colors.vibrantMint},
   SpecialKey = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
   Directory = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
-  TabLine = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
-  PyLogo = { fg = colors.sizzlingSunrise, bg = colors.smokedBlackCoffee },
+  -- TabLine = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
+  PyLogo = { fg =  '#bbbb33', bg = colors.smokedBlackCoffee },
+  ShellLogo = { fg = '#999999', bg = colors.smokedBlackCoffee },
+  JSLogo = { fg = '#bbbb33', bg = colors.smokedBlackCoffee },
 
   DiagnosticError = { fg = colors.trackAndField, bg = colors.smokedBlackCoffee },
 
@@ -255,7 +257,6 @@ local M = {
 
   -- {{{ Plugins
   --
-
 
   FidgetTask = { fg = colors.indiaGreen, bg = colors.smokedBlackCoffee, bold = true },
   FidgetTitle = { fg = colors.indiaGreen, bg = colors.smokedBlackCoffee, bold = true },

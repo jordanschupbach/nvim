@@ -2,6 +2,7 @@
 
 return {
   'nvim-telescope/telescope.nvim',
+  -- {{{ dependencies
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-project.nvim',
@@ -20,84 +21,25 @@ return {
     'xiyaowong/telescope-emoji.nvim',
     'folke/flash.nvim',
   },
-  -- defaults = {
-  --   prompt_prefix = ' ',
-  --   selection_caret = '* ', -- TODO: CHANGEME
-  --   path_display = { 'smart' },
-  --   vimgrep_arguments = {
-  --     'rg',
-  --     '--color=never',
-  --     '--no-heading',
-  --     '--with-filename',
-  --     '--line-number',
-  --     '--column',
-  --     '--smart-case',
-  --     '--no-ignore', -- **This is the added flag**
-  --     '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
-  --   },
-  --   mappings = {
-  --     i = {
-  --       ['<C-u>'] = false,
-  --       ['<C-d>'] = false,
-  --       ['<C-h>'] = 'which_key',
-  --       -- ['<C-s>'] = 'delete',
+  -- }}} dependencies
 
-  --       -- IMPORTANT
-  --       -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
-  --       -- ["<C-h>"] = require("telescope.nvim").extensions.hop.hop,  -- hop.hop_toggle_selection
-  --       -- custom hop loop to multi selects and sending selected entries to quickfix list
-  --       -- ['<C-space>'] = function(prompt_bufnr)
-  --       --   local opts = {
-  --       --     callback = actions.toggle_selection,
-  --       --     loop_callback = actions.send_selected_to_qflist,
-  --       --   }
-  --       --   require('telescope').extensions.hop._hop_loop(prompt_bufnr, opts)
-  --       -- end,
-  --     },
-  --     n = {
-  --       ['d'] = 'delete',
-  --     },
-  --   },
-  -- },
-  -- optional = true,
-  -- opts = function(_, opts)
-  --   local function flash(prompt_bufnr)
-  --     require('flash').jump {
-  --       pattern = '^',
-  --       label = { after = { 0, 0 } },
-  --       search = {
-  --         mode = 'search',
-  --         exclude = {
-  --           function(win)
-  --             return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= 'TelescopeResults'
-  --           end,
-  --         },
-  --       },
-  --       action = function(match)
-  --         local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
-  --         picker:set_selection(match.pos[1] - 1)
-  --       end,
-  --     }
-  --   end
-  --   opts.defaults = vim.tbl_deep_extend('force', opts.defaults or {}, {
-  --     mappings = {
-  --       n = { s = flash },
-  --       i = { ['<c-s>'] = flash },
-  --     },
-  --   })
-  -- end,
-  -- -- keys = {
-  -- --   { "<localleader>po", "<cmd>Telescope project<cr>", desc = "NeoTree"},
-  -- --   { "<localleader>yy", "<cmd>Telescope luasnip<cr>", desc = "NeoTree"},
-  -- --   -- vim.keymap.set({ "n" }, "<leader>fs", function()
-  -- --   --     telescope_extensions.luasnip.luasnip()
-  -- --   -- end, NOREMAP_SILENT)
-  -- -- },
+  -- {{{ config
   config = function()
     require('telescope').setup {
       prompt_prefix = ' ',
       selection_caret = '* ',
       path_display = { 'smart' },
+      vimgrep_arguments = {
+        'rg',
+        '--color=never',
+        '--no-heading',
+        '--with-filename',
+        '--line-number',
+        '--column',
+        '--smart-case',
+        '--no-ignore', -- **This is the added flag**
+        '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
+      },
       extensions = {
         -- ["ui-select"] = {
         --   require("telescope.themes").get_dropdown {
@@ -216,8 +158,11 @@ return {
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
   end,
+
+  -- }}} config
 }
 
+-- {{{ old config (needs processing)
 -- -- https://github.com/nvim-telescope/telescope.nvim
 -- OK_TELESCOPE, TELESCOPE = pcall(require, "telescope")
 -- if not OK_TELESCOPE then
@@ -414,3 +359,4 @@ return {
 --     previewer = false,
 --   })
 -- end, { desc = '[/] Fuzzily search in current buffer]' })
+-- }}} old config (needs processing)

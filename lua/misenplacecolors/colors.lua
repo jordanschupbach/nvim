@@ -18,6 +18,7 @@ local colors = {
   pigIron = '#484747',
 
   -- Blacks
+  midnightBlack = '#000000', -- Pantone Black 3c
   underworld = '#1f211c', -- Pantone Black 3c
   velvetBlack = '#1d1818', -- Pantone Neutral Black C
 

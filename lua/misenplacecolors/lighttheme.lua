@@ -3,6 +3,10 @@ local c = require 'misenplacecolors.colors'
 
 local M = {
 
+  DapBreakpoint = { fg = '#993939', bg = '#ffe0db' },
+  DapLogPoint = { bg = '#f2d283', fg = '#61afef' },
+  DapStopped = { bg = '#d1ffd7', fg = '#98c379' },
+
   ErrorLensError = { fg = '#760202', bg = '#ffd0cb' },
   ErrorLensWarn = { fg = '#765402', bg = '#f2d283' },
   ErrorLensInfo = { fg = '#06005e', bg = '#d2d1ff' },
@@ -20,7 +24,7 @@ local M = {
   -- {{{ Editor
 
   -- ColorColumn	Used for the columns set with 'colorcolumn'.
-  ColorColumn = { bg = colors.phillipineOrange },
+  ColorColumn = { bg = '#f2d283' },
 
   -- -- Conceal		Placeholder characters substituted for concealed text (see 'conceallevel').
   -- Conceal = { fg = theme.ui.special, bold = true },
@@ -37,7 +41,7 @@ local M = {
   -- -- CursorLine	Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
   -- CursorLine = { bg = theme.ui.bg_p2 },
 
-  CursorLine = { bg = colors.pastelFirstSnow },
+  CursorLine = { bg = '#f3f3f3' },
   CursorLineNr = { fg = colors.veronica, bg = colors.pastelFirstSnow, bold = true },
 
   -- -- Directory	Directory names (and other special names in listings).
@@ -58,7 +62,7 @@ local M = {
   -- ErrorMsg = { fg = theme.diag.error },
 
   -- LineNr		Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-  LineNr = { fg = colors.underworld, bg = colors.pastelFirstSnow },
+  LineNr = { fg = colors.underworld, bg = '#f3f3f3' },
 
   -- -- WinSeparator	Separators between window splits.
   -- WinSeparator = { fg = theme.ui.bg_m3, bg = config.dimInactive and theme.ui.bg_dim or "NONE" },
@@ -67,9 +71,9 @@ local M = {
   Folded = { fg = colors.underworld, bg = colors.pastelFirstSnow },
 
   -- FoldColumn	'foldcolumn'
-  FoldColumn = { fg = colors.underworld, bg = colors.pastelFirstSnow },
+  FoldColumn = { fg = colors.underworld, bg = '#f3f3f3' },
   -- SignColumn	Column where |signs| are displayed.
-  SignColumn = { fg = colors.underworld, bg = colors.pastelFirstSnow },
+  SignColumn = { fg = colors.underworld, bg = '#f3f3f3' },
   -- -- IncSearch	'incsearch' highlighting; also used for the text replaced with ":s///c".
   -- IncSearch = { fg = theme.ui.fg_reverse, bg = theme.diag.warning },
   -- -- Substitute	|:substitute| replacement text highlighting.
@@ -108,13 +112,13 @@ local M = {
   -- -- NormalNC	Normal text in non-current windows.
   -- NormalNC = config.dimInactive and { fg = theme.ui.fg_dim, bg = theme.ui.bg_dim } or { link = "Normal" },
   -- -- Pmenu		Popup menu: Normal item.
-  Pmenu = { fg = colors.underworld, bg = colors.pastelFirstSnow },
+  Pmenu = { fg = colors.underworld, bg = '#ffe8e8' },
   -- PmenuSel	Popup menu: Selected item.
-  PmenuSel = { fg = colors.pastelFirstSnow, bg = '#645aff' },
+  PmenuSel = { fg = colors.underworld, bg = '#ffc8c8' },
   -- -- PmenuSbar	Popup menu: Scrollbar.
-  PmenuSbar = { bg = '#645aff' },
+  PmenuSbar = { bg = '#ffc8c8' },
   -- -- PmenuThumb	Popup menu: Thumb of the scrollbar.
-  PmenuThumb = { bg = '#645aff' },
+  PmenuThumb = { bg = '#ffc8c8' },
   -- -- Question	|hit-enter| prompt and yes/no questions.
   -- Question = { link = "MoreMsg" },
   -- -- QuickFixLine	Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
@@ -132,15 +136,16 @@ local M = {
   -- -- SpellRare	Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
   -- SpellRare = { undercurl = config.undercurl, underline = not config.undercurl, sp = theme.diag.warning },
   -- StatusLine	Status line of current window.
-  StatusLine = { fg = colors.underworld, bg = colors.pastelFirstSnow },
+  -- StatusLine = { fg = colors.underworld, bg = '#ffeaff' },
+  StatusLine = { fg = colors.underworld, bg = '#eeeaee' },
   -- StatusLineNC	Status lines of not-current windows. Note: If this is equal to "StatusLine", Vim will use "^^^" in the status line of the current window.
-  StatusLineNC = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
+  StatusLineNC = { fg = colors.phillipineOrange, bg = colors.pastelSnow },
   -- TabLine		Tab pages line, not active tab page label.
   TabLine = { fg = colors.underworld, bg = colors.pastelSnow },
   -- TabLineFill	Tab pages line, where there are no labels.
   TabLineFill = { bg = colors.pastelFirstSnow },
   -- TabLineSel	Tab pages line, active tab page label.
-  TabLineSel = { fg = colors.pastelSnow, bg = colors.pastelSnow },
+  TabLineSel = { fg = '#ffd0ff', bg = '#ffd0ff' },
   -- -- Title		Titles for output from ":set all", ":autocmd" etc.
   -- Title = { fg = theme.syn.fun, bold = true },
   -- Visual		Visual mode selection.
@@ -164,6 +169,8 @@ local M = {
 
   -- debugPC = { bg = theme.diff.delete },
   debugBreakpoint = { fg = colors.underworld, bg = colors.smokedBlackCoffee },
+  -- DapBreakpoint = { text = '•', texthl = 'red', linehl = '', numhl = '' },
+  -- DapBreakpoint = { text = '•'},
 
   -- LspReferenceText = { bg = theme.diff.text },
   -- LspReferenceRead = { link = "LspReferenceText" },
@@ -215,14 +222,11 @@ local M = {
 
   DiagnosticError = { fg = '#760202', bg = '#ffd0cb' },
 
-  DiagnosticWarning = { fg = colors.phillipineOrange, bg = '#f2d283' },
-  DiagnosticWarn = { fg = colors.phillipineOrange, bg = '#f2d283' },
+  DiagnosticWarning = { fg = colors.phillipineOrange, bg = '#ffdca3' },
+  DiagnosticWarn = { fg = colors.phillipineOrange, bg = '#ffdca3' },
   DiagnosticText = { fg = colors.trackAndField, bg = colors.pastelFirstSnow },
-
   DiagnosticOk = { fg = colors.trackAndField, bg = colors.pastelFirstSnow },
-
   DiagnosticHint = { fg = colors.bluePartyParrot, bg = '#d1ffd7' },
-
   DiagnosticInfo = { fg = colors.smokedBlackCoffee, bg = '#d2d1ff' },
 
   ModeMsg = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
@@ -232,9 +236,9 @@ local M = {
   FloatShadowThrough = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
   Ignore = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
 
-  MarkSignNumHL = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
-  MarkSignHL = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
-  MarkVirtTextHL = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
+  MarkSignNumHL = { fg = colors.phillipineOrange, bg = '#f3c3f3' },
+  MarkSignHL = { fg = colors.phillipineOrange, bg = '#f3f3f3' },
+  MarkVirtTextHL = { fg = colors.phillipineOrange, bg = '#f3f3f3' },
 
   -- Error = { fg = colors.underworld, bg = colors.underworld},
   Normal = { fg = colors.rhodoniteBrown, bg = colors.pastelSnow },
@@ -252,12 +256,17 @@ local M = {
   CursorLineMarkSignNumHL = { fg = colors.underworld, bg = colors.underworld },
   CursorLineMarkVirtTextHL = { fg = colors.underworld, bg = colors.underworld },
   PyLogo = { fg = colors.bluePartyParrot, bg = colors.pastelFirstSnow },
+  ShellLogo = { fg = colors.midnightBlack, bg = colors.pastelFirstSnow },
+  JSLogo = { fg = colors.midnightBlack, bg = colors.pastelFirstSnow },
 
   -- {{{ Plugins
   --
-  GitSignsAdd = { fg = colors.indiaGreen, bg = colors.pastelFirstSnow, bold = true },
-  GitSignsChange = { fg = colors.phillipineOrange, bg = colors.pastelFirstSnow },
-  GitSignsDelete = { fg = colors.trackAndField, bg = colors.pastelFirstSnow },
+  GitSignsAdd = { fg = colors.indiaGreen, bg = '#f3f3f3', bold = true },
+  GitSignsChange = { fg = colors.phillipineOrange, bg = '#f3f3f3' },
+  GitSignsDelete = { fg = colors.trackAndField, bg = '#f3f3f3' },
+
+  TroubleTextError = { fg = '#760202', bg = '#ffd0cb' },
+  TroubleTextWarning = { fg = colors.phillipineOrange, bg = '#ffdca3' },
 
   -- }}} Plugins
 
@@ -300,8 +309,13 @@ local M = {
   -- TelescopeResultsMethod = { link = "Function" },
   -- TelescopeResultsVariable = { link = "@variable" },
   -- -- NvimTree
-  -- NvimTreeNormal = { link = "Normal" },
-  -- NvimTreeNormalNC = { link = "NvimTreeNormal" },
+  -- -- NvimTreeNormal = { link = "Normal" },
+  NvimTreeNormal = { bg = '#eeeeee' },
+  NvimTreeNormalNC = { bg = '#eeeeee' },
+  NvimTreeCursorLine = { bg = '#feeeee' },
+  NvimTreeCursorLineNC = { bg = '#feeeee' },
+  -- NvimTreeLineNr = { bg = '#eeeeee' },
+  -- NvimTreeLineNr = { bg = '#eeeeee' },
   -- NvimTreeRootFolder = { fg = theme.syn.identifier, bold = true },
   -- NvimTreeGitDirty = { fg = theme.vcs.changed },
   -- NvimTreeGitNew = { fg = theme.vcs.added },

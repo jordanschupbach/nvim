@@ -198,7 +198,8 @@ return {
       end,
 
       -- Call this function when aerial first sets symbols on a buffer.
-      on_first_symbols = function(bufnr) end,
+      -- on_first_symbols = function(bufnr) end,
+      on_first_symbols = function(_) end,
 
       -- Automatically open aerial when entering supported buffers.
       -- This can be a function (see :help aerial-open-automatic)
@@ -219,7 +220,8 @@ return {
       --   * symbol?: specific to the lsp backend
       --   * syntax_tree?: specific to the treesitter backend
       --   * match?: specific to the treesitter backend, TS query match
-      post_parse_symbol = function(bufnr, item, ctx)
+      -- post_parse_symbol = function(bufnr, item, ctx)
+      post_parse_symbol = function(_, _, _)
         return true
       end,
 
@@ -234,7 +236,8 @@ return {
       --   * lang: info about the language
       --   * symbols?: specific to the lsp backend
       --   * syntax_tree?: specific to the treesitter backend
-      post_add_all_symbols = function(bufnr, items, ctx)
+      -- post_add_all_symbols = function(bufnr, items, ctx)
+      post_add_all_symbols = function(_, items, _)
         return items
       end,
 
@@ -260,7 +263,8 @@ return {
       },
 
       -- Set this function to override the highlight groups for certain symbols
-      get_highlight = function(symbol, is_icon)
+      -- get_highlight = function(symbol, is_icon)
+      get_highlight = function(_, _)
         -- return "MyHighlight" .. symbol.kind
       end,
 
@@ -283,7 +287,8 @@ return {
         height = nil,
         min_height = { 8, 0.1 },
 
-        override = function(conf, source_winid)
+        -- override = function(conf, source_winid)
+        override = function(conf, _)
           -- This is the config that will be passed to nvim_open_win.
           -- Change values here to customize the layout
           return conf

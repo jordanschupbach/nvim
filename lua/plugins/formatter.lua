@@ -65,6 +65,7 @@ return {
           function()
             return {
               exe = 'prettier --plugin node_modules/prettier-plugin-java/dist/index.js -w **/*.java',
+              tempfile_dir = '/tmp',
             }
           end,
         },

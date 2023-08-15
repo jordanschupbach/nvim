@@ -11,13 +11,13 @@
 --   end,
 -- })
 
-vim.api.nvim_create_augroup('FormatAutogroup', {})
-vim.api.nvim_create_autocmd('BufWritePost', {
-  group = 'FormatAutogroup',
-  callback = function()
-    vim.cmd 'FormatWrite'
-  end,
-})
+-- vim.api.nvim_create_augroup('FormatAutogroup', {})
+-- vim.api.nvim_create_autocmd('BufWritePost', {
+--   group = 'FormatAutogroup',
+--   callback = function()
+--     vim.cmd 'FormatWrite'
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   callback = function()

@@ -5,12 +5,24 @@ return {
   config = function()
     require('other-nvim').setup {
       mappings = {
-        'java',
         {
-          pattern = '/src/main/(.*)/.*.java',
-          target = 'src/test/(.*)/.*Test.java',
-          transformer = 'lowercase',
+          pattern = '/src/main/(.*)/(.*).java',
+          target = '/src/test/%1/%2Test.java',
+          -- transformer = 'lowercase',
+          context = 'test',
         },
+        {
+          pattern = '/src/main/(.*)/(.*).java',
+          target = '/../examples/src/main/java/edu/msu/sapphire/examples/%2Ex.java',
+          -- transformer = 'lowercase',
+          context = 'test',
+        },
+        -- {
+        --   pattern = '/src/main/java/edu/msu/sapphire/(.*)/(.*).java',
+        --   target = '/src/test/java/edu/msu/sapphire/%1/%2Test.java',
+        --   -- transformer = 'lowercase',
+        --   context = 'test',
+        -- },
       },
       transformers = {
         -- defining a custom transformer

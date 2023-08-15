@@ -27,6 +27,19 @@ utilities.isdir = function(path)
   return utilities.exists(path .. '/')
 end
 
+utilities.start_fortran_scratchpad = function()
+  vim.cmd 'wincmd o'
+  if utilities.isdir '/home/jordan/scratchpads/fortran-scratchpad/' then
+    vim.cmd 'e /home/jordan/scratchpads/fortran-scratchpad/scratchpad.f90'
+  end
+  vim.cmd 'sp'
+  vim.cmd 'BuildMe'
+  vim.cmd 'wincmd k'
+  -- vim.cmd 'sp'
+  -- vim.cmd 'terminal cmake . -B ./build/ & ./build/make & ./build/scratchpad'
+  -- vim.cmd 'wincmd k'
+end
+
 utilities.start_r_scratchpad = function()
   vim.cmd 'wincmd o'
   if utilities.isdir '/home/jordan/scratchpads/r-scratchpad/' then
@@ -57,6 +70,18 @@ utilities.start_haskell_scratchpad = function()
   vim.cmd 'wincmd k'
 end
 
+
+utilities.start_c_scratchpad = function()
+  vim.cmd 'wincmd o'
+  if utilities.isdir '/home/jordan/scratchpads/c-scratchpad/' then
+    vim.cmd 'e /home/jordan/scratchpads/c-scratchpad/examples/scratchpad.c'
+  end
+  vim.cmd 'sp'
+  vim.cmd 'BuildMe'
+  vim.cmd 'wincmd k'
+end
+
+
 utilities.start_cpp_scratchpad = function()
   vim.cmd 'wincmd o'
   if utilities.isdir '/home/jordan/scratchpads/cpp-scratchpad/' then
@@ -78,6 +103,16 @@ utilities.start_bash_scratchpad = function()
 end
 
 utilities.start_java_scratchpad = function()
+  vim.cmd 'wincmd o'
+  if utilities.isdir '/home/jordan/scratchpads/java-scratchpad/' then
+    vim.cmd 'e /home/jordan/scratchpads/java-scratchpad/examples/src/main/java/templatejava/examples/ScratchPad.java'
+  end
+  vim.cmd 'sp'
+  vim.cmd 'BuildMe'
+  vim.cmd 'wincmd k'
+end
+
+utilities.run_java_main = function()
   vim.cmd 'wincmd o'
   if utilities.isdir '/home/jordan/scratchpads/java-scratchpad/' then
     vim.cmd 'e /home/jordan/scratchpads/java-scratchpad/examples/src/main/java/templatejava/examples/ScratchPad.java'

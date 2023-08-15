@@ -48,9 +48,6 @@ vim.opt.list = true
 vim.opt.listchars:append 'space:⋅'
 vim.opt.listchars:append 'eol:↴'
 
--- -- TODO: Move me to vim-rooter config
--- vim.g.rooter_patterns = { '.git', 'Makefile', '*.sln', 'build/env.sh' }
-
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -83,7 +80,7 @@ vim.o.termguicolors = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
-vim.api.nvim_command 'set colorcolumn=120'
+-- vim.api.nvim_command 'set colorcolumn=120'
 
 -------------------------------------------------------------------------------
 

@@ -110,17 +110,6 @@ return {
 
     wk.register({
 
-      -- {{{ Jump
-      j = {
-        name = 'Jump', -- group name
-        a = { ':AnyJump<CR>', 'AnyJump' },
-        b = { ':AnyJumpBack<CR>', 'AnyJumpBack' },
-        j = { ':HopChar2<CR>', 'Jump (HopChar2)' },
-        -- l = { ':AnyJumpLastResult<CR>', 'AnyJumpLastResult' },
-        d = { ':Telescope lsp_definitions<CR>', 'Definition' },
-      },
-      -- }}} Jump
-
       -- {{{ Marks
       m = {
         name = 'Marks', -- group name
@@ -142,19 +131,19 @@ return {
 
       -- }}} Bindings
 
-      -- WARNING: This is a warning
-      -- PERF: Fully Optimized
-      -- HACK: This is a hacky hack-job
-      -- FIX: This needs a fixin
-      -- NOTE: Some note about this line
+      -- warning: This is a warning
+      -- perf: Fully Optimized
+      -- hack: This is a hacky hack-job
+      -- fixme: This needs a fixin
+
+      -- note: Some note about this line
 
       -- {{{ Rust
-      r = { -- TODO: make this language dependent binding
+      r = { -- todo: make this language dependent binding
         name = 'Rust',
         m = { ':RustRunnables<CR>', 'Runnables' },
       },
       -- }}} Rust
-    }, { prefix = '<localleader>' }
-)
+    }, { prefix = '<localleader>' })
   end,
 }

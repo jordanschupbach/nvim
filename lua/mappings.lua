@@ -5,6 +5,8 @@ local m = require('mapx').setup { global = true, whichkey = true }
 
 -- local ngit = require"neogit"
 
+m.nmap('<C-f>', '<cmd>FormatWriteLock<cr>', 'Format')
+
 m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
 m.nmap('<C-1>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
 m.nmap('<C-2>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
@@ -15,6 +17,13 @@ m.nmap('<A-c>', ':tabnew)<CR>', 'Create Tab')
 
 m.nmap('<leader>ff', '<cmd>NvimTreeToggle<cr>', 'File Tree')
 m.nmap('<leader>ss', '<cmd>SidebarNvimToggle<cr>', 'Sidebar')
+
+m.nmap('<leader>vc', "<cmd>lua require'jdtls'.test_class()<cr>", 'Test class (DAP)')
+m.nmap('<leader>vm', "<cmd>lua require'jdtls'.test_nearest_method()<cr>", 'Test method (DAP)')
+
+m.nmap('<C-b>', '<cmd>Other<cr>', 'Jump to other file')
+-- nnoremap("<leader>vc", jdtls.test_class, bufopts, "Test class (DAP)")
+-- nnoremap("<leader>vm", jdtls.test_nearest_method, bufopts, "Test method (DAP)")
 
 -- {{{ mymap fun
 --- Adds a new normal binding map.
@@ -199,7 +208,7 @@ m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 -- m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 m.nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 m.nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-m.nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+-- m.nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 m.nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 --
 -- -- See `:help K` for why this keymap
@@ -389,7 +398,7 @@ mymap('n', '<C-->', function()
   resize_gui_font(-1)
 end)
 
-m.nname('u', 'UI')
+m.nname('<leader>u', 'UI')
 m.nmap('<leader>ud', ':DarkMode<CR>', 'Dark mode')
 m.nmap('<leader>ul', ':LightMode<CR>', 'Light Mode')
 m.nmap('<leader>ut', ':ToggleDarkMode<CR>', 'Toggle dark/light')
@@ -413,18 +422,33 @@ mymap('n', '<A-S-h>', ':vertical resize -1<CR>')
 -- }}} Window bindings
 
 -- {{{ Debugger
-mymap('n', '<leader>dd', ":lua require'dap-go'.debug_test()<CR>") -- Make this filetype dependent
-mymap('n', '<leader>db', ":lua require'dap'.toggle_breakpoint()<CR>")
-mymap('n', '<leader>dB', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-mymap('n', '<leader>dlp', ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>")
-mymap('n', '<leader>dd', ":lua require'dap'.continue()<CR>")
-mymap('n', '<leader>do', ':DapStepOver<CR>')
-mymap('n', '<leader>di', ':DapStepInto<CR>')
-mymap('n', '<leader>dO', ':DapStepOut<CR>')
-mymap('n', '<leader>dr', ":lua require'dap'.repl.open()<CR>")
-mymap('n', '<leader>dm', ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>")
-mymap('n', '<leader>dt', ":lua require'neotest'.run.run({strategy = 'dap'})<CR>")
-mymap('n', '<leader>du', ":lua require'dapui'.toggle()<CR>")
+-- m.nmap('<leader>dd', ":lua require'dap-go'.debug_test()<CR>", 'Continue/Start') -- Make this filetype dependent (go)
+m.nname('<leader>d', 'Debug')
+m.nname('<leader>dl', 'Log')
+
+m.nmap('<leader>dc', "<cmd>lua require'jdtls'.test_class()<cr>", 'Debug Class (Java)')
+m.nmap('<leader>dm', "<cmd>lua require'jdtls'.test_nearest_method()<cr>", 'Debug Method (Java)')
+
+m.nmap('<leader>db', ":lua require'dap'.toggle_breakpoint()<CR>", 'Breakpoint')
+m.nmap(
+  '<leader>dB',
+  ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+  'Breakpoint (Cond)'
+)
+m.nmap(
+  '<leader>dlp',
+  ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log opint message: '))<CR>",
+  'log point'
+)
+
+m.nmap('<leader>dd', ":lua require'dap'.continue()<CR>", 'Continue/Start')
+m.nmap('<leader>do', ':DapStepOver<CR>', 'StepOver')
+m.nmap('<leader>di', ':DapStepInto<CR>', 'StepInto')
+m.nmap('<leader>dO', ':DapStepOut<CR>', 'StepOut')
+m.nmap('<leader>dr', ":lua require'dap'.repl.open()<CR>", 'Repl')
+m.nmap('<leader>dM', ":lua require'jdtls.dap'.setup_dap_main_class_configs()<CR>", 'main (jdtls)')
+m.nmap('<leader>dt', ":lua require'neotest'.run.run({strategy = 'dap'})<CR>", 'test')
+m.nmap('<leader>du', ":lua require'dapui'.toggle()<CR>", 'UI')
 
 -- }}} Debugger
 
@@ -458,18 +482,29 @@ mymap('n', '<leader>cc', ':CommentToggle<CR>')
 -- }}} Commenting
 
 -- {{{ Jump bindings
+
+m.nname('<leader>d', 'Debug')
+
 mymap('n', '<leader>jj', ':HopChar2<CR>')
 
 -- jump bindings
+--
+-- j = {
+--   name = 'Jump', -- group name
+--   a = { ':AnyJump<CR>', 'AnyJump' },
+--   b = { ':AnyJumpBack<CR>', 'AnyJumpBack' },
+--   j = { ':HopChar2<CR>', 'Jump (HopChar2)' },
+--   -- l = { ':AnyJumpLastResult<CR>', 'AnyJumpLastResult' },
+--   d = { ':Telescope lsp_definitions<CR>', 'Definition' },
+-- },
+
 mymap('n', '<leader>jd', ':Telescope lsp_definitions<CR>')
 mymap('n', '<leader>ja', ':AnyJump<CR>')
 mymap('n', '<leader>ab', ':AnyJumpBack<CR>')
 mymap('n', '<leader>al', ':AnyJumpLastResult<CR>')
 
 -- mymap("n", "<leader>jj", ':lua require("goto-preview").goto_preview_definition()<CR>')
-
 -- mymap("n", "<C-h>", ":lua vim.lsp.buf.hover()<CR>")
-
 -- mymap("n", "<leader>k", ":lua hover.hover()<CR>")
 
 mymap('n', '<leader>jq', ':lua require("goto-preview").close_all_win()<CR>')
@@ -480,12 +515,14 @@ mymap('n', '<leader>jr', ':lua require("goto-preview").goto_preview_references()
 -- }}} Jump bindings
 
 -- {{{ Test bindings
-mymap('n', '<leader>tt', ":lua require('neotest').run.run()<CR>")
-mymap('n', '<leader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-mymap('n', '<leader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>")
-mymap('n', '<leader>ts', ":lua require('neotest').summary.toggle()<CR>")
-mymap('n', '<leader>to', ":lua require('neotest').output_panel.toggle()<CR>")
-mymap('n', '<leader>tz', ':ZenMode<CR>')
+
+m.nname('<leader>t', 'Test')
+m.nmap('<leader>tt', ":lua require('neotest').run.run()<CR>", 'Run')
+m.nmap('<leader>tb', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", 'Buffer')
+m.nmap('<leader>tf', ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", 'File')
+m.nmap('<leader>ts', ":lua require('neotest').summary.toggle()<CR>", 'Summary')
+m.nmap('<leader>to', ":lua require('neotest').output_panel.toggle()<CR>", 'Output')
+m.nmap('<leader>tz', ':ZenMode<CR>')
 -- --   nnoremap <silent>[n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 -- --   nnoremap <silent>]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
@@ -547,16 +584,21 @@ mymap('n', '<leader>hk', ':Telescope keymaps theme=ivy<CR>')
 -- }}} Help bindings
 
 -- {{{ Todo
-mymap('n', '<leader>TT', ':TodoTrouble<CR>')
+
+m.nname('<leader>T', 'Todo')
+m.nmap('<leader>TT', ':TodoTrouble<CR>', 'Trouble')
+
 -- }}} Todo
 
 -- {{{ Project bindings
-mymap('n', '<C-k>', ':BuildMe<CR>')
-mymap('n', '<leader>pb', ':BuildMe<CR>')
-mymap('n', '<leader>pf', ':Telescope fd theme=ivy<CR>')
-mymap('n', '<leader>po', ':Telescope project theme=ivy<CR>')
-mymap('n', '<leader>pr', ':Telescope live_grep theme=ivy<CR>')
-mymap('n', '<leader>ps', ':split<CR>:terminal<CR>')
+
+m.nname('<leader>p', 'Project')
+m.nmap('<C-k>', ':BuildMe<CR>', 'Build')
+m.nmap('<leader>pb', ':BuildMe<CR>', 'Build')
+m.nmap('<leader>pf', ':Telescope fd theme=ivy<CR>', 'Files')
+m.nmap('<leader>po', ':Telescope project theme=ivy<CR>', 'Open')
+m.nmap('<leader>pr', ':Telescope live_grep theme=ivy<CR>', 'RipGrep')
+m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
 --  mymap("n", "<C-k>", ":BuildMe<CR>")
 
 -- }}} Project bindings

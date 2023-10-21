@@ -7,6 +7,17 @@ priority -50
 # looks, it is defaulted to junit4, setting this option to 3 will remove the
 # @Test annotation from the method
 
+
+
+snippet includehashmap "include HashMap" b
+import java.util.HashMap;
+endsnippet
+
+
+snippet includearraylist "include ArrayList" b
+import java.util.ArrayList;
+endsnippet
+
 global !p
 def junit(snip):
 	if snip.opt("g:ultisnips_java_junit", "") == "3":

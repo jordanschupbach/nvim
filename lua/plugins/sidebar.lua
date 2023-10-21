@@ -21,7 +21,7 @@ return {
     local sidebar = require 'sidebar-nvim'
     local opts = {
       diagnostics = {
-          icon = "",
+        icon = '',
       },
 
       open = false,

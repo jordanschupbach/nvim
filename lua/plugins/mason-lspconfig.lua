@@ -20,7 +20,7 @@ return {
       -- bashls = {},
       -- cmake = {},
       phpactor = {},
-      clangd = {},
+      -- clangd = {},
       jdtls = {},
       pyright = {},
       -- rust_analyzer = {},
@@ -37,7 +37,7 @@ return {
     local servers = {
       -- bashls = {},
       -- cmake = {},
-      clangd = {},
+      -- int argc, char *argv[]clangd = {},
       -- -- clojure_lsp = {},
       -- gopls = {},
       -- gradle_ls = {},

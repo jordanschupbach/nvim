@@ -17,7 +17,8 @@ return {
         --null_ls.builtins.code_actions.ltrs,
         null_ls.builtins.code_actions.refactoring,
         null_ls.builtins.code_actions.shellcheck,
-        null_ls.builtins.diagnostics.clang_check,
+        -- null_ls.builtins.diagnostics.clang_check, -- NOTE: seems to have false pos. b/c of version mismatch?
+        -- null_ls.builtins.diagnostics.clang_format, -- NOTE: seems to have false pos. b/c of version mismatch?
         null_ls.builtins.diagnostics.cmake_lint,
         -- null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.commitlint,
@@ -40,7 +41,7 @@ return {
           -- args = { "-f", "sarif", ".", "-c", "/home/jordan/work/navy/JSAPPHIRE/config/checkstyle/checkstyle.xml" },
         },
         -- null_ls.builtins.diagnostics.cpplint,
-        cpplint,
+        -- cpplint,
         -- null_ls.builtins.diagnostics.cspell,
         null_ls.builtins.diagnostics.editorconfig_checker,
         null_ls.builtins.diagnostics.flake8,

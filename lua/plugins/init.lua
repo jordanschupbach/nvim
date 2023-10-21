@@ -19,6 +19,35 @@ return {
   -- 'L3MON4D3/LuaSnip',
   -- 'jpalardy/vim-slime',
   'mfussenegger/nvim-jdtls',
+  'kana/vim-textobj-user',
+  { 'kana/vim-textobj-fold', dependencies = 'kana/vim-textobj-user' },
+  { 'kana/vim-textobj-indent', dependencies = 'kana/vim-textobj-user' },
+  { 'kana/vim-textobj-line', dependencies = 'kana/vim-textobj-user' },
+  { 'sgur/vim-textobj-parameter', dependencies = 'kana/vim-textobj-user' },
+  'tpope/vim-repeat',
+  {
+    'tpope/vim-surround',
+    config = function()
+      vim.g.surround_no_insert_mappings = true
+    end,
+  },
+  { 'kevinhwang91/nvim-bqf', ft = 'qf' },
+  {
+    'junegunn/fzf',
+    run = function()
+      vim.fn['fzf#install']()
+    end,
+  },
+
+  {
+    'nvim-neotest/neotest',
+    conf = 'neotest',
+    cmd = { 'Neotest' },
+    dependencies = {
+      'marilari88/neotest-vitest',
+    },
+  },
+
   -- 'mfussenegger/nvim-dap',
   -- -- 'mtikekar/nvim-send-to-term',
   -- 'nvim-lua/plenary.nvim',

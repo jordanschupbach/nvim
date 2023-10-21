@@ -1,6 +1,7 @@
 local utilities = require 'utilities'
+local ju = require 'jutils'
 
-g = require 'globals'
+local g = require 'globals'
 
 local Darkmode = true
 

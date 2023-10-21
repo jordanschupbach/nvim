@@ -108,7 +108,7 @@ local M = {
   -- -- FloatBorder	Border of floating windows.
   FloatBorder = { fg = '#645aff', bg = c.vibrantMint },
   -- -- FloatTitle	Title of floating windows.
-  -- FloatTitle = { fg = theme.ui.special, bg = theme.ui.float.bg_border, bold = true },
+  FloatTitle = { fg = '#645aff', bg = c.vibrantMint, bold = true },
   -- -- NormalNC	Normal text in non-current windows.
   -- NormalNC = config.dimInactive and { fg = theme.ui.fg_dim, bg = theme.ui.bg_dim } or { link = "Normal" },
   -- -- Pmenu		Popup menu: Normal item.
@@ -145,7 +145,7 @@ local M = {
   -- TabLineFill	Tab pages line, where there are no labels.
   TabLineFill = { bg = colors.pastelFirstSnow },
   -- TabLineSel	Tab pages line, active tab page label.
-  TabLineSel = { fg = '#ffd0ff', bg = '#ffd0ff' },
+  TabLineSel = { fg = '#000000', bg = '#ffd0ff' },
   -- -- Title		Titles for output from ":set all", ":autocmd" etc.
   -- Title = { fg = theme.syn.fun, bold = true },
   -- Visual		Visual mode selection.
@@ -267,6 +267,11 @@ local M = {
 
   TroubleTextError = { fg = '#760202', bg = '#ffd0cb' },
   TroubleTextWarning = { fg = colors.phillipineOrange, bg = '#ffdca3' },
+  TroubleTextHint = { fg = colors.bluePartyParrot, bg = '#d1ffd7' },
+  TroubleTextInformation = { fg = colors.smokedBlackCoffee, bg = '#d2d1ff' },
+
+  HoverBorder = { fg = '#760202', bg = '#ffd0cb' },
+  HoverNormal = { fg = colors.phillipineOrange, bg = '#ffdca3' },
 
   -- }}} Plugins
 

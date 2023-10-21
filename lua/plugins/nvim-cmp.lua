@@ -37,6 +37,7 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'vsnip' }, -- For vsnip users.
+        { name = 'path' },
         -- { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
@@ -61,6 +62,13 @@ return {
         { name = 'buffer' },
       },
     })
+
+
+
+
+
+
+
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline(':', {

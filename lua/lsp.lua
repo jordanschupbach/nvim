@@ -3,11 +3,11 @@
 local servers = {
   bashls = {},
   cmake = {},
-  clangd = {
-    -- on_attach = function(client, bufnr)
-    --     navbuddy.attach(client, bufnr)
-    -- end
-  },
+  -- clangd = {
+  --   -- on_attach = function(client, bufnr)
+  --   --     navbuddy.attach(client, bufnr)
+  --   -- end
+  -- },
   clojure_lsp = {},
   gopls = {},
   gradle_ls = {},

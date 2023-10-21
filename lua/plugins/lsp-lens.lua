@@ -8,7 +8,7 @@ return {
       include_declaration = false, -- Reference include declaration
       sections = { -- Enable / Disable specific request
         definition = false,
-        references = true,
+        references = false,
         implementation = true,
       },
       ignore_filetype = {

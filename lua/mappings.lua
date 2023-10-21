@@ -2,6 +2,7 @@
 
 local o = require 'options'
 local m = require('mapx').setup { global = true, whichkey = true }
+local ju = require 'jutils'
 
 -- local ngit = require"neogit"
 
@@ -9,14 +10,27 @@ m.nmap('<C-f>', '<cmd>FormatWriteLock<cr>', 'Format')
 
 m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
 m.nmap('<C-1>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
-m.nmap('<C-2>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
+m.nmap('<C-2>', "<cmd>lua require'jutils'.toggle_neogit()<cr>", 'NeoGit')
 
+
+-- {{{ Tab mappings
 m.nmap('<A-n>', ':tabnext<CR>', 'Next Tab')
 m.nmap('<A-p>', ':tabprevious<CR>', 'Previous Tab')
 m.nmap('<A-c>', ':tabnew)<CR>', 'Create Tab')
+-- }}} Tab mappings
+
+
+-- {{{ File mappings
 
 m.nmap('<leader>ff', '<cmd>NvimTreeToggle<cr>', 'File Tree')
-m.nmap('<leader>ss', '<cmd>SidebarNvimToggle<cr>', 'Sidebar')
+m.nmap('<leader>fo', '<cmd>Other<cr>', 'Other File')
+m.nmap('<leader>fr', '<cmd>Telescope oldfiles<cr>', 'Recent Files')
+
+-- }}} File mappings
+
+m.nmap('<leader>ss', "<cmd>lua require'jutils'.move_current_tab_to_next_position()<cr>", 'move tab next')
+
+-- m.nmap('<leader>ss', '<cmd>SidebarNvimToggle<cr>', 'Sidebar')
 
 m.nmap('<leader>vc', "<cmd>lua require'jdtls'.test_class()<cr>", 'Test class (DAP)')
 m.nmap('<leader>vm', "<cmd>lua require'jdtls'.test_nearest_method()<cr>", 'Test method (DAP)')
@@ -32,13 +46,13 @@ m.nmap('<C-b>', '<cmd>Other<cr>', 'Jump to other file')
 ---   vim.keymap.set('n', 'lhs', function() print("real lua function") end)
 --- </pre>
 ---
----@param m string|table     Mode short-name, see |nvim_set_keymap()|.
+---@param mode string|table     Mode short-name, see |nvim_set_keymap()|.
 ---                          Can also be list of modes to create mapping on multiple modes.
----@param k string           Left-hand side |{lhs}| of the mapping.
----@param v string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
+---@param key string           Left-hand side |{lhs}| of the mapping.
+---@param value string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
 ---
-local function mymap(m, k, v)
-  vim.keymap.set(m, k, v, { silent = true, remap = true })
+local function mymap(mode, key, value)
+  vim.keymap.set(mode, key, value, { silent = true, remap = true })
 end
 -- }}} mymap fun
 
@@ -187,7 +201,7 @@ m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 
 -- {{{ LSP mappings
 
-m.nmap('K', '<cmd>Lspsaga hover_doc ++keep<CR>', 'Hover Documentation')
+-- m.nmap('K', '<cmd>Lspsaga hover_doc ++keep<CR>', 'Hover Documentation')
 -- m.nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
 m.nname('<leader>l', 'LSP')
@@ -221,7 +235,9 @@ m.nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove 
 m.nmap('<leader>wl', function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, '[W]orkspace [L]ist Folders')
-m.nmap('K', vim.lsp.buf.hover)
+-- m.nmap('K', vim.lsp.buf.hover)
+m.nmap('K', require('hover').hover)
+
 m.nmap('gi', vim.lsp.buf.implementation, 'Go[to] Implementation')
 m.nmap('<C-k>', vim.lsp.buf.signature_help, 'Lsp Signature')
 m.nmap('<space>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add')
@@ -415,10 +431,22 @@ mymap('n', '<A-h>', '<C-w>h')
 mymap('n', '<A-s>', '<C-w>s')
 mymap('n', '<A-v>', '<C-w>v')
 mymap('n', '<A-d>', '<C-w>q')
-mymap('n', '<A-S-j>', ':resize +1<CR>')
-mymap('n', '<A-S-k>', ':resize -1<CR>')
-mymap('n', '<A-S-l>', ':vertical resize +1<CR>')
-mymap('n', '<A-S-h>', ':vertical resize -1<CR>')
+
+m.nmap('<A-S-j>', "<CMD>lua require('smart-splits').resize_down()<CR>", 'resize down')
+m.nmap('<A-S-k>', "<CMD>lua require('smart-splits').resize_up()<CR>", 'resize up')
+m.nmap('<A-S-l>', "<CMD>lua require('smart-splits').resize_right()<CR>", 'resize right')
+m.nmap('<A-S-h>', "<CMD>lua require('smart-splits').resize_left()<CR>", 'resize left')
+
+-- mymap('n', '<A-S-j>', ':lua require("smart-splits").resize_down<CR>')
+-- mymap('n', '<A-S-k>', ':lua require("smart-splits").resize_up<CR>')
+-- mymap('n', '<A-S-l>', ':lua require("smart-splits").resize_right<CR>')
+-- mymap('n', '<A-S-h>', ':lua require("smart-splits").resize_left<CR>')
+
+-- mymap('n', '<A-S-j>', ':resize +1<CR>')
+-- mymap('n', '<A-S-k>', ':resize -1<CR>')
+-- mymap('n', '<A-S-l>', ':vertical resize +1<CR>')
+-- mymap('n', '<A-S-h>', ':vertical resize -1<CR>')
+
 -- }}} Window bindings
 
 -- {{{ Debugger
@@ -458,6 +486,7 @@ mymap('n', '<leader>TT', ':TodoTrouble<CR>')
 
 -- {{{ Snippets
 mymap('n', '<leader>yy', ':Telescope ultisnips theme=ivy<CR>')
+mymap('n', '<leader>ye', ':UltiSnipsEdit<CR>')
 -- }}} Snippets
 
 -- {{{ Telescope
@@ -605,6 +634,7 @@ m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
 
 -- {{{ language bindings?
 mymap('n', '<leader>ll', ':AerialToggle<CR>')
+mymap('n', '<leader>ld', ':Neogen<CR>')
 -- }}} language bindings?
 
 -- {{{ Rust bindings

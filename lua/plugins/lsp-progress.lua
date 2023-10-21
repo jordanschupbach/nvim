@@ -3,5 +3,5 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     require('lsp-progress').setup()
-  end
+  end,
 }

@@ -212,7 +212,7 @@ local M = {
   SpecialKey = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
   Directory = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
   -- TabLine = { fg = colors.vibrantMint, bg = colors.smokedBlackCoffee },
-  PyLogo = { fg =  '#bbbb33', bg = colors.smokedBlackCoffee },
+  PyLogo = { fg = '#bbbb33', bg = colors.smokedBlackCoffee },
   ShellLogo = { fg = '#999999', bg = colors.smokedBlackCoffee },
   JSLogo = { fg = '#bbbb33', bg = colors.smokedBlackCoffee },
 

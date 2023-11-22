@@ -3,6 +3,7 @@
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
+    'hrsh7th/cmp-nvim-lsp-signature-help',
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
@@ -35,6 +36,7 @@ return {
         ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       },
       sources = cmp.config.sources({
+        { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp' },
         { name = 'vsnip' }, -- For vsnip users.
         { name = 'path' },
@@ -62,13 +64,6 @@ return {
         { name = 'buffer' },
       },
     })
-
-
-
-
-
-
-
 
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline(':', {

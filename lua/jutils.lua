@@ -137,7 +137,6 @@ utilities.dump = function(o)
   end
 end
 
-
 utilities.get_active_buffer_in_tab = function(tab_number)
   -- Set the specified tabpage as the current tab
   vim.cmd('tabnext ' .. tab_number)
@@ -151,14 +150,12 @@ utilities.get_active_buffer_in_tab = function(tab_number)
   return active_buffer
 end
 
-
-
-utilities.move_current_tab_to_next_position = function ()
+utilities.move_current_tab_to_next_position = function()
   local current_tabpage = vim.fn.tabpagenr()
 
   if current_tabpage > 1 then
     local current_win = vim.api.nvim_tabpage_get_win(current_tabpage)
-    local total_tabpages = vim.fn.tabpagenr('$')
+    local total_tabpages = vim.fn.tabpagenr '$'
 
     -- Check if the current tabpage is not the last one
     if current_tabpage < total_tabpages then
@@ -167,14 +164,12 @@ utilities.move_current_tab_to_next_position = function ()
       -- Move the current tab to the next position
       vim.cmd('tabmove ' .. next_tabpage)
     else
-      print("Current tab is already in the last position.")
+      print 'Current tab is already in the last position.'
     end
   else
-    print("Current tab is already in the first position.")
+    print 'Current tab is already in the first position.'
   end
 end
-
-
 
 -- http://lua-users.org/wiki/FileInputOutput
 
@@ -214,82 +209,76 @@ end
 
 -- Function to get a list of fold levels and their start and end lines
 utilities.get_fold_list = function()
-    local fold_levels = {}
-    local current_fold = {}
-    local line_number = 1
+  local fold_levels = {}
+  local current_fold = {}
+  local line_number = 1
 
-    while true do
-        local fold_info = vim.fn.nvim_foldlevel(line_number)
+  while true do
+    local fold_info = vim.fn.nvim_foldlevel(line_number)
 
-        if fold_info == -1 then
-            break
-        end
-
-        if fold_info > current_fold.level then
-            table.insert(current_fold, line_number)
-        elseif fold_info < current_fold.level then
-            current_fold.end_line = line_number - 1
-            table.insert(fold_levels, current_fold)
-            current_fold = {}
-            table.insert(current_fold, line_number)
-        end
-
-        current_fold.level = fold_info
-        line_number = line_number + 1
+    if fold_info == -1 then
+      break
     end
 
-    -- Add the last fold (if any)
-    if current_fold.level ~= nil then
-        current_fold.end_line = line_number - 1
-        table.insert(fold_levels, current_fold)
+    if fold_info > current_fold.level then
+      table.insert(current_fold, line_number)
+    elseif fold_info < current_fold.level then
+      current_fold.end_line = line_number - 1
+      table.insert(fold_levels, current_fold)
+      current_fold = {}
+      table.insert(current_fold, line_number)
     end
 
-    return fold_levels
+    current_fold.level = fold_info
+    line_number = line_number + 1
+  end
+
+  -- Add the last fold (if any)
+  if current_fold.level ~= nil then
+    current_fold.end_line = line_number - 1
+    table.insert(fold_levels, current_fold)
+  end
+
+  return fold_levels
 end
-
 
 utilities.toggle_neogit = function()
-    local bufname = 'NeogitStatus'
-    local buf_exists = vim.fn.bufexists(vim.fn.bufnr(bufname))
-    if buf_exists == 1 then
-      local windows = vim.api.nvim_list_wins()
-      for _, win in ipairs(windows) do
-          local buf_nr = vim.api.nvim_win_get_buf(win)
-          local buf_name = vim.fn.bufname(buf_nr)
-          if buf_name == bufname then
-              vim.api.nvim_set_current_win(win)
-              vim.cmd('q')
-              return
-          end
+  local bufname = 'NeogitStatus'
+  local buf_exists = vim.fn.bufexists(vim.fn.bufnr(bufname))
+  if buf_exists == 1 then
+    local windows = vim.api.nvim_list_wins()
+    for _, win in ipairs(windows) do
+      local buf_nr = vim.api.nvim_win_get_buf(win)
+      local buf_name = vim.fn.bufname(buf_nr)
+      if buf_name == bufname then
+        vim.api.nvim_set_current_win(win)
+        vim.cmd 'q'
+        return
       end
-    else
-        vim.cmd('Neogit kind=vsplit')
     end
+  else
+    vim.cmd 'Neogit kind=vsplit'
+  end
 end
-
-
 
 utilities.toggle_todo = function()
-    local bufname = 'Trouble'
-    local buf_exists = vim.fn.bufexists(vim.fn.bufnr(bufname))
-    if buf_exists == 1 then
-      local windows = vim.api.nvim_list_wins()
-      for _, win in ipairs(windows) do
-          local buf_nr = vim.api.nvim_win_get_buf(win)
-          local buf_name = vim.fn.bufname(buf_nr)
-          if buf_name == bufname then
-              print("Trouble buffer exists!")
-              vim.api.nvim_set_current_win(win)
-              vim.cmd('q')
-              return
-          end
+  local bufname = 'Trouble'
+  local buf_exists = vim.fn.bufexists(vim.fn.bufnr(bufname))
+  if buf_exists == 1 then
+    local windows = vim.api.nvim_list_wins()
+    for _, win in ipairs(windows) do
+      local buf_nr = vim.api.nvim_win_get_buf(win)
+      local buf_name = vim.fn.bufname(buf_nr)
+      if buf_name == bufname then
+        print 'Trouble buffer exists!'
+        vim.api.nvim_set_current_win(win)
+        vim.cmd 'q'
+        return
       end
-    else
-        vim.cmd('Trouble todo')
     end
+  else
+    vim.cmd 'Trouble todo'
+  end
 end
-
-
-
 
 return utilities

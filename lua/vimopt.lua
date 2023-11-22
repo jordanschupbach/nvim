@@ -31,10 +31,11 @@ vim.o.termguicolors = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 -- vim.o.timeoutlen = 500
-vim.o.colorcolumn = 120
-vim.o.cc = 120
-vim.o.t_Co = 256
+vim.o.colorcolumn = '120'
+vim.o.cc = '120'
+-- vim.o.t_Co = 256
 
+vim.g.python_host_program = '/usr/bin/python'
 vim.g.minimap_width = 2
 vim.g.minimap_auto_start = 0
 vim.g.minimap_auto_start_win_enter = 1
@@ -293,6 +294,15 @@ vimopt.backspace = { 'eol', 'start', 'indent' }
 --  nostop
 --    like start, except CTRL-W and CTRL-U do not stop at the start of insert.
 -------------------------------------------------------------------------------
+
+-- let g:gtest#gtest_command = "path/to/test/executable"
+vim.g['gtest#gtest_command'] = './build/tests/tests'
+vim.g['test#cpp#runner'] = 'ctest'
+vim.g['test#cpp#catch2#bin_dir'] = '../build/tests/'
+
+-- let g:test#cpp#catch2#bin_dir = "../path/to/your/binaries/dir"
+-- let g:test#cpp#catch2#bin_dir = "../path/to/your/binaries/dir"
+-- let test#python#runner = 'pytest'
 
 vimopt.whichwrap = vimopt.whichwrap
   + '<' -- <   <Left>    Normal and Visual

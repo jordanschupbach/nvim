@@ -1,4 +1,4 @@
 return {
   'wthollingsworth/pomodoro.nvim',
-  requires = 'MunifTanjim/nui.nvim',
+  dependencies = 'MunifTanjim/nui.nvim',
 }

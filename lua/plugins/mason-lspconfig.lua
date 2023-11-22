@@ -20,8 +20,24 @@ return {
       -- bashls = {},
       -- cmake = {},
       phpactor = {},
-      -- clangd = {},
-      jdtls = {},
+      clangd = {
+        cmd = 'clangd -std=c++20 -stdlib=libstdc++',
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+
+        -- root_dir = root_pattern(
+        --   '.clangd',
+        --   '.clang-tidy',
+        --   '.clang-format',
+        --   'compile_commands.json',
+        --   'compile_flags.txt',
+        --   'configure.ac',
+        --   '.git'
+        -- ),
+        single_file_support = true,
+      },
+      jdtls = {
+        filetyptes = { 'java' },
+      },
       pyright = {},
       -- rust_analyzer = {},
       r_language_server = {

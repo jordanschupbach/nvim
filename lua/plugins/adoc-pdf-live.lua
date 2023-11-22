@@ -1,4 +1,3 @@
-
 return {
   'marioortizmanero/adoc-pdf-live.nvim',
   config = function()
@@ -10,7 +9,7 @@ return {
       params = '',
       debug = false,
       style = '',
-      style_regex = 'style\\.ya?ml'
+      style_regex = 'style\\.ya?ml',
     }
-  end
+  end,
 }

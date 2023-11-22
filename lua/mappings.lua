@@ -6,19 +6,18 @@ local ju = require 'jutils'
 
 -- local ngit = require"neogit"
 
-m.nmap('<C-f>', '<cmd>FormatWriteLock<cr>', 'Format')
+m.nmap('<C-G>', '<cmd>ChatGPT<cr>', 'ChatGPT')
 
+m.nmap('<C-f>', '<cmd>FormatWriteLock<cr>', 'Format')
 m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
 m.nmap('<C-1>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
 m.nmap('<C-2>', "<cmd>lua require'jutils'.toggle_neogit()<cr>", 'NeoGit')
-
 
 -- {{{ Tab mappings
 m.nmap('<A-n>', ':tabnext<CR>', 'Next Tab')
 m.nmap('<A-p>', ':tabprevious<CR>', 'Previous Tab')
 m.nmap('<A-c>', ':tabnew)<CR>', 'Create Tab')
 -- }}} Tab mappings
-
 
 -- {{{ File mappings
 
@@ -56,10 +55,14 @@ local function mymap(mode, key, value)
 end
 -- }}} mymap fun
 
--- {{{ Commented but maybe useful
-vim.keymap.set({ 'n', 'i' }, '<C-k>', function()
+vim.keymap.set({ 'n' }, '<S-k>', function()
   require('lsp_signature').toggle_float_win()
 end, { silent = true, noremap = true, desc = 'toggle signature' })
+
+-- {{{ Commented but maybe useful
+-- vim.keymap.set({ 'n', 'i' }, '<C-k>', function()
+--   require('lsp_signature').toggle_float_win()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
 --
 -- vim.keymap.set({ 'n' }, '<Leader>k', function()
 --  vim.lsp.buf.signature_help()
@@ -107,7 +110,7 @@ mymap({ 'n', 't' }, '<A-d>', '<cmd>Lspsaga term_toggle<CR>')
 
 mymap('n', '<C-a>', ':ChatGPTCompleteCode<CR>')
 
-mymap('n', '<leader>th', ':lua require("lsp-inlayhints").toggle()<CR>')
+m.nmap('<leader>th', ':LspUI inlay_hint<CR>')
 -- mymap('i', '<C-k>', ':lua vim.lsp.buf.signature_help<CR>')
 -- }}} Inbox
 
@@ -192,11 +195,15 @@ m.nmap('<leader>jl', ':Telescope jumplist<CR>', 'Jumplist')
 m.nname('g', 'Go(To)')
 m.nmap('gp', '<cmd>Lspsaga peek_definition<CR>', 'LSP: [g]o [p]eek')
 m.nmap('gd', '<cmd>Lspsaga goto_definition<CR>', 'LSP: [g]oto [d]efinition')
+m.nmap('gD', '<cmd>Lspsaga goto_type_definition<CR>', 'LSP: [g]oto [d]efinition')
 m.nmap('gf', '<cmd>Lspsaga lsp_finder<CR>', 'LSP: [g]o [f]ind')
-m.nmap('gt', '<cmd>Lspsaga peek_type_definition<CR>', 'LSP: [g]oto [t]ypedef (peek)')
-m.nmap('gT', '<cmd>Lspsaga goto_type_definition<CR>', 'LSP: [g]oto [t]ypedef')
+m.nmap('gp', '<cmd>Lspsaga peek_type_definition<CR>', 'LSP: [g]oto [t]ypedef (peek)')
 m.nmap('gr', ':Telescope lsp_references theme=ivy<CR>', 'LSP: [g]oto [r]eferences')
-m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
+m.nmap('gee', ':Lspsaga show_buf_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
+m.nmap('geb', ':Lspsaga show_buf_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
+m.nmap('gew', ':Lspsaga show_workspace_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
+m.nmap('I', ':Lspsaga show_line_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
+-- m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 -- }}} Go(To) mappings
 
 -- {{{ LSP mappings
@@ -211,14 +218,14 @@ m.nmap('<leader>lr', ':Lspsaga rename<CR>', 'Refactor word in buffer')
 m.nmap('<leader>lR', ':Lspsaga rename ++project<CR>', 'Refactor word in project')
 m.nmap('<leader>lo', '<cmd>Lspsaga outline<CR>', 'Toggle Outline (Alternate)')
 m.nmap('<leader>lf', '<cmd>Lspsaga lsp_finder<CR>', 'Find')
-m.nmap('<leader>lth', ':lua require("lsp-inlayhints").toggle()<CR>')
+m.nmap('<leader>lth', ':LspUI inlay_hint<CR>')
 m.nmap('<leader>ltl', ':LspLensToggle<CR>')
 m.nmap('<leader>lk', ':DocsViewToggle<CR>')
 
 m.nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 m.nmap('<leader>ca', ':CodeActionMenu<CR>', '[C]ode [A]ction')
 -- m.nmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
-m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+-- m.nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 -- m.nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 m.nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 m.nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -229,14 +236,22 @@ m.nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
 -- -- nmap('<A-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 --
 -- Lesser used LSP functionality
-m.nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+-- m.nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 m.nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
 m.nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
 m.nmap('<leader>wl', function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, '[W]orkspace [L]ist Folders')
 -- m.nmap('K', vim.lsp.buf.hover)
-m.nmap('K', require('hover').hover)
+--
+-- m.nmap('K', require('hover').hover, 'hover docs')
+-- m.nmap('gK', require('hover').hover_select, 'goto docs')
+
+m.nmap('K', '<CMD>Lspsaga hover_doc<CR>', 'hover docs')
+m.nmap('gK', '<CMD>Lspsaga goto_definition<CR>', 'hover docs')
+
+-- vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+-- vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
 
 m.nmap('gi', vim.lsp.buf.implementation, 'Go[to] Implementation')
 m.nmap('<C-k>', vim.lsp.buf.signature_help, 'Lsp Signature')
@@ -307,10 +322,10 @@ mymap('n', '<leader>ea', ":lua require('diaglist').open_all_diagnostics()<CR>")
 
 -- {{{ GoTo bindings
 
-mymap('n', 'gd', ':lua require("goto-preview").goto_preview_definition()<CR>')
+-- mymap('n', 'gd', ':lua require("goto-preview").goto_preview_definition()<CR>')
 mymap('n', 'gm', ':MyJumpMarks<CR>')
-mymap('n', 'gt', ':lua require("goto-preview").goto_type_definition()<CR>')
-mymap('n', 'gt', ':lua require("goto-preview").goto_type_implementation()<CR>')
+-- mymap('n', 'gt', ':lua require("goto-preview").goto_type_definition()<CR>')
+-- mymap('n', 'gt', ':lua require("goto-preview").goto_type_implementation()<CR>')
 mymap('v', 's', ':SlimeSend<CR>')
 mymap('v', 'S', ':SlimeSend<CR>')
 
@@ -626,7 +641,8 @@ m.nmap('<C-k>', ':BuildMe<CR>', 'Build')
 m.nmap('<leader>pb', ':BuildMe<CR>', 'Build')
 m.nmap('<leader>pf', ':Telescope fd theme=ivy<CR>', 'Files')
 m.nmap('<leader>po', ':Telescope project theme=ivy<CR>', 'Open')
-m.nmap('<leader>pr', ':Telescope live_grep theme=ivy<CR>', 'RipGrep')
+-- m.nmap('<leader>pr', ':Telescope live_grep theme=ivy<CR>', 'RipGrep')
+m.nmap('<leader>pr', ':lua require("grape").live_grape()<CR>', 'Grape')
 m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
 --  mymap("n", "<C-k>", ":BuildMe<CR>")
 
@@ -653,6 +669,14 @@ mymap('n', '<leader>ww', ':WindowsMaximize<CR>')
 mymap('n', '<C-h>', ':lua vim.lsp.buf.hover()<CR>')
 
 mymap('n', '<localleader>k', ':lua hover.hover()<CR>')
+
+m.nmap('<C-w><C-t>', ':VentanaTranspose<CR>', 'Transpose')
+m.nmap('<C-w><C-f>', ':VentanaShift<CR>', 'Shift')
+m.nmap('<C-w>f', ':VentanaShiftMaintainLinear<CR>', 'Shift (maintain linear)')
+
+-- vim.keymap.set("n", "<C-w><C-t>", "<Cmd>VentanaTranspose<CR>")
+-- vim.keymap.set("n", <C-w><C-f>",  "<Cmd>VentanaShift<CR>")
+-- vim.keymap.set("n", <C-w>f",      "<Cmd>VentanaShiftMaintainLinear<CR>")
 
 -- {{{ Delete builtin marks
 
@@ -686,6 +710,9 @@ end, { nargs = 0, desc = 'My jump to mark function' })
 -- }}} My Jump Marks
 
 mymap('n', '<localleader>mm', ':MyJumpMarks<CR>')
+
+m.nmap('<leader>li', ':lua require("insights").run_current_buf()<CR>', 'Insights')
+-- m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
 
 -- map("n", "<C-=>", function()
 --   neovideScale(0.1)

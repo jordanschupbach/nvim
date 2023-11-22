@@ -8,7 +8,7 @@ return {
       closePreviewOnExit = true,
       lspFeatures = {
         enabled = true,
-        languages = { 'r', 'python', 'julia', 'bash', 'cpp'},
+        languages = { 'r', 'python', 'julia', 'bash', 'cpp' },
         chunks = 'curly', -- 'curly' or 'all'
         diagnostics = {
           enabled = true,

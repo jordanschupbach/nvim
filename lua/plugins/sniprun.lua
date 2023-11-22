@@ -1,1 +1,1 @@
-return { 'michaelb/sniprun', run = 'sh ./install.sh' }
+return { 'michaelb/sniprun', build = 'sh ./install.sh' }

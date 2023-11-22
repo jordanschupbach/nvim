@@ -23,10 +23,10 @@ return {
 
         -- {{{ cpp
 
-        -- From header file
+        -- {{{ From header file
         {
           pattern = '/include/(.*)/(.*).hpp',
-          target = '/test/%1/%2_tests.cpp',
+          target = '/tests/%2_tests.cpp',
           -- transformer = 'lowercase',
           context = 'test',
         },
@@ -44,10 +44,9 @@ return {
           -- transformer = 'lowercase',
           context = 'example',
         },
-
+        -- }}} From header file
 
         -- From cpp file
-
 
         -- {
         --   pattern = '/src/(.*)/(.*).cpp',
@@ -58,58 +57,65 @@ return {
 
         {
           pattern = '/src/(.*).cpp',
-          target = '/test/%1_tests.cpp',
+          target = '/tests/%1_tests.cpp',
           -- transformer = 'lowercase',
-          context = 'test',
+          context = 'tests',
         },
-
-
 
         { -- {{{ from include
           pattern = '/include/(.*).hpp',
           target = {
-            { target = '/src/%1.cpp',          -- Include
+            {
+              target = '/src/%1.cpp', -- Include
               context = 'src',
             },
-            { target = '/test/%1_test.cpp',        -- Test
-              context = 'test',
+            {
+              target = '/tests/%1_tests.cpp', -- Test
+              context = 'tests',
             },
-            { target = '/examples/%1_example.cpp', -- Example
+            {
+              target = '/examples/%1_example.cpp', -- Example
               context = 'example',
             },
-          }
+          },
         }, -- }}} from include
 
         { -- {{{ from source
           pattern = '/src/(.*).cpp',
           target = {
-            { target = '/include/%1.hpp',          -- Include
+            {
+              target = '/include/%1.hpp', -- Include
               context = 'include',
             },
-            { target = '/test/%1_test.cpp',        -- Test
-              context = 'test',
+            {
+              target = '/tests/%1_tests.cpp', -- Test
+              context = 'tests',
             },
-            { target = '/examples/%1_example.cpp', -- Example
+            {
+              target = '/examples/%1_example.cpp', -- Example
               context = 'example',
             },
-          }
+          },
         }, -- }}} from source
 
         { -- {{{ from examples
           pattern = '/examples/(.*).cpp',
           target = {
 
-            { target = '/src/%1.cpp',
+            {
+              target = '/src/%1.cpp',
               context = 'src',
               transformer = 'remove_example',
             },
 
-            { target = '/test/%1_test.cpp',
-              context = 'test',
+            {
+              target = '/tests/%1_tests.cpp',
+              context = 'tests',
               transformer = 'remove_example',
             },
 
-            { target = '/include/%1.hpp',
+            {
+              target = '/include/%1.hpp',
               context = 'include',
               transformer = 'remove_example',
             },
@@ -117,6 +123,29 @@ return {
           transformers = 'remove_example',
         }, -- }}} from source
 
+        -- { -- {{{ from examples
+        --   pattern = '/tests/(.*).cpp',
+        --   target = {
+        --     {
+        --       target = '/src/%1.cpp',
+        --       context = 'src',
+        --       transformer = 'remove_example',
+        --     },
+
+        --     {
+        --       target = '/include/%1_tests.cpp',
+        --       context = 'tests',
+        --       transformer = 'remove_example',
+        --     },
+
+        --     {
+        --       target = '/include/%1.hpp',
+        --       context = 'include',
+        --       transformer = 'remove_example',
+        --     },
+        --   },
+        --   transformers = 'remove_example',
+        -- }, -- }}} from source
 
         -- {
         --   pattern = '/src/(.*)/(.*).cpp',
@@ -133,7 +162,6 @@ return {
         -- },
 
         -- }}} cpp
-
       },
       transformers = {
         -- defining a custom transformer
@@ -142,7 +170,7 @@ return {
         end,
 
         remove_example = function(inputString)
-          return inputString:gsub("_example", "")
+          return inputString:gsub('_example', '')
         end,
       },
 

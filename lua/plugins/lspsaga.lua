@@ -26,6 +26,10 @@ return {
       hover = {
         max_width = 0.9,
         max_height = 0.8,
+        min_height = 0.5,
+        min_width = 0.5,
+        height = 0.5,
+        width = 0.5,
         open_link = 'gx',
         open_cmd = '!chrome',
       },
@@ -95,8 +99,9 @@ return {
         },
       },
       definition = {
-        width = 0.6,
+        width = 0.9,
         height = 0.5,
+
         keys = {
           edit = '<C-c>o',
           vsplit = '<C-c>v',

@@ -31,17 +31,19 @@ local M = {
   -- -- CurSearch	Used for highlighting a search pattern under the cursor (see 'hlsearch').
   -- CurSearch = { fg = theme.ui.fg, bg = theme.ui.bg_search, bold = true },
   -- -- Cursor		Character under the cursor.
-  Cursor = { fg = colors.underworld, bg = colors.underworld },
+  Cursor = { fg = '#F2d283', bg = '#F2d283' },
+  iCursor = { fg = '#F2d283', bg = '#F2d283' },
   -- -- lCursor		Character under the cursor when |language-mapping| is used (see 'guicursor').
-  -- lCursor = { link = "Cursor" },
+  lCursor = { link = 'Cursor' },
   -- -- CursorIM	Like Cursor, but used when in IME mode.
-  -- CursorIM = { link = "Cursor" },
+  CursorIM = { link = 'Cursor' },
   -- -- CursorColumn	Screen-column at the cursor, when 'cursorcolumn' is set.
   -- CursorColumn = { link = "CursorLine" },
   -- -- CursorLine	Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
   -- CursorLine = { bg = theme.ui.bg_p2 },
 
   CursorLine = { bg = '#f3f3f3' },
+  -- CursorLine = { bg = '#f3f3f3' },
   CursorLineNr = { fg = colors.veronica, bg = colors.pastelFirstSnow, bold = true },
 
   -- -- Directory	Directory names (and other special names in listings).
@@ -245,7 +247,7 @@ local M = {
   -- Comment = { fg = colors.underworld, bg = colors.underworld},
 
   LspInfoTip = { fg = colors.underworld, bg = colors.phillipineOrange },
-  LspInlayHint = { fg = colors.underworld, bg = colors.phillipineOrange },
+  LspInlayHint = { fg = colors.underworld, bg = colors.pastelFirstSnow },
   LspCodeLens = { fg = colors.underworld, bg = colors.pastelFirstSnow },
   LspLens = { fg = colors.underworld, bg = colors.pastelFirstSnow },
 

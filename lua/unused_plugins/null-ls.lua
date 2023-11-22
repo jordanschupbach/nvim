@@ -2,9 +2,10 @@
 
 return {
   'jose-elias-alvarez/null-ls.nvim', -- Formatting engine
-  dependencies = { 'lewis6991/gitsigns.nvim' },
+  dependencies = { 'lewis6991/gitsigns.nvim', 'davidmh/cspell.nvim' },
   ft = { 'cpp', 'java', 'lua', 'r', 'python', 'markdown', 'zig' },
   config = function()
+    local cspell = require 'cspell'
     local null_ls = require 'null-ls'
     local cpplint = null_ls.builtins.diagnostics.cpplint
     cpplint['args'] = { '$FILENAME', '--linelength', '120' }
@@ -14,11 +15,15 @@ return {
         -- null_ls.builtins.code_actions.cspell,
         null_ls.builtins.diagnostics.chktex,
         null_ls.builtins.code_actions.gitsigns,
+
+        -- cspell.diagnostics,
+        -- cspell.code_actions,
+
         --null_ls.builtins.code_actions.ltrs,
         null_ls.builtins.code_actions.refactoring,
         null_ls.builtins.code_actions.shellcheck,
         -- null_ls.builtins.diagnostics.clang_check, -- NOTE: seems to have false pos. b/c of version mismatch?
-        -- null_ls.builtins.diagnostics.clang_format, -- NOTE: seems to have false pos. b/c of version mismatch?
+        null_ls.builtins.diagnostics.clang_format, -- NOTE: seems to have false pos. b/c of version mismatch?
         null_ls.builtins.diagnostics.cmake_lint,
         -- null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.commitlint,

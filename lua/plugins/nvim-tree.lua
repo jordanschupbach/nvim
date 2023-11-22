@@ -2,7 +2,7 @@
 
 return {
   'nvim-tree/nvim-tree.lua',
-  requires = {
+  dependencies = {
     'nvim-tree/nvim-web-devicons', -- optional, for file icons
   },
   tag = 'nightly', -- optional, updated every week. (see issue #1193)
@@ -10,7 +10,7 @@ return {
     { '<localleader>ff', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
   },
   cmd = { 'NvimTreeToggle' },
-  config = {
+  opts = {
     respect_buf_cwd = true,
     sync_root_with_cwd = true,
     update_cwd = false,

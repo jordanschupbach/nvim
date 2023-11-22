@@ -5,7 +5,18 @@ return {
   event = 'VeryLazy',
   config = function()
     require('LspUI').setup {
+
+      inlay_hint = {
+        enable = true,
+        command_enable = true,
+        filter = {
+          whitelist = {},
+          blacklist = {},
+        },
+      },
       lightbulb = {
+        is_cached = true, -- whether cache code action, if do, code action will use lightbulb's cache
+        debounce = 250,
         enable = false, -- close by default
         command_enable = false, -- close by default, this switch does not have to be turned on, this command has no effect
         icon = '',

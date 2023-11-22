@@ -2,12 +2,13 @@ return {
   'jackMort/ChatGPT.nvim',
   event = 'VeryLazy',
   config = function()
-    require('chatgpt').setup {
-      api_key_cmd = 'get_gpt',
+    local defaults = {
+      api_key_cmd = nil,
       yank_register = '+',
       edit_with_instructions = {
         diff = false,
         keymaps = {
+          close = '<C-c>',
           accept = '<C-y>',
           toggle_diff = '<C-d>',
           toggle_settings = '<C-o>',
@@ -16,10 +17,10 @@ return {
         },
       },
       chat = {
-        welcome_message = 'Assimilating...',
+        welcome_message = WELCOME_MESSAGE,
         loading_text = 'Loading, please wait ...',
-        question_sign = '',
-        answer_sign = 'ﮧ',
+        question_sign = '', -- 🙂
+        answer_sign = 'ﮧ', -- 🤖
         max_line_length = 120,
         sessions_window = {
           border = {
@@ -41,13 +42,18 @@ return {
           new_session = '<C-n>',
           cycle_windows = '<Tab>',
           cycle_modes = '<C-f>',
+          next_message = '<C-j>',
+          prev_message = '<C-k>',
           select_session = '<Space>',
           rename_session = 'r',
           delete_session = 'd',
           draft_message = '<C-d>',
+          edit_message = 'e',
+          delete_message = 'd',
           toggle_settings = '<C-o>',
           toggle_message_role = '<C-r>',
           toggle_system_role_open = '<C-s>',
+          stop_generating = '<C-x>',
         },
       },
       popup_layout = {
@@ -109,6 +115,7 @@ return {
         },
         submit = '<C-Enter>',
         submit_n = '<Enter>',
+        max_visible_lines = 40,
       },
       settings_window = {
         border = {
@@ -125,21 +132,26 @@ return {
         model = 'gpt-3.5-turbo',
         frequency_penalty = 0,
         presence_penalty = 0,
-        max_tokens = 300,
+        max_tokens = 1000,
         temperature = 0,
         top_p = 1,
         n = 1,
       },
       openai_edit_params = {
-        model = 'code-davinci-edit-001',
+        model = 'gpt-3.5-turbo',
+        frequency_penalty = 0,
+        presence_penalty = 0,
         temperature = 0,
         top_p = 1,
         n = 1,
       },
+      use_openai_functions_for_edits = false,
       actions_paths = {},
       show_quickfixes_cmd = 'Trouble quickfix',
       predefined_chat_gpt_prompts = 'https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv',
     }
+
+    require('chatgpt').setup { defaults }
   end,
   dependencies = {
     'MunifTanjim/nui.nvim',

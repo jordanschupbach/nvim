@@ -12,7 +12,7 @@ return {
       fold_open = '', -- icon used for open folds
       fold_closed = '', -- icon used for closed folds
       group = true, -- group results by file
-      padding = true, -- add an extra new line on top of the list
+      padding = false, -- add an extra new line on top of the list
       action_keys = { -- key mappings for actions in the trouble list
         -- map to {} to remove a mapping, for example:
         -- close = {},
@@ -27,6 +27,7 @@ return {
         toggle_mode = 'm', -- toggle between "workspace" and "document" diagnostics mode
         toggle_preview = 'P', -- toggle auto_preview
         hover = 'K', -- opens a small popup with the full multiline message
+        switch_severity = '<c-s>', -- switch "diagnostics" severity filter level to HINT / INFO / WARN / ERROR
         preview = 'p', -- preview the diagnostic location
         close_folds = { 'zM', 'zm' }, -- close all folds
         open_folds = { 'zR', 'zr' }, -- open all folds

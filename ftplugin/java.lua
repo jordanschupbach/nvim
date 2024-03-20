@@ -6,7 +6,7 @@ if not pkg_status then
   return
 end
 
-require('jdtls').start_or_attach(jdtls_config)
+-- require('jdtls').start_or_attach(jdtls_config)
 
 -- local opts = {
 --     -- init_options = {

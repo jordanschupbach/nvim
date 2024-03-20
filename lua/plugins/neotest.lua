@@ -8,6 +8,7 @@ return {
     'nvim-neotest/neotest-python',
     'nvim-neotest/neotest-go',
     'rouge8/neotest-rust',
+    'alfaix/neotest-gtest',
   },
   config = function()
     -- get neotest namespace (api call creates or returns namespace)
@@ -26,6 +27,7 @@ return {
         require 'neotest-python',
         require 'neotest-go',
         require 'neotest-rust',
+        require('neotest-gtest').setup {},
       },
       benchmark = {
         enabled = true,

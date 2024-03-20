@@ -36,5 +36,13 @@ augroup augroup_all_files_vimscript
 augroup END
 ]]
 
+-- Auto-reload buffer on BufEnter
+vim.cmd [[
+    augroup AutoReload
+        autocmd!
+        autocmd BufEnter * :checktime
+    augroup END
+]]
+
 -- vim.api.nvim_buf_create_user_command('Format', function()
 --   vim.lsp.buf.format() end, { desc = 'Format current buffer with LSP' })

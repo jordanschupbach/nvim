@@ -25,11 +25,12 @@ return {
         -- options will open the window in the other direction *if* there is a
         -- different buffer in the way of the preferred direction
         -- Enum: prefer_right, prefer_left, right, left, float
-        default_direction = 'prefer_right',
+        default_direction = 'right',
 
         -- Determines where the aerial window will be opened
         --   edge   - open aerial at the far right/left of the editor
         --   window - open aerial to the right/left of the current window
+        placement = 'window',
         placement = 'window',
 
         -- Preserve window size equality with (:help CTRL-W_=)

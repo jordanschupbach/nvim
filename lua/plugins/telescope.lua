@@ -20,12 +20,78 @@ return {
     'AckslD/nvim-neoclip.lua',
     'xiyaowong/telescope-emoji.nvim',
     'folke/flash.nvim',
+    'ThePrimeagen/harpoon',
   },
   -- }}} dependencies
 
   -- {{{ config
   config = function()
+    local utilities = require 'utilities'
+    local actions = require 'telescope.actions'
+    local finders = require 'telescope.finders'
+    local pickers = require 'telescope.pickers'
+    local actions_state = require 'telescope.actions.state'
+
+    local function on_project_selected(prompt_bufnr)
+      local entry = actions_state.get_selected_entry()
+      -- vim.cmd("echo '" .. utilities.dump(entry) .. "'")
+      -- vim.cmd("echo '" .. tostring(entry) .. "'")
+      actions.close(prompt_bufnr)
+      -- vim.cmd("echo '" .. entry['value'] .. " helloz worldz'")
+      -- -- Open the readme.md file in the root directory
+      vim.cmd('edit ' .. entry['value'] .. '/README.md')
+
+      -- Toggle the NvimTree buffer
+      vim.cmd 'split'
+      vim.cmd 'terminal'
+      vim.cmd 'NvimTreeToggle'
+    end
+
+    local function project_files(opts)
+      opts = opts or {}
+      local cwd = vim.fn.expand(opts.cwd or vim.fn.getcwd())
+
+      pickers
+        .new(opts, {
+          prompt_title = 'Projects',
+          finder = finders.new_oneshot_job({ 'fdfind', '-L', '--type', 'd', '--color', 'never', '.' }, {
+            entry_maker = function(line)
+              return {
+                value = vim.fn.fnameescape(line),
+                display = line,
+                cwd = line,
+                ordinal = line,
+              }
+            end,
+          }),
+          sorter = sorters.get_generic_fuzzy_sorter(),
+          attach_mappings = function(prompt_bufnr, map)
+            map('i', '<CR>', on_project_selected)
+            map('n', '<CR>', on_project_selected)
+            return true
+          end,
+        })
+        :find()
+    end
+
+    require('telescope').register_extension {
+      exports = {
+        project_files = project_files,
+      },
+    }
+
     require('telescope').setup {
+
+      defaults = {
+        post_open = function()
+          vim.cmd 'NvimTreeToggle' -- Open NvimTree buffer
+        end,
+
+        mappings = {
+          i = { ['<C-d>'] = require('telescope.actions').delete_buffer },
+          n = { ['<C-d>'] = require('telescope.actions').delete_buffer },
+        },
+      },
       prompt_prefix = ' ',
       selection_caret = '* ',
       path_display = { 'smart' },
@@ -40,7 +106,30 @@ return {
         '--no-ignore', -- **This is the added flag**
         '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
       },
+
       extensions = {
+
+        project = {
+          base_dirs = {
+            '~/dev/data_munge',
+          },
+          hidden_files = true, -- default: false
+          theme = 'dropdown',
+          order_by = 'asc',
+          search_by = 'title',
+          sync_with_nvim_tree = true, -- default false
+          -- default for on_project_selected = find project files
+          on_project_selected = function(prompt_bufnr)
+            on_project_selected(prompt_bufnr)
+          end,
+          -- function(prompt_bufnr)
+          --   local cmd = "echo 'hello world, my prompt_bufnr is " .. tostring(prompt_bufnr) .. "'"
+          --   vim.api.nvim_command(cmd)
+          --   -- actions.change_working_directory(prompt_bufnr, false)
+          --   require('harpoon.ui').nav_file(1)
+          -- end,
+        },
+
         -- ["ui-select"] = {
         --   require("telescope.themes").get_dropdown {
         --     -- even more opts
@@ -127,7 +216,7 @@ return {
         },
       },
     }
-    require('telescope').setup {}
+    --  require('telescope').setup {}
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension 'luasnip')
     pcall(require('telescope').load_extension 'neoclip')

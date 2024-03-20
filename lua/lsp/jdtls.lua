@@ -69,8 +69,8 @@ local function setup()
               default = true,
             },
             {
-              name = 'JavaSE-20',
-              path = '/usr/lib/jvm/java-20-openjdk/',
+              name = 'JavaSE-21',
+              path = '/usr/lib/jvm/java-21-openjdk/',
               -- path = "/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home",
             },
           },
@@ -109,8 +109,8 @@ local function setup()
 
   local on_attach = function(_, _)
     require('jdtls').setup_dap { hotcodereplace = 'auto' }
-    require('dap.ext.vscode').load_launchjs()
-    jdtls.dap.setup_dap_main_class_configs()
+    -- require('dap.ext.vscode').load_launchjs()
+    -- jdtls.dap.setup_dap_main_class_configs()
 
     -- you may want to also run your generic on_attach() function used by your LSP config
   end

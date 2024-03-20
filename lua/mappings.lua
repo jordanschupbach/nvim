@@ -6,7 +6,7 @@ local ju = require 'jutils'
 
 -- local ngit = require"neogit"
 
-m.nmap('<C-G>', '<cmd>ChatGPT<cr>', 'ChatGPT')
+-- m.nmap('<C-G>', '<cmd>ChatGPT<cr>', 'ChatGPT')
 
 m.nmap('<C-f>', '<cmd>FormatWriteLock<cr>', 'Format')
 m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
@@ -55,9 +55,9 @@ local function mymap(mode, key, value)
 end
 -- }}} mymap fun
 
-vim.keymap.set({ 'n' }, '<S-k>', function()
-  require('lsp_signature').toggle_float_win()
-end, { silent = true, noremap = true, desc = 'toggle signature' })
+-- vim.keymap.set({ 'n' }, '<S-k>', function()
+--   require('lsp_signature').toggle_float_win()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
 
 -- {{{ Commented but maybe useful
 -- vim.keymap.set({ 'n', 'i' }, '<C-k>', function()
@@ -133,7 +133,7 @@ m.nmap('<leader>bb', ':Telescope buffers theme=ivy<CR>', 'Buffers')
 
 -- {{{ Comment
 m.nname('<leader>c', 'Comment')
-m.nmap('<leader>cc', ':CommentToggle<CR>', 'Comment')
+m.nmap('<leader>cc', ':CommentToggle<CR>', 'Comment') -- NOTE: Maybe sync w/ gc?
 -- }}} Comment
 
 -- {{{ Code action mappings
@@ -203,6 +203,7 @@ m.nmap('gee', ':Lspsaga show_buf_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
 m.nmap('geb', ':Lspsaga show_buf_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
 m.nmap('gew', ':Lspsaga show_workspace_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
 m.nmap('I', ':Lspsaga show_line_diagnostics<CR>', 'LSP: [g]oto [r]eferences')
+m.vmap('gs', ':Sort<CR>', '[g]o [s]ort')
 -- m.nmap('gP', ':Telescope neoclip theme=ivy<CR>', 'LSP: [g]o [P]aste')
 -- }}} Go(To) mappings
 
@@ -496,7 +497,8 @@ m.nmap('<leader>du', ":lua require'dapui'.toggle()<CR>", 'UI')
 -- }}} Debugger
 
 -- {{{ Todo
-mymap('n', '<leader>TT', ':TodoTrouble<CR>')
+mymap('n', '<leader>Ts', ':TodoTrouble<CR>')
+mymap('n', '<leader>TT', ':TodoTelescope<CR>')
 --  }}}
 
 -- {{{ Snippets

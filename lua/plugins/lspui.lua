@@ -5,9 +5,8 @@ return {
   event = 'VeryLazy',
   config = function()
     require('LspUI').setup {
-
       inlay_hint = {
-        enable = true,
+        enable = false,
         command_enable = true,
         filter = {
           whitelist = {},
@@ -15,16 +14,16 @@ return {
         },
       },
       lightbulb = {
-        is_cached = true, -- whether cache code action, if do, code action will use lightbulb's cache
+        is_cached = false, -- whether cache code action, if do, code action will use lightbulb's cache
         debounce = 250,
         enable = false, -- close by default
         command_enable = false, -- close by default, this switch does not have to be turned on, this command has no effect
-        icon = '',
+        icon = 'a',
       },
       code_action = {
         enable = false,
         command_enable = false,
-        icon = '',
+        icon = 'c',
         keybind = {
           exec = '<CR>',
           prev = 'k',

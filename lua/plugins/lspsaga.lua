@@ -17,7 +17,7 @@ return {
         title = true,
         expand = '⊞',
         collapse = '⊟',
-        code_action = '',
+        code_action = 'a',
         actionfix = ' ',
         lines = { '┗', '┣', '┃', '━', '┏' },
         kind = nil,
@@ -34,7 +34,7 @@ return {
         open_cmd = '!chrome',
       },
       diagnostic = {
-        show_code_action = true,
+        show_code_action = false,
         show_layout = 'float',
         show_normal_height = 10,
         jump_num_shortcut = true,
@@ -65,7 +65,7 @@ return {
         },
       },
       lightbulb = {
-        enable = true,
+        enable = false,
         sign = true,
         debounce = 10,
         sign_priority = 40,

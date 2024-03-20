@@ -62,10 +62,52 @@ end, {
   desc = 'Gets the documentation and prints it',
 })
 
-vim.api.nvim_set_keymap('n', '<leader>gd', '<cmd>lua require("scratchpad").get_documentation()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>gd',
+  '<cmd>lua require("scratchpad").get_documentation()<CR>',
+  { noremap = true, silent = true }
+)
+
+require 'playground'
+
+vim.api.nvim_create_user_command('SwapRight', function()
+  require('utilities').swap_window_right()
+end, {
+  desc = 'Swap to the right',
+})
+
+vim.api.nvim_create_user_command('SwapLeft', function()
+  require('utilities').swap_window_left()
+end, {
+  desc = 'Swap to the left',
+})
+
+vim.api.nvim_create_user_command('SwapUp', function()
+  require('utilities').swap_window_up()
+end, {
+  desc = 'Swap up',
+})
+
+vim.api.nvim_create_user_command('SwapDown', function()
+  require('utilities').swap_window_down()
+end, {
+  desc = 'Swap down',
+})
+
+-- vim.cmd([[colorscheme base16-3024]])
+-- vim.cmd([[colorscheme base16-ia-light]])
 
 -- vim.api.nvim_command 'sleep 100m'
 -- vim.api.nvim_command 'messages clear'
 -- vim.api.nvim_command '!clear'
+
+vim.api.nvim_command 'colorscheme base16-unikitty-light'
+
+local m = require('mapx').setup { global = 'force', whichkey = true }
+m.nmap('<Space>wh', ':SwapLeft<CR>', 'Swap left')
+m.nmap('<Space>wl', ':SwapRight<CR>', 'Swap right')
+m.nmap('<Space>wj', ':SwapDown<CR>', 'Swap down')
+m.nmap('<Space>wk', ':SwapUp<CR>', 'Swap up')
 
 -- print(vim.fn.stdpath('data'))

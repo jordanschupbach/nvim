@@ -20,6 +20,7 @@ return {
       update_root = true,
     },
     view = {
+      preserve_window_proportions = true,
       adaptive_size = false,
       mappings = {
         list = {

@@ -182,6 +182,16 @@ utilities.file_exists = function(file)
   return f ~= nil
 end
 
+-- local lfs = require 'lfs'
+-- local function file_exists(filename)
+--   local attributes, _ = lfs.attributes(filename)
+--   if attributes then
+--     return true
+--   else
+--     return false
+--   end
+-- end
+
 -- get all lines from a file, returns an empty
 -- list/table if the file does not exist
 utilities.lines_from = function(file)

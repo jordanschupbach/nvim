@@ -25,6 +25,12 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ 'TermOpen' }, {
+  callback = function()
+    vim.cmd 'set nomodified'
+  end,
+})
+
 -- Return to last edit position when opening files
 vim.cmd [[
 augroup augroup_all_files_vimscript

@@ -1,5 +1,25 @@
 local utilities = {}
 
+-- if true then
+--   print 'was true'
+-- else
+--   print 'was false'
+-- end
+
+utilities.get_visual_selection = function()
+  local s_start = vim.fn.getpos "'<"
+  local s_end = vim.fn.getpos "'>"
+  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  lines[1] = string.sub(lines[1], s_start[3], -1)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+  else
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+  end
+  return table.concat(lines, '\n')
+end
+
 -- function that extracts selected text
 utilities.extract_selected_text = function()
   -- Get the start and end positions of the selected text
@@ -247,6 +267,18 @@ utilities.file_exists = function(file)
     f:close()
   end
   return f ~= nil
+end
+
+utilities.init_ldmode = function()
+  if not utilities.file_exists '/home/jordan/.cache/ldmode' then
+    local file = io.open('/home/jordan/.cache/ldmode', 'w')
+    file:write 'dark'
+    file:close()
+  end
+end
+
+utilities.get_ldmode = function()
+  return utilities.lines_from '/home/jordan/.cache/ldmode'
 end
 
 -- get all lines from a file, returns an empty

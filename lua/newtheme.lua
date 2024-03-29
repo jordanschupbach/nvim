@@ -16,7 +16,7 @@ end
 --- Sets the theme to lightmode
 local set_lightmode = function()
   vim.opt.background = 'light'
-  os.execute "sed -i -- 's/dark/light/' ~/.scripts/.mode"
+  os.execute "sed -i -- 's/dark/light/' ~/.cache/ldmode"
   require('misenplacecolors').load()
   vim.fn.setenv('LD_THEME', 'light')
   g.darkmode = false
@@ -27,17 +27,17 @@ local set_darkmode = function()
   if ju.has_wal() and ju.exists(conf.default_dark_wallpaper) then
     os.execute('wal -i ' .. conf.default_dark_wallpaper .. ' >/dev/null')
   end
-  os.execute "sed -i -- 's/light/dark/' ~/.scripts/.mode"
+  os.execute "sed -i -- 's/light/dark/' ~/.cache/ldmode"
   require('misenplacecolors').load()
   g.darkmode = true
 end
 
--- Set defaults
-if g.darkmode then
-  set_darkmode()
-else
-  set_lightmode()
-end
+-- -- Set defaults
+-- if g.darkmode then
+--   set_darkmode()
+-- else
+--   set_lightmode()
+-- end
 
 --- Toggle darkmode
 --- Sets LD_THEME environment variable,

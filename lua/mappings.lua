@@ -13,6 +13,18 @@ m.nmap('I', '<cmd>Lspsaga show_line_diagnostics<cr>', 'Line diagnostics')
 m.nmap('<C-1>', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
 m.nmap('<C-2>', "<cmd>lua require'jutils'.toggle_neogit()<cr>", 'NeoGit')
 
+m.nmap('<C-q>', '<CMD>qa<CR>', 'quit all')
+
+-- m.nmap('<C-;>', '<Cmd>lua require"luadev".exec(vim.api.nvim_get_current_line())<cr>', 'run line')
+
+m.nmap('<C-;>', '<Cmd>lua require"luadev".exec(require"utilities".extract_paragraph_at_cursor())<cr>', 'run line')
+
+-- extract_paragraph_at_cursor
+
+-- require"utilities".extract_selected_text()
+
+-- noremap <Plug>(Luadev-RunLine) <Cmd>lua require'luadev'.exec(vim.api.nvim_get_current_line())<cr>
+
 -- {{{ Tab mappings
 m.nmap('<A-n>', ':tabnext<CR>', 'Next Tab')
 m.nmap('<A-p>', ':tabprevious<CR>', 'Previous Tab')
@@ -447,6 +459,8 @@ mymap('n', '<A-h>', '<C-w>h')
 mymap('n', '<A-s>', '<C-w>s')
 mymap('n', '<A-v>', '<C-w>v')
 mymap('n', '<A-d>', '<C-w>q')
+mymap('n', '<A-z>', '<Cmd>lua require("maximize").toggle()<CR>')
+mymap('n', '<A-f>', '<Cmd>ZenMode<CR>')
 
 m.nmap('<A-S-j>', "<CMD>lua require('smart-splits').resize_down()<CR>", 'resize down')
 m.nmap('<A-S-k>', "<CMD>lua require('smart-splits').resize_up()<CR>", 'resize up')

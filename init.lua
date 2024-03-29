@@ -102,12 +102,23 @@ end, {
 -- vim.api.nvim_command 'messages clear'
 -- vim.api.nvim_command '!clear'
 
-vim.api.nvim_command 'colorscheme base16-unikitty-light'
+vim.api.nvim_command 'colorscheme base16-selenized-black'
 
 local m = require('mapx').setup { global = 'force', whichkey = true }
 m.nmap('<Space>wh', ':SwapLeft<CR>', 'Swap left')
 m.nmap('<Space>wl', ':SwapRight<CR>', 'Swap right')
 m.nmap('<Space>wj', ':SwapDown<CR>', 'Swap down')
 m.nmap('<Space>wk', ':SwapUp<CR>', 'Swap up')
+
+-- Initialize light/dark mode
+-- require('utilities').init_ldmode()
+
+-- require('utilities').get_ldmode()[1]
+
+if require('utilities').get_ldmode()[1] == 'dark' then
+  vim.cmd [[colorscheme base16-selenized-black]]
+else
+  vim.cmd [[colorscheme base16-selenized-light]]
+end
 
 -- print(vim.fn.stdpath('data'))

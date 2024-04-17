@@ -8,6 +8,13 @@ local servers = {
   --   --     navbuddy.attach(client, bufnr)
   --   -- end
   -- },
+
+  clangd = {
+    cmd = 'clangd -std=c++20 -stdlib=libstdc++ -I/usr/include/gismo/',
+    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }, --  'proto'
+    single_file_support = true,
+  },
+
   clojure_lsp = {},
   gopls = {},
   gradle_ls = {},
@@ -61,6 +68,7 @@ local servers = {
   },
   rust_analyzer = {},
   r_language_server = {
+    cmd = { 'R', '--slave', '-e', 'languageserver::run()' },
     -- on_attach = function(client, bufnr)
     --     navbuddy.attach(client, bufnr)
     -- end

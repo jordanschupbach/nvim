@@ -20,21 +20,6 @@ return {
       -- bashls = {},
       -- cmake = {},
       phpactor = {},
-      clangd = {
-        cmd = 'clangd -std=c++20 -stdlib=libstdc++',
-        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
-
-        -- root_dir = root_pattern(
-        --   '.clangd',
-        --   '.clang-tidy',
-        --   '.clang-format',
-        --   'compile_commands.json',
-        --   'compile_flags.txt',
-        --   'configure.ac',
-        --   '.git'
-        -- ),
-        single_file_support = true,
-      },
       jdtls = {
         filetyptes = { 'java' },
       },
@@ -48,12 +33,18 @@ return {
       -- -- tsserver = {},
       -- zls = {},
       lua_ls = require 'lsp.lua-ls',
+      clangd = require 'lsp.clangd',
     }
 
     local servers = {
       -- bashls = {},
       -- cmake = {},
-      -- int argc, char *argv[]clangd = {},
+      -- int argc, char *argv[]
+      clangd = {
+        cmd = 'clangd -std=c++20 -stdlib=libstdc++ -I/usr/include/gismo/',
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }, --  'proto'
+        single_file_support = true,
+      },
       -- -- clojure_lsp = {},
       -- gopls = {},
       -- gradle_ls = {},

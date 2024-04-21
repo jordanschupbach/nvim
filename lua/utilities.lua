@@ -359,4 +359,16 @@ utilities.swap_window_down = function()
   end
 end
 
+utilities.determine_project_type = function()
+  local ret = 'unknown'
+  local current_dir = vim.fn.getcwd()
+  if utilities.file_exists(current_dir .. '/.luarc.json') then
+    return 'lua'
+  end
+  if utilities.file_exists(current_dir .. '/CMakeLists.txt') then
+    return 'cpp'
+  end
+  return ret
+end
+
 return utilities

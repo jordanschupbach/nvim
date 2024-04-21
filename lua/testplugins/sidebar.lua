@@ -28,7 +28,7 @@ return {
       disable_default_keybindings = 0,
       bindings = nil,
       side = 'right',
-      initial_width = 35,
+      initial_width = 28,
       hide_statusline = false,
       update_interval = 1000,
       section_separator = { '', '-----' },

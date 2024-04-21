@@ -5,6 +5,7 @@ return {
   requires = 'nvim-lua/plenary.nvim',
   -- Optional: needed for PHP when using the cobertura parser
   config = function()
+    local u = require 'utilities'
     local project = {
       title = 'Project',
       icon = '',
@@ -14,8 +15,9 @@ return {
         -- hook callback, called when an update was requested by either the user of external events (using autocommands)
       end,
       draw = function(ctx)
-        ret = ''
-        ret = ret .. 'Name: nvim\n'
+        local ret = ''
+        ret = ret .. 'Name: ' .. vim.fn.getcwd():match '.*/(.*)' .. '\n'
+        ret = ret .. 'Type: ' .. u.determine_project_type() .. '\n'
         ret = ret .. 'Coverage: 0' .. '/100%\n'
         ret = ret .. 'Tests: 0' .. '/37 passing\n'
         return ret

@@ -253,8 +253,10 @@ vimopt.relativenumber = true
 -- Show the line number relative to the line with the cursor in front of
 -- each line. Relative line numbers help you use the |count| you can
 -------------------------------------------------------------------------------
+---
+vimopt.cursorline = true
 
-vimopt.signcolumn = 'auto:3'
+-- vimopt.signcolumn = 'auto:3'
 -- When and how to draw the signcolumn.
 --  "yes" always
 -------------------------------------------------------------------------------
@@ -368,6 +370,8 @@ vimopt.shada = {
 -- vim.opt.background = 'light'
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
+
+-- vim.o.statuscolumn = '%@SignCb@%s%=%T%@NumCb@%r│%T'
 
 vim.o.timeout = true
 vim.o.timeoutlen = 300

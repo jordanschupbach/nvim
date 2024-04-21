@@ -121,6 +121,7 @@ else
   vim.cmd [[colorscheme base16-selenized-light]]
 end
 
+-- {{{ clangd config
 require('lspconfig').clangd.setup {
   cmd = { 'clangd', '--enable-config' },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }, -- , 'proto'
@@ -135,5 +136,6 @@ require('lspconfig').clangd.setup {
   ),
   single_file_support = true,
 }
+-- }}}
 
 -- print(vim.fn.stdpath('data'))

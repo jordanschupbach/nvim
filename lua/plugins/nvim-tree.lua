@@ -19,6 +19,11 @@ return {
       enable = true,
       update_root = true,
     },
+    git = {
+      enable = true,
+      ignore = true,
+      timeout = 400,
+    },
     view = {
       preserve_window_proportions = true,
       adaptive_size = false,

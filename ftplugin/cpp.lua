@@ -39,6 +39,16 @@ end, {
   desc = 'Show selected text in a popup',
 })
 
+vim.cmd [[ Coverage ]]
+-- -- Enable code coverage
+-- vim.cmd [[
+-- function! ToggleCoverage()
+--   vim.cmd('CoverageToggle')
+-- endfunction
+-- ]]
+
+-- vim.api.nvim_command 'autocmd BufEnter *.c,*.h,*.cpp,*.hpp lua ToggleCoverage()'
+
 -- Currently, there seems to be some issuse with cmake-tools. It seems files are already open somehow, and this
 -- prevents me from getting c++ mode being set and  from saving to the file.
 

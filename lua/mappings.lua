@@ -143,10 +143,11 @@ m.nname('<leader>b', 'Buffers')
 m.nmap('<leader>bb', ':Telescope buffers theme=ivy<CR>', 'Buffers')
 -- }}} Buffers
 
--- {{{ Comment
-m.nname('<leader>c', 'Comment')
-m.nmap('<leader>cc', ':CommentToggle<CR>', 'Comment') -- NOTE: Maybe sync w/ gc?
--- }}} Comment
+-- {{{ Code
+m.nname('<leader>c', 'Code')
+m.nmap('<leader>cc', ':CoverageToggle<CR>', 'Coverage')
+
+-- }}} Code
 
 -- {{{ Code action mappings
 m.vmap('<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code Action')
@@ -533,8 +534,11 @@ mymap('i', '<A-x>', ':Telescope commands theme=ivy<CR>')
 -- }}} Telescope
 
 -- {{{ Commenting
-mymap('v', '<leader>cc', ':CommentToggle<CR>')
-mymap('n', '<leader>cc', ':CommentToggle<CR>')
+-- mymap('v', '<leader>cc', ':CommentToggle<CR>')
+-- mymap('n', '<leader>cc', ':CommentToggle<CR>')
+
+--  mymap('v', '<leader>cc', ':CommentToggle<CR>')
+-- mymap('n', '<leader>cc', ':CoverageToggle<CR>')
 
 -- mymap("v", "<C-c><C-c>", ":CommentToggle<CR>")
 -- mymap("n", "<C-c><C-c>", ":CommentToggle<CR>")
@@ -653,7 +657,7 @@ m.nmap('<leader>TT', ':TodoTrouble<CR>', 'Trouble')
 -- {{{ Project bindings
 
 m.nname('<leader>p', 'Project')
-m.nmap('<C-k>', ':BuildMe<CR>', 'Build')
+-- m.nmap('<C-k>', ':BuildMe<CR>', 'Build')
 m.nmap('<leader>pb', ':BuildMe<CR>', 'Build')
 m.nmap('<leader>pf', ':Telescope fd theme=ivy<CR>', 'Files')
 m.nmap('<leader>po', ':Telescope project theme=ivy<CR>', 'Open')

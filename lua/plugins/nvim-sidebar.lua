@@ -35,7 +35,7 @@ return {
       bindings = nil,
       open = false,
       side = 'right',
-      initial_width = 35,
+      initial_width = 25,
       hide_statusline = false,
       update_interval = 1000,
       sections = { project, 'git', 'diagnostics', 'todos' },

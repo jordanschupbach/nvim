@@ -25,6 +25,7 @@ return {
       timeout = 400,
     },
     view = {
+      width = 25,
       preserve_window_proportions = true,
       adaptive_size = false,
       mappings = {

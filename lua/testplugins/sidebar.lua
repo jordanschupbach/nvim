@@ -31,8 +31,8 @@ return {
       initial_width = 35,
       hide_statusline = false,
       update_interval = 1000,
-      section_separator = { '', '-----', '' },
-      section_title_separator = { '' },
+      section_separator = { '', '-----' },
+      section_title_separator = {},
       datetime = {
         format = '%a %b %d, %H:%M',
         clocks = { { name = 'local' } },

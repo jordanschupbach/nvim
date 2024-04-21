@@ -13,7 +13,7 @@ return {
       -- --   -- covered = { fg = '#C3E88D' }, -- supports style, fg, bg, sp (see :h highlight-gui)
       -- --   -- uncovered = { fg = '#F07178' },
       -- --   -- partial = { fg = '#AA71F0' },
-      -- -- },
+      'datetime', -- -- },
 
       -- signs = {
       --   covered = { hl = 'CoverageCovered', text = '█' },

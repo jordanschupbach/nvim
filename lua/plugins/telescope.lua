@@ -45,6 +45,8 @@ return {
       vim.cmd 'split'
       vim.cmd 'terminal'
       vim.cmd 'NvimTreeToggle'
+      vim.cmd 'SidebarNvimToggle'
+      vim.cmd 'wincmd l'
     end
 
     local function project_files(opts)
@@ -85,6 +87,7 @@ return {
       defaults = {
         post_open = function()
           vim.cmd 'NvimTreeToggle' -- Open NvimTree buffer
+          vim.cmd 'SidebarNvimToggle' -- Open NvimTree buffer
         end,
 
         mappings = {

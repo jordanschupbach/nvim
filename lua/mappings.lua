@@ -664,6 +664,7 @@ m.nmap('<leader>po', ':Telescope project theme=ivy<CR>', 'Open')
 -- m.nmap('<leader>pr', ':Telescope live_grep theme=ivy<CR>', 'RipGrep')
 m.nmap('<leader>pr', ':lua require("grape").live_grape()<CR>', 'Grape')
 m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
+
 --  mymap("n", "<C-k>", ":BuildMe<CR>")
 
 -- }}} Project bindings
@@ -686,7 +687,7 @@ m.nmap('<C-S-p>', '<CMD>BuildMe<CR>', 'Build Project')
 mymap('n', '<leader>ww', ':WindowsMaximize<CR>')
 -- }}} Window bindings
 
-mymap('n', '<C-h>', ':lua vim.lsp.buf.hover()<CR>')
+mymap('n', '<C-h>', ':History:<CR>')
 
 mymap('n', '<localleader>k', ':lua hover.hover()<CR>')
 
@@ -731,6 +732,7 @@ end, { nargs = 0, desc = 'My jump to mark function' })
 
 mymap('n', '<localleader>mm', ':MyJumpMarks<CR>')
 
+m.nmap('<leader>ss', ':SidebarNvimToggle<CR>', 'Sidebar')
 m.nmap('<leader>li', ':lua require("insights").run_current_buf()<CR>', 'Insights')
 -- m.nmap('<leader>ps', ':split<CR>:terminal<CR>', 'Shell')
 

@@ -1,5 +1,5 @@
 return {
-  'Vigemus/iron.nvim',
+  'Vigemus/iron.nvim', -- https://github.com/Vigemus/iron.nvim
   config = function()
     require('iron.core').setup {
       config = {

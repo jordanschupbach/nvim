@@ -69,6 +69,25 @@ int main(int argc, char *argv[]) {
 endsnippet
 
 
+snippet newtest
+#include <catch2/catch_test_macros.hpp>
+#include <datamunge/Foo.hpp>
+#include <iostream>
+#include <numeric>
+#include <string>
+
+#include <datamunge/dstruct/dframe.hpp>
+
+namespace datamunge {
+
+TEST_CASE("Construct Node", "[Node]") {
+  SECTION("Default") {
+    REQUIRE("1" == "2");
+  }
+}
+
+} // namespace datamunge
+endsnippet
 
 
 snippet includearray

@@ -1,39 +1,3 @@
--- local term = {
---   bufid = nil,
---   size = 10,
---   title = 'PTERM',
--- }
-
--- function TermToggle()
---   if term.bufid == nil then
---     print 'hello world - bufid'
---     vim.api.nvim_command ':split'
---     vim.api.nvim_command ':edit term://bash'
---     term.bufid = vim.api.nvim_get_current_buf()
---   else
---     print('hello world - ' .. term.bufid)
---   end
---   -- vim.api.nvim_buf_set_var(0, 'term_title', 'PTERM')
--- end
-
--- function IsTermCreated()
---   print 'hello world'
--- end
-
--- function PrintAllBuffers()
---   local current_window = vim.api.nvim_get_current_win()
---   local current_buffers = {}
---   for _, win in ipairs(vim.api.nvim_list_wins()) do
---     if win == current_window then
---       table.insert(current_buffers, vim.api.nvim_win_get_buf(win))
---     end
---   end
---   for _, buf in ipairs(current_buffers) do
---     -- Do something with buf, e.g., print its name
---     print(vim.api.nvim_buf_get_name(buf))
---   end
--- end
-
 local term = {
   winid = nil,
   bufid = nil,
@@ -176,5 +140,3 @@ vim.cmd 'command! PrintAllBuffers :lua PrintAllBuffers()<CR>'
 
 vim.cmd 'command! TermSendLine :lua TermSendLine()<CR>'
 vim.cmd 'command! TermSendFile :lua TermSendFile()<CR>'
--- vim.cmd 'command! TermSendHello :lua TermSendHelloWorld()<CR>'
--- vim.cmd [[command! -range TermSendVisual :lua TermSendMark("'<", "'>")<CR>]]

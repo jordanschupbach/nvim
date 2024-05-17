@@ -1,5 +1,6 @@
 return {
   'sidebar-nvim/sidebar.nvim',
+
   config = function()
     local section = {
       title = 'Section Title',
@@ -43,7 +44,6 @@ return {
         'diagnostics',
         'containers',
         -- section,
-        'todos',
         'symbols',
       },
       todos = {

@@ -2,6 +2,10 @@
 
 local utils = require 'utilities'
 
+local m = require('mapx').setup { global = 'force', whichkey = true }
+
+m.nmap('<C-l>', ':SlimeSendMakeRun<CR>', 'Send make run')
+
 vim.api.nvim_create_user_command('RunCurrentCPPFile', function()
   local temp_file1 = vim.fn.tempname()
   local current_filepath = utils.getCurrentBufferFilePath()

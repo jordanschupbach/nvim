@@ -13,7 +13,7 @@ require 'lazybootstrap'
 -- pre-plugin requires
 -- g = require('global-vars')
 --- - local ju = require('jutils')
--- local config = require('config')
+utils = require 'utilities'
 require 'vimopt'
 
 -- require('plugin-free-commands')
@@ -95,6 +95,12 @@ end, {
   desc = 'Swap down',
 })
 
+vim.api.nvim_create_user_command('SlimeSendMakeRun', function()
+  require('utilities').slime_send_make_run()
+end, {
+  desc = 'Send make run to slime terminal',
+})
+
 -- vim.cmd([[colorscheme base16-3024]])
 -- vim.cmd([[colorscheme base16-ia-light]])
 
@@ -137,5 +143,7 @@ require('lspconfig').clangd.setup {
   single_file_support = true,
 }
 -- }}}
+
+require 'project_term'
 
 -- print(vim.fn.stdpath('data'))

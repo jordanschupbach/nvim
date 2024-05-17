@@ -32,6 +32,16 @@ return {
     local pickers = require 'telescope.pickers'
     local actions_state = require 'telescope.actions.state'
 
+    function fileExists(filename)
+      local file = io.open(filename, 'r')
+      if file then
+        io.close(file)
+        return true
+      else
+        return false
+      end
+    end
+
     local function on_project_selected(prompt_bufnr)
       local entry = actions_state.get_selected_entry()
       -- vim.cmd("echo '" .. utilities.dump(entry) .. "'")
@@ -39,7 +49,15 @@ return {
       actions.close(prompt_bufnr)
       -- vim.cmd("echo '" .. entry['value'] .. " helloz worldz'")
       -- -- Open the readme.md file in the root directory
-      vim.cmd('edit ' .. entry['value'] .. '/README.md')
+
+      if fileExists('' .. entry['value'] .. '/readme.org') then
+        vim.cmd('edit ' .. entry['value'] .. '/readme.org')
+        -- print 'File exists!'
+      else
+        vim.cmd('edit ' .. entry['value'] .. '/readme.md')
+      end
+
+      -- vim.cmd('edit ' .. entry['value'] .. '/README.md')
 
       -- Toggle the NvimTree buffer
       vim.cmd 'split'

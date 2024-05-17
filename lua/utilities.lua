@@ -142,6 +142,20 @@ utilities.readFromFile = function(file_path)
   end
 end
 
+utilities.run_shell_command_to_buffer = function(command)
+  local output = vim.fn.systemlist(command)
+  local bufnr = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
+  vim.cmd 'enew | setlocal buftype=nofile bufhidden=hide noswapfile'
+  vim.cmd 'setlocal filetype=text'
+  vim.api.nvim_set_current_buf(bufnr)
+end
+
+utilities.run_shell_to_string = function(command)
+  local output = vim.fn.systemlist(command)
+  return output
+end
+
 utilities.readFromFile2 = function(file_path)
   local file = io.open(file_path, 'r') -- Open the file in read mode
   if file then
@@ -258,7 +272,76 @@ utilities.dump = function(o)
   end
 end
 
--- http://lua-users.org/wiki/FileInputOutput
+-- [doctest] test cases: 3 | 3 passed | 0 failed | 0 skipped
+
+utilities.parse_cpp_test_output = function(output)
+  local ret = {}
+  local test_output = utils.run_shell_to_string 'make test'
+  local ntest_line_idx = 0
+  for key, value in pairs(test_output) do
+    if value:find('%f[%a]' .. 'test cases' .. '%f[%A]') then
+      ntest_line_idx = key
+      -- npass_line_idx = key
+    end
+  end
+  local ntests = 0
+  local ntests_passed = 0
+  if ntest_line_idx == 0 then
+    ntests = 0
+    ntests_passed = 0
+  else
+    ntests, ntests_passed = test_output[ntest_line_idx]:match ': (%d+) | (%d+)'
+    -- ntests = tonumber(test_output[ntest_line_idx]:match '%d+')
+    -- ntests_passing = tonumber(test_output[npass_line_idx]:match '%d+')
+  end
+  ret['ntests'] = ntests
+  ret['passing'] = ntests_passed
+  return ret
+end
+
+utilities.parse_cpp_coverage_ouput = function()
+  local ret = {}
+  local lout = ''
+  local fout = ''
+  local test_output = utils.run_shell_to_string 'make coverage'
+  local ntest_line_idx = 0
+  local npass_line_idx = 0
+  for key, value in pairs(test_output) do
+    if value:find('%f[%a]' .. 'Overall coverage' .. '%f[%A]') then
+      ntest_line_idx = key + 1
+      npass_line_idx = key + 2
+    end
+  end
+  local ntests = 0
+  local ntests_passing = 0
+  if ntest_line_idx == 0 then
+    ntests = 0
+    ntests_passing = 0
+    lout = '100% (0/0)'
+    fout = '100% (0/0)'
+  else
+    ntests = tonumber(test_output[ntest_line_idx]:match '%d+')
+    ntests_passing = tonumber(test_output[npass_line_idx]:match '%d+')
+    local lpercentage, lnumerator, ldenominator =
+      string.match(test_output[ntest_line_idx], '(%d+%.?%d*)%% %((%d+) of (%d+) lines%)')
+    if lpercentage == nil then
+      lout = '100% (0/0)'
+    else
+      lout = '' .. lpercentage .. '%' .. ' (' .. lnumerator .. '/' .. ldenominator .. ')'
+    end
+
+    local fpercentage, fnumerator, fdenominator =
+      string.match(test_output[npass_line_idx], '(%d+%.?%d*)%% %((%d+) of (%d+) functions%)')
+    if fpercentage == nil then
+      fout = '100% (0/0)'
+    else
+      fout = '' .. fpercentage .. '%' .. ' (' .. fnumerator .. '/' .. fdenominator .. ')'
+    end
+  end
+  ret['lines'] = lout
+  ret['functions'] = fout
+  return ret
+end
 
 -- see if the file exists
 utilities.file_exists = function(file)
@@ -369,6 +452,10 @@ utilities.determine_project_type = function()
     return 'cpp'
   end
   return ret
+end
+
+utilities.slime_send_make_run = function()
+  vim.api.nvim_call_function('slime#send', { 'make run\n' })
 end
 
 return utilities

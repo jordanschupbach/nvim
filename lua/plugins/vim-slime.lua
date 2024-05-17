@@ -6,3 +6,5 @@ return {
     vim.g.slime_target = 'neovim'
   end,
 }
+
+-- echo 'hello world'

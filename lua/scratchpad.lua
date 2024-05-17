@@ -1,25 +1,27 @@
 local M = {}
 
 M.print_message = function()
-  function writeToBufferline(message)
-    vim.api.nvim_command 'echohl None'
-    vim.api.nvim_command("echo '" .. message .. "'")
-  end
-  -- Function to clear the bufferline
-  function clearBufferline()
-    vim.api.nvim_command 'echohl None'
-    vim.api.nvim_command "echo ''"
-  end
+  -- local function writeToBufferline(message)
+  --   vim.api.nvim_command 'echohl None'
+  --   vim.api.nvim_command("echo '" .. message .. "'")
+  -- end
+
+  -- -- Function to clear the bufferline
+  -- local function clearBufferline()
+  --   vim.api.nvim_command 'echohl None'
+  --   vim.api.nvim_command "echo ''"
+  -- end
+
   -- -- Example usage
   -- writeToBufferline("First message")
   -- vim.api.nvim_command("sleep 1000m")
   -- clearBufferline()
   -- writeToBufferline("Second message")
-
   -- Function to continuously write to the message bar
-  function writeToMessageBar(message)
+  local function writeToMessageBar(message)
     vim.api.nvim_command("echo '" .. message .. "'")
   end
+
   -- Example usage
   for i = 1, 10 do
     writeToMessageBar('Iteration ' .. i)

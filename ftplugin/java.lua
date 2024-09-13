@@ -1,12 +1,45 @@
-local jdtls_config = require('lsp.jdtls').setup()
+-- local jdtls_config = require('lsp.jdtls').setup()
 
-local pkg_status, jdtls = pcall(require, 'jdtls')
-if not pkg_status then
-  vim.notify('unable to load nvim-jdtls', 1)
-  return
+-- local pkg_status, jdtls = pcall(require, 'jdtls')
+-- if not pkg_status then
+--   vim.notify('unable to load nvim-jdtls', 1)
+--   return
+-- end
+
+vim.api.nvim_create_user_command('SlimeSendGradleRun', function()
+  require('utilities').slime_send 'gradle run'
+end, {
+  desc = 'Send make run to slime terminal',
+})
+
+-- {{{ mymap fun
+--- Adds a new normal binding map.
+--- Examples:
+--- <pre>lua
+---   vim.keymap.set('n', 'lhs', function() print("real lua function") end)
+--- </pre>
+---
+---@param mode string|table     Mode short-name, see |nvim_set_keymap()|.
+---                          Can also be list of modes to create mapping on multiple modes.
+---@param key string           Left-hand side |{lhs}| of the mapping.
+---@param value string|function  Right-hand side |{rhs}| of the mapping, can be a Lua function.
+---
+local function mymap(mode, key, value)
+  vim.keymap.set(mode, key, value, { silent = true, remap = true })
 end
+-- }}} mymap fun
+
+-- mymap('n', '<A-return>', ':SlimeSendCurrentLine<CR>')
+-- local m = require('mapx').setup { global = 'force', whichkey = true }
+-- m.nmap('<C-l>', ':SlimeSendGradleRun<CR>', 'Send make run')
 
 -- require('jdtls').start_or_attach(jdtls_config)
+
+local config = {
+  cmd = { '/usr/bin/jdtls' },
+  root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
+}
+require('jdtls').start_or_attach(config)
 
 -- local opts = {
 --     -- init_options = {

@@ -85,6 +85,7 @@ return {
       -- },
       jdtls = {}, -- jdtls_config
 
+      tsserver = {},
       -- on_attach = function(client, bufnr)
       --     navbuddy.attach(client, bufnr)
       -- end
@@ -115,6 +116,8 @@ return {
           },
         },
       },
+
+      neocmakelsp = require 'lsp.neocmakelsp',
       -- -- tsserver = {},
       -- zls = {},
       lua_ls = require 'lsp.lua-ls',

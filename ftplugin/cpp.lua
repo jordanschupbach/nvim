@@ -2,9 +2,11 @@
 
 local utils = require 'utilities'
 
-local m = require('mapx').setup { global = 'force', whichkey = true }
+-- local m = require('mapx').setup { global = 'force' }
 
-m.nmap('<C-l>', ':SlimeSendMakeRun<CR>', 'Send make run')
+local wk = require 'which-key'
+
+wk.add { '<C-l>', '<cmd>SlimeSendMakeRun<cr>', desc = 'MakeRun', mode = 'n' }
 
 vim.api.nvim_create_user_command('RunCurrentCPPFile', function()
   local temp_file1 = vim.fn.tempname()

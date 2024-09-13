@@ -50,11 +50,11 @@ return {
       -- vim.cmd("echo '" .. entry['value'] .. " helloz worldz'")
       -- -- Open the readme.md file in the root directory
 
-      if fileExists('' .. entry['value'] .. '/readme.org') then
-        vim.cmd('edit ' .. entry['value'] .. '/readme.org')
-        -- print 'File exists!'
+      if fileExists('' .. entry['value'] .. '/README.org') then
+        vim.cmd('edit ' .. entry['value'] .. '/README.org')
       else
-        vim.cmd('edit ' .. entry['value'] .. '/readme.md')
+        -- TODO: expand to other cases
+        vim.cmd('edit ' .. entry['value'] .. '/README.md')
       end
 
       -- vim.cmd('edit ' .. entry['value'] .. '/README.md')
@@ -63,7 +63,7 @@ return {
       vim.cmd 'split'
       vim.cmd 'terminal'
       vim.cmd 'NvimTreeToggle'
-      vim.cmd 'SidebarNvimToggle'
+      -- vim.cmd 'SidebarNvimToggle'
       vim.cmd 'wincmd l'
     end
 

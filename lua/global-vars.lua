@@ -24,4 +24,5 @@ return {
   darkmode_path = darkmode_path,
   is_darkmode = is_darkmode,
   darkmode = darkmode,
+  sendto_bufnr = nil,
 }

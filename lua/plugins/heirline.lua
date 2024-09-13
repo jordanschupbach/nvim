@@ -928,33 +928,33 @@ return {
     -- }}} Tabline offset
 
     -- {{{ Venv
-    local actived_venv = function()
-      local venv_name = require('venv-selector').get_active_venv()
-      if venv_name ~= nil then
-        if string.match(venv_name, 'conda') then
-          return string.gsub(venv_name, '/home/jordan/.conda/envs/', '(conda) ')
-        end
-        if string.match(venv_name, 'poetry') then
-          return string.gsub(venv_name, '.*/pypoetry/virtualenvs/', '(poetry) ')
-        end
-      else
-        return 'venv'
-      end
-    end
+    -- local actived_venv = function()
+    --   local venv_name = require('venv-selector').get_active_venv()
+    --   if venv_name ~= nil then
+    --     if string.match(venv_name, 'conda') then
+    --       return string.gsub(venv_name, '/home/jordan/.conda/envs/', '(conda) ')
+    --     end
+    --     if string.match(venv_name, 'poetry') then
+    --       return string.gsub(venv_name, '.*/pypoetry/virtualenvs/', '(poetry) ')
+    --     end
+    --   else
+    --     return 'venv'
+    --   end
+    -- end
 
-    local venv = {
-      {
-        provider = function()
-          return '  [' .. actived_venv() .. '] '
-        end,
-      },
-      on_click = {
-        callback = function()
-          vim.cmd.VenvSelect()
-        end,
-        name = 'heirline_statusline_venv_selector',
-      },
-    }
+    -- local venv = {
+    --   {
+    --     provider = function()
+    --       return '  [' .. actived_venv() .. '] '
+    --     end,
+    --   },
+    --   on_click = {
+    --     callback = function()
+    --       vim.cmd.VenvSelect()
+    --     end,
+    --     name = 'heirline_statusline_venv_selector',
+    --   },
+    -- }
 
     -- }}} Venv
 
@@ -1752,7 +1752,7 @@ return {
       { Align },
 
       { LSPActive },
-      { venv },
+      -- { venv },
 
       { NotificationButton },
       { StatusLineSpace },

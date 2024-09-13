@@ -1,3 +1,5 @@
+print 'hello world'
+
 -- local term = {
 --   bufid = nil,
 --   size = 10,

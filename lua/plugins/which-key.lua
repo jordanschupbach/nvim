@@ -83,48 +83,44 @@ return {
 
     local wk = require 'which-key'
 
-    -- {{{ Bindings
+    --     -- {{{ Harpoon
+    --     wk.register {
+    --       { '<leader>h', group = 'Harpoon' },
+    --       { '<leader>ha', ':lua require("harpoon.mark").add_file()<CR>', desc = 'Add' },
+    --       { '<leader>hh', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', desc = 'Harpoon' },
+    --       { '<leader>hj', ':lua require("harpoon.ui").nav_next()<CR>', desc = 'Next' },
+    --       { '<leader>hk', ':lua require("harpoon.ui").nav_prev()<CR>', desc = 'Previous' },
+    --     }
+    --     -- }}} Harpoon
+    --
+    --     -- {{{ Marks
+    --     wk.register {
+    --       { '<leader>m', group = 'Mark' },
+    --       { '<leader>mm', ':MyJumpMarks<CR>', desc = 'Marks' },
+    --     }
+    --     -- }}} Marks
+    --
+    --     -- {{{ Marks
+    --     wk.register {
+    --       { '<leader>p', group = 'Project' },
+    --       { '<leader>pb', '<cmd>BuildMe<cr>', desc = 'Build' },
+    --       { '<leader>pf', '<cmd>Telescope find_files hidden=true no_ignore=true theme=ivy<cr>', desc = 'Files' },
+    --       { '<leader>pr', '<cmd>Telescope live_grep theme=ivy<cr>', desc = 'Grep' },
+    --       { '<leader>ps', '<cmd>split<CR>:terminal<cr>', desc = 'Shell' },
+    --       { '<leader>po', '<cmd>Telescope project theme=ivy<cr>', desc = 'Open' },
+    --       { '<leader>pp', '<cmd>Telescope oldfiles<cr>', desc = 'Recent' },
+    --     }
+    --     -- }}} Marks
 
-    -- {{{ Harpoon
     wk.register({
-      h = {
-        name = 'Harpoon', -- group name
-        a = { ':lua require("harpoon.mark").add_file()<CR>', 'Add' },
-        h = { ':lua require("harpoon.ui").toggle_quick_menu()<CR>', 'Harpoon' },
-        j = { ':lua require("harpoon.ui").nav_next()<CR>', 'Next' },
-        k = { ':lua require("harpoon.ui").nav_prev()<CR>', 'Previous' },
-      },
-      -- }}} Harpoon
-
-      -- {{{ Terminal
-      -- t = {
-      --   name = 'Terminal', -- group name
-      --   t = { ':lua require("harpoon.term").gotoTerminal(1)<CR>', 'Terminal 1' },
-      --   a = { ':lua require("harpoon.term").gotoTerminal(1)<CR>', 'Terminal 1' },
-      --   s = { ':lua require("harpoon.term").gotoTerminal(2)<CR>', 'Terminal 2' },
-      --   d = { ':lua require("harpoon.term").gotoTerminal(3)<CR>', 'Terminal 3' },
-      --   f = { ':lua require("harpoon.term").gotoTerminal(4)<CR>', 'Terminal 4' },
-      -- },
-    }, { prefix = '<leader>' })
-    -- }}} Terminal
-
-    wk.register({
-
-      -- {{{ Marks
-      m = {
-        name = 'Marks', -- group name
-        m = { ':MyJumpMarks<CR>', 'Marks' },
-      },
-      -- }}} Marks
-
       -- {{{ Project
       p = {
         name = 'project', -- group name
-        b = { '<cmd>BuildMe<cr>', 'Build' },
-        f = { '<cmd>Telescope find_files hidden=true no_ignore=true theme=ivy<cr>', 'Files' },
-        r = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Grep' },
-        s = { '<cmd>split<CR>:terminal<cr>', 'Shell' },
-        o = { '<cmd>Telescope project theme=ivy<cr>', 'Open' },
+        b = { ':BuildMe<cr>', 'Build' },
+        f = { ':Telescope find_files hidden=true no_ignore=true theme=ivy<cr>', 'Files' },
+        r = { ':Telescope live_grep theme=ivy<cr>', 'Grep' },
+        s = { ':split<CR>:terminal<cr>', 'Shell' },
+        o = { ':Telescope project theme=ivy<cr>', 'Open' },
         p = { '<cmd>Telescope oldfiles<cr>', 'Recent' },
       },
       -- }}} Project

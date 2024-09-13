@@ -10,7 +10,7 @@ def printf_expand_args(snip):
 	This will look how many placeholders printf has and adds the separated commas
 	at the end.
 	"""
-	
+
 	# now add so many "," as much as the amount of placeholders
 	amount_placeholders = snip.tabstops[1].current_text.count("%")
 
@@ -19,16 +19,109 @@ def printf_expand_args(snip):
 	# Add the amount of tabstops
 	for placeholder_index in range(3, amount_placeholders + 3):
 		output += f", ${placeholder_index}"
-	
+
 	# convert them into tabstops
 	snip.expand_anon(output)
 
 endglobal
 
 # ==============
-# Snippets 
+# Snippets
 # ==============
 priority -50
+
+
+snippet doxygen
+/**
+ * @brief Allocates memory for a new MyObject with the specified dimensions.
+ *
+ * This function allocates memory for a new MyObject structure with the provided dimensions
+ * x and y.
+ *
+ * @param x The width of the MyObject.
+ * @param y The height of the MyObject.
+ * @return A pointer to the allocated MyObject.
+ */
+endsnippet
+
+
+snippet ponce "#pragma once include guard"
+#pragma once
+endsnippet
+
+
+
+snippet helloworld
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+endsnippet
+
+
+snippet stdio
+#include <stdio.h>
+endsnippet
+
+
+
+snippet mitlicense
+// Copyright (c) <2024> <Jordan Schupbach>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+endsnippet
+
+
+
+snippet unlicense
+// This is free and unencumbered software released into the public domain.
+//
+// Anyone is free to copy, modify, publish, use, compile, sell, or
+// distribute this software, either in source code form or as a compiled
+// binary, for any purpose, commercial or non-commercial, and by any
+// means.
+//
+// In jurisdictions that recognize copyright laws, the author or authors
+// of this software dedicate any and all copyright interest in the
+// software to the public domain. We make this dedication for the benefit
+// of the public at large and to the detriment of our heirs and
+// successors. We intend this dedication to be an overt act of
+// relinquishment in perpetuity of all present and future rights to this
+// software under copyright law.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+// OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// For more information, please refer to <http://unlicense.org/>
+endsnippet
+
+
+
+
+
 
 snippet def "#define ..."
 #define $1
@@ -80,7 +173,7 @@ for (${1:var}; ${2:condition}; `!p
 if len(t[1]) > 0:
 	snip.rv = t[1].split('=')[0].split()[-1]
 `++) {
-	
+
 	$0
 } /* for ($1; $2; `!p if len(t[1]) > 0: snip.rv = t[1].split('=')[0].split()[-1]`++) */
 endsnippet
@@ -154,19 +247,19 @@ snippet head "File Header" b
 /******************************************************************************
 * File:             `!p snip.rv = fn`
 *
-* Author:           ${2}  
-* Created:          `date +%m/%d/%y` 
+* Author:           ${2}
+* Created:          `date +%m/%d/%y`
 * Description:      ${4:${VISUAL}}
 *****************************************************************************/
 ${0}
 endsnippet
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
-snippet func "Function Header" 
+snippet func "Function Header"
 /******************************************************************************
 * Function:         $1
 * Description:      ${4:${VISUAL}}
-* Where:`!p 
+* Where:`!p
 snip.rv = ""
 snip >> 2
 

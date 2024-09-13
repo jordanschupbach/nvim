@@ -1,0 +1,40 @@
+###########################################################################
+#                            Lua Snippets                            #
+###########################################################################
+# --------------
+# Functions
+# --------------
+global !p
+def printf_expand_args(snip):
+	"""
+	This will look how many placeholders printf has and adds the separated commas
+	at the end.
+	"""
+
+	# now add so many "," as much as the amount of placeholders
+	amount_placeholders = snip.tabstops[1].current_text.count("%")
+
+	output = ""
+
+	# Add the amount of tabstops
+	for placeholder_index in range(3, amount_placeholders + 3):
+		output += f", ${placeholder_index}"
+
+	# convert them into tabstops
+	snip.expand_anon(output)
+
+endglobal
+
+# ==============
+# Snippets
+# ==============
+priority -50
+
+snippet doc
+--- Summary ends with a period.
+-- Some description, can be over several lines.
+-- @param p1 first parameter
+-- @param p2 second parameter
+-- @return a string value
+-- @see second_fun
+endsnippet

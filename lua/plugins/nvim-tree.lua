@@ -37,6 +37,27 @@ return {
     renderer = {
       group_empty = true,
     },
+
+    filesystem = {
+      window = {
+        mappings = {
+          ['<leader>r'] = 'system_open',
+        },
+      },
+      commands = {
+        system_open = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          path = vim.fn.shellescape(path, 1)
+          if vim.fn.has 'win64' ~= 0 then
+            cmd('!start "" ' .. selected_entry[1])
+          elseif vim.fn.has 'linux' ~= 0 then
+            cmd('!xdg-open ' .. selected_entry[1])
+          end
+        end,
+      },
+    },
+
     -- filters = {
     --   dotfiles = true,
     -- },

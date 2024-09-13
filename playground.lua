@@ -1,40 +1,41 @@
-Dump = function(o)
-  if type(o) == 'table' then
-    local s = '{ '
-    for k, v in pairs(o) do
-      if type(k) ~= 'number' then
-        k = '"' .. k .. '"'
-      end
-      s = s .. '[' .. k .. '] = ' .. Dump(v) .. ','
-    end
-    return s .. '} '
-  else
-    return tostring(o)
-  end
+-- This is just a throwaway file
+
+require 'global-utils'
+
+fzy = require 'fzy'
+haystack = { 'hello', 'hell', 'asdf', 'qwer', 'zxcv' }
+needle = 'hel'
+fzy.filter(needle, haystack)
+
+haystacks = { 'cab', 'ant/bat/cat', 'ant/bat/ace' }
+needle = 'abatc'
+result = fzy.filter(needle, haystacks)
+
+tbl = { a = 1.1, b = 'asdf', c = 3 }
+
+print(dump(tbl))
+
+--- Print hello world
+-- Prints hellorr + name
+-- @param name (string) your name
+print_hello = function(name)
+  print('hellorr' .. ' ' .. name)
 end
 
-Lines = {
-  'Name: nvim',
-  'Type: lua',
-  'Tests: 0/0 passing',
-  'Coverage: ',
-  ' - line: ' .. '100% (0/0)',
-  ' - func: ' .. '100% (0/0)',
-}
+print_hello 'worrrrlddzzyyy'
 
-Tlines = {}
-for line in Lines:gmatch '[^\n]*' do
-  table.insert(Tlines, line)
-end
-print(Dump(Tlines))
+print(dump(vim.api.nvim_get_mode()))
+print(dump(vim.api.nvim_list_wins()))
 
-Hl = {
-  { 'Keyword', 0, 0, 5 },
-  { 'Keyword', 1, 0, 5 },
-  { 'Keyword', 2, 0, 5 },
-  { 'Keyword', 3, 0, 5 },
-}
+print(dump(vim.api.nvim_list_tabpages()))
 
-ProjectData = { Lines, Hl }
+print(vim.api.nvim_get_current_buf())
+print(vim.api.nvim_get_current_win())
 
-print(Dump(ProjectData))
+vim.api.nvim_win_set_height(vim.api.nvim_get_current_win(), 25)
+
+-- vim.api.nvim_win_get_height
+
+print(dump(tbl['c']))
+
+print(vim.api.nvim_win_get_height(vim.api.nvim_get_current_win()))

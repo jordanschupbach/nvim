@@ -45,5 +45,8 @@
         "/home/jordan/.local/share/nvim/lazy/orgmode/lua",
         "/home/jordan/.config/nvim/lua",
         "${3rd}/luv/library"
-    ]
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ],
 }

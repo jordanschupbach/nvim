@@ -6,6 +6,32 @@ local utilities = {}
 --   print 'was false'
 -- end
 
+utilities.register_sendto_buffer = function()
+  local current_bufnr = vim.fn.bufnr '%'
+  current_bufnr = vim.fn.input('SendTo bufnr: ', current_bufnr)
+  SendTo_Bufnr = current_bufnr
+end
+
+utilities.is_buffer_on_screen = function() end
+
+utilities.send_line_to_buffer = function()
+  local current_line = vim.api.nvim_get_current_line()
+  local original_bufnr = vim.fn.bufnr '%'
+  local target_bufnr = SendTo_Bufnr
+  local win_id = vim.fn.bufwinid(target_bufnr)
+  if win_id ~= -1 then
+    vim.api.nvim_set_current_win(win_id)
+  else -- todo handle case not on screen
+    return
+  end
+  vim.api.nvim_feedkeys('G', 'm', true)
+  vim.api.nvim_feedkeys('i', 'm', true)
+  vim.api.nvim_feedkeys(current_line, 'm', true)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 'm', true)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'm', true)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>k', true, false, true), 'm', true)
+end
+
 utilities.get_visual_selection = function()
   local s_start = vim.fn.getpos "'<"
   local s_end = vim.fn.getpos "'>"
@@ -18,6 +44,41 @@ utilities.get_visual_selection = function()
     lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
   end
   return table.concat(lines, '\n')
+end
+
+utilities.get_visual_selection_lines = function()
+  local s_start = vim.fn.getpos "'<"
+  local s_end = vim.fn.getpos "'>"
+  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+  lines[1] = string.sub(lines[1], s_start[3], -1)
+  if n_lines == 1 then
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+  else
+    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+  end
+  -- return table.concat(lines, '\n')
+  return lines
+end
+
+utilities.send_lines_to_buffer = function()
+  local current_lines = require('utilities').get_visual_selection_lines()
+  local original_bufnr = vim.fn.bufnr '%'
+  local target_bufnr = SendTo_Bufnr
+  local win_id = vim.fn.bufwinid(target_bufnr)
+  if win_id ~= -1 then
+    vim.api.nvim_set_current_win(win_id)
+  else -- todo handle case not on screen
+    return
+  end
+  vim.api.nvim_feedkeys('G', 'm', true)
+  vim.api.nvim_feedkeys('i', 'm', true)
+  for _, line in ipairs(current_lines) do
+    vim.api.nvim_feedkeys(line, 'm', true)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 'm', true)
+  end
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'm', true)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>k', true, false, true), 'm', true)
 end
 
 -- function that extracts selected text
@@ -456,6 +517,14 @@ end
 
 utilities.slime_send_make_run = function()
   vim.api.nvim_call_function('slime#send', { 'make run\n' })
+end
+
+utilities.slime_send = function(cmd)
+  vim.api.nvim_call_function('slime#send', { cmd .. '\n' })
+end
+
+utilities.say_hello = function()
+  print 'hello world'
 end
 
 return utilities

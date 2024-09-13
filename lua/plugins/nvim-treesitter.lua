@@ -7,7 +7,7 @@ return { -- Highlight, edit, and navigate code
   end,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-orgmode/orgmode',
+    -- 'nvim-orgmode/orgmode',
   },
   config = function()
     require('nvim-treesitter.configs').setup {
